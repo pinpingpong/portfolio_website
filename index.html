@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lim Pin Xiu — Data & GenAI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --bg: #09090b;
+      --surface: #111113;
+      --surface2: #1a1a1e;
+      --border: rgba(255,255,255,0.07);
+      --accent: #e8ff4f;
+      --accent2: #4fffb0;
+      --text: #f0f0f0;
+      --muted: #6b7280;
+      --muted2: #9ca3af;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── Noise grain overlay ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.4;
+    }
+
+    /* ── Typography ── */
+    .font-display { font-family: 'Syne', sans-serif; }
+    .font-mono { font-family: 'DM Mono', monospace; }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.25rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(9,9,11,0.7);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: -0.02em;
+      color: var(--accent);
+    }
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      color: var(--muted2);
+      text-decoration: none;
+      margin-left: 2rem;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── Hero ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 2.5rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Animated grid bg */
+    #hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 80%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .hero-tag::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .hero-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(3rem, 8vw, 7rem);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      margin-bottom: 1rem;
+    }
+
+    .hero-name .line2 {
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(240,240,240,0.3);
+    }
+
+    .hero-role {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1rem, 2.2vw, 1.4rem);
+      font-weight: 600;
+      color: var(--muted2);
+      margin-bottom: 2rem;
+      letter-spacing: -0.01em;
+    }
+    .hero-role span { color: var(--accent2); }
+
+    .hero-summary {
+      max-width: 540px;
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--muted2);
+      margin-bottom: 3rem;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.85rem 1.75rem;
+      background: var(--accent);
+      color: #09090b;
+      font-weight: 400;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: 1px solid var(--accent);
+    }
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--accent);
+    }
+
+    .btn-ghost {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.85rem 1.75rem;
+      background: transparent;
+      color: var(--muted2);
+      font-weight: 400;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+    .btn-ghost:hover {
+      border-color: var(--muted2);
+      color: var(--text);
+    }
+
+    /* Stats row */
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      margin-top: 5rem;
+      padding-top: 3rem;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .stat-item { }
+    .stat-number {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.25rem;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--accent);
+      letter-spacing: -0.04em;
+    }
+    .stat-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.35rem;
+    }
+
+    /* ── Section shared ── */
+    section {
+      padding: 7rem 2.5rem;
+    }
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 1.5rem;
+      height: 1px;
+      background: var(--accent);
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      margin-bottom: 4rem;
+    }
+
+    /* ── Experience / Timeline ── */
+    #experience { background: var(--surface); }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      position: relative;
+      padding-left: 2rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.5rem;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding: 0 0 3.5rem 2.5rem;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -0.3rem;
+      top: 0.45rem;
+      width: 0.6rem;
+      height: 0.6rem;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px rgba(232,255,79,0.1);
+    }
+
+    .timeline-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--accent2);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .timeline-company {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.2rem;
+    }
+    .timeline-role {
+      font-size: 0.85rem;
+      color: var(--muted2);
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+    .timeline-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .timeline-bullets li {
+      font-size: 0.875rem;
+      color: var(--muted2);
+      line-height: 1.6;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+    .timeline-bullets li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--muted);
+      font-size: 0.7rem;
+    }
+    .highlight { color: var(--text); font-weight: 500; }
+
+    /* Certs row */
+    .certs-row {
+      display: flex;
+      gap: 1rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+    }
+    .cert-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.6rem 1rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.05em;
+      color: var(--accent2);
+      transition: all 0.2s;
+    }
+    .cert-badge:hover {
+      border-color: var(--accent2);
+    }
+    .cert-badge .cert-icon {
+      font-size: 1rem;
+    }
+
+    /* Education */
+    .edu-card {
+      margin-top: 3rem;
+      padding: 1.5rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-left: 2px solid var(--accent);
+    }
+    .edu-uni {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .edu-degree {
+      font-size: 0.85rem;
+      color: var(--muted2);
+      margin-bottom: 0.25rem;
+    }
+
+    /* ── Skills grid ── */
+    .skills-section {
+      margin-top: 4rem;
+    }
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .skill-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.05em;
+      padding: 0.35rem 0.75rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--muted2);
+      transition: all 0.2s;
+    }
+    .skill-tag:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ── Projects ── */
+    #projects { background: var(--bg); }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .project-card:hover {
+      border-color: rgba(232,255,79,0.25);
+      transform: translateY(-2px);
+    }
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s;
+    }
+    .project-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .card-body {
+      padding: 1.75rem;
+      flex: 1;
+    }
+    .card-number {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .card-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
+    }
+    .card-desc {
+      font-size: 0.85rem;
+      color: var(--muted2);
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+    }
+    .card-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+    }
+    .stack-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.05em;
+      padding: 0.25rem 0.6rem;
+      background: rgba(232,255,79,0.06);
+      border: 1px solid rgba(232,255,79,0.15);
+      color: var(--accent);
+    }
+
+    .card-footer {
+      padding: 1rem 1.75rem 1.75rem;
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .btn-launch {
+      flex: 1;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.7rem 1rem;
+      background: var(--accent);
+      color: #09090b;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      transition: all 0.2s;
+    }
+    .btn-launch:hover {
+      background: #d4eb3d;
+    }
+
+    .btn-github {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.7rem 1rem;
+      background: transparent;
+      color: var(--muted2);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      transition: all 0.2s;
+    }
+    .btn-github:hover {
+      border-color: var(--muted2);
+      color: var(--text);
+    }
+
+    /* ── Footer ── */
+    footer {
+      padding: 3rem 2.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: gap;
+      gap: 1rem;
+    }
+    .footer-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 0.9rem;
+      letter-spacing: -0.02em;
+    }
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .footer-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-copy {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+    }
+
+    /* ── Scroll animations ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      nav { padding: 1rem 1.25rem; }
+      #hero { padding: 7rem 1.25rem 3rem; }
+      section { padding: 4rem 1.25rem; }
+      .hero-stats { gap: 2rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .footer-links { display: none; }
+    }
+
+    /* Cursor dot */
+    .cursor {
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s, width 0.2s, height 0.2s;
+      mix-blend-mode: difference;
+    }
+
+    a:hover ~ .cursor,
+    button:hover ~ .cursor {
+      width: 24px; height: 24px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Custom cursor -->
+  <div class="cursor" id="cursor"></div>
+
+  <!-- Nav -->
+  <nav>
+    <div class="nav-logo">LPX</div>
+    <div class="nav-links">
+      <a href="#hero">Home</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="https://www.linkedin.com/in/pin-xiu-lim-376b1b115/" target="_blank">LinkedIn ↗</a>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section id="hero">
+    <div class="hero-inner">
+      <div class="hero-tag reveal">Available for opportunities</div>
+
+      <h1 class="hero-name reveal">
+        <span class="line1">Lim<br>Pin</span>
+        <span class="line2"> Xiu</span>
+      </h1>
+
+      <div class="hero-role reveal">
+        Senior Specialist · <span>Data Analytics & GenAI</span>
+      </div>
+
+      <p class="hero-summary reveal">
+        6+ years building data systems and ML products across Singapore's
+        banking, telco, and e-commerce sectors. Currently engineering analytics
+        infrastructure and AI applications at GXS Bank — a Grab × Singtel venture.
+      </p>
+
+      <div class="hero-cta reveal">
+        <a href="#projects" class="btn-primary">View Projects ↓</a>
+        <a href="https://www.linkedin.com/in/pin-xiu-lim-376b1b115/" target="_blank" class="btn-ghost">LinkedIn Profile ↗</a>
+      </div>
+
+      <div class="hero-stats reveal">
+        <div class="stat-item">
+          <div class="stat-number">6+</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">$14M</div>
+          <div class="stat-label">Assets Retained via ML</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">156%</div>
+          <div class="stat-label">CASA Base Growth</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">60%</div>
+          <div class="stat-label">Cloud Cost Reduction</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── EXPERIENCE ── -->
+  <section id="experience">
+    <div class="section-inner">
+      <div class="section-label reveal">02 / Experience</div>
+      <h2 class="section-title reveal">Career<br>Timeline</h2>
+
+      <div class="timeline">
+
+        <div class="timeline-item reveal">
+          <div class="timeline-date">Oct 2021 — Present</div>
+          <div class="timeline-company">GXS Bank</div>
+          <div class="timeline-role">Senior Data Specialist, Data Science & Analytics · Grab × Singtel JV</div>
+          <ul class="timeline-bullets">
+            <li><span class="highlight">Promoted twice</span> in 2023 and 2026; analyses won <span class="highlight">Best Data Analytics Initiative 2 years running</span></li>
+            <li><span class="highlight">0-to-1 infrastructure build</span> — architected the end-to-end analytics stack using dbt, Airflow, Snowflake, and Databricks for Day 0 launch</li>
+            <li>Predictive models (LightGBM/Optuna) fueled a <span class="highlight">156% surge in CASA base</span> (&gt;$1B deposits) and improved balance forecast accuracy by 10pp on a $2.2B portfolio</li>
+            <li>Churn prediction model <span class="highlight">retained $14M in assets</span>, reducing churn by 45–60% through targeted interventions</li>
+            <li>Funnel analytics reduced onboarding drop-offs by 15pp, decreased withdrawal rates by 10pp, and raised NPS from 28 to 47</li>
+            <li><span class="highlight">60% reduction in Snowflake expenditure</span> by redesigning data consumption and storage logic</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-date">Jul 2020 — Sep 2021</div>
+          <div class="timeline-company">Singtel</div>
+          <div class="timeline-role">Data Science Consultant, Management Associate</div>
+          <ul class="timeline-bullets">
+            <li>Delivered data-driven consultancy for external clients using large-scale mobility data for urban planning strategies</li>
+            <li>Built geospatial analytical models and dashboards for complex resource allocation decisions</li>
+            <li>Bridged gaps between Product Owner, Scrum Master, and IT in Agile squad delivery</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-date">Jul 2019 — Jun 2020</div>
+          <div class="timeline-company">Singtel</div>
+          <div class="timeline-role">Mobile Business Analytics & Planning, Management Associate</div>
+          <ul class="timeline-bullets">
+            <li>Analyzed churn and gross add drivers for the Mobile Postpaid business to support the Annual Operating Plan</li>
+            <li>Leveraged SQL and Excel for market positioning insights and postpaid customer retention strategy</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-date">Jan 2018 — Jun 2018</div>
+          <div class="timeline-company">Shopee</div>
+          <div class="timeline-role">Business Intelligence Intern</div>
+          <ul class="timeline-bullets">
+            <li>Managed end-to-end data extraction for Shopee Mall (GMV, order volume, buyer demographics) using SQL</li>
+            <li>Automated report templates and dashboards using VBA and SQL, increasing team reporting efficiency</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Certifications -->
+      <div class="reveal" style="margin-top: 1rem;">
+        <div class="section-label" style="margin-bottom: 1.25rem;">Certifications</div>
+        <div class="certs-row">
+          <div class="cert-badge">
+            <span class="cert-icon">☁️</span>
+            AWS Machine Learning Engineer — Specialty
+          </div>
+          <div class="cert-badge">
+            <span class="cert-icon">📊</span>
+            Tableau Desktop Specialist
+          </div>
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div class="reveal">
+        <div class="edu-card" style="margin-top: 3rem;">
+          <div class="edu-uni">Nanyang Business School, NTU Singapore</div>
+          <div class="edu-degree">M.Sc. Business Analytics — <strong style="color:var(--accent)">Dean's List</strong> &nbsp;·&nbsp; Jul 2021 – Jul 2023</div>
+          <div class="edu-degree">B.Bus (Business Analytics) with Minor in Entrepreneurship &nbsp;·&nbsp; Aug 2015 – May 2019</div>
+          <div class="edu-degree" style="margin-top:0.5rem; color: var(--accent2);">🏅 Nanyang Scholarship Recipient</div>
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div class="skills-section reveal">
+        <div class="section-label" style="margin-bottom: 1.25rem;">Technical Stack</div>
+        <div class="skills-grid">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">SQL / MySQL</span>
+          <span class="skill-tag">PySpark</span>
+          <span class="skill-tag">R</span>
+          <span class="skill-tag">dbt</span>
+          <span class="skill-tag">Airflow</span>
+          <span class="skill-tag">Snowflake</span>
+          <span class="skill-tag">Databricks</span>
+          <span class="skill-tag">LightGBM</span>
+          <span class="skill-tag">AWS Bedrock</span>
+          <span class="skill-tag">Streamlit</span>
+          <span class="skill-tag">LangChain</span>
+          <span class="skill-tag">LLM APIs</span>
+          <span class="skill-tag">Tableau</span>
+          <span class="skill-tag">GitLab</span>
+          <span class="skill-tag">Jira / Confluence</span>
+          <span class="skill-tag">VBA / Excel</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── PROJECTS ── -->
+  <section id="projects">
+    <div class="section-inner">
+      <div class="section-label reveal">03 / GenAI Portfolio</div>
+      <h2 class="section-title reveal">Live<br>Applications</h2>
+
+      <div class="projects-grid">
+
+        <!-- Project 1: AWS AI Tutor -->
+        <div class="project-card reveal">
+          <div class="card-body">
+            <div class="card-number">PROJECT — 01</div>
+            <div class="card-title">AWS AI Certification Tutor</div>
+            <p class="card-desc">
+              An interactive AI-powered study companion that generates
+              practice questions, explains AWS ML concepts, and adapts
+              to the learner's weak areas in real time — built to help
+              engineers prepare for AWS Machine Learning certifications.
+            </p>
+            <div class="card-stack">
+              <span class="stack-tag">Claude / Bedrock</span>
+              <span class="stack-tag">Streamlit</span>
+              <span class="stack-tag">Python</span>
+              <span class="stack-tag">LangChain</span>
+              <span class="stack-tag">RAG</span>
+              <span class="stack-tag">AWS</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a href="https://awsaitutor-vhba34t6fkbusqsd89rudi.streamlit.app/" target="_blank" class="btn-launch">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Launch Live App
+            </a>
+            <a href="https://github.com/pinpingpong/aws_ai_tutor" target="_blank" class="btn-github">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- Project 2: TikTok Analytics -->
+        <div class="project-card reveal">
+          <div class="card-body">
+            <div class="card-number">PROJECT — 02</div>
+            <div class="card-title">TikTok Analytics Dashboard</div>
+            <p class="card-desc">
+              A data analytics web app that ingests TikTok performance
+              data and surfaces actionable insights on engagement trends,
+              content performance, and audience behaviour — with AI-generated
+              narrative summaries and strategic recommendations.
+            </p>
+            <div class="card-stack">
+              <span class="stack-tag">Streamlit</span>
+              <span class="stack-tag">Python</span>
+              <span class="stack-tag">Pandas</span>
+              <span class="stack-tag">Plotly</span>
+              <span class="stack-tag">LLM Insights</span>
+              <span class="stack-tag">TikTok API</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a href="https://tiktokanalytics-hnnojpkppukhps7wloqe92.streamlit.app/" target="_blank" class="btn-launch">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Launch Live App
+            </a>
+            <a href="https://github.com/pinpingpong/tiktok_analytics" target="_blank" class="btn-github">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- Coming soon card -->
+        <div class="project-card reveal" style="opacity: 0.5; pointer-events: none;">
+          <div class="card-body">
+            <div class="card-number">PROJECT — 03</div>
+            <div class="card-title">More Coming Soon</div>
+            <p class="card-desc">
+              Currently building new GenAI applications. Check back soon or
+              follow the GitHub for updates.
+            </p>
+            <div class="card-stack">
+              <span class="stack-tag">In Progress</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <span class="btn-launch" style="cursor:default;">Coming Soon</span>
+            <a href="https://github.com/pinpingpong" target="_blank" class="btn-github" style="pointer-events:all;">
+              GitHub ↗
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-name">Lim Pin Xiu</div>
+    <div class="footer-links">
+      <a href="https://www.linkedin.com/in/pin-xiu-lim-376b1b115/" target="_blank">LinkedIn</a>
+      <a href="https://github.com/pinpingpong" target="_blank">GitHub</a>
+      <a href="mailto:pinxiu_lim@hotmail.com">Email</a>
+    </div>
+    <div class="footer-copy">© 2026 — Singapore</div>
+  </footer>
+
+  <script>
+    // Cursor follow
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Stagger siblings in same parent
+    document.querySelectorAll('.timeline-item.reveal, .project-card.reveal').forEach((el, i) => {
+      el.style.transitionDelay = `${(i % 3) * 100}ms`;
+    });
+  </script>
+
+</body>
+</html>
