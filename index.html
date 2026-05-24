@@ -12,620 +12,7 @@
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
   </script>
   <script defer src="/_vercel/insights/script.js"></script>
-  <style>
-    :root {
-      --bg: #09090b;
-      --surface: #111113;
-      --surface2: #1a1a1e;
-      --border: rgba(255,255,255,0.07);
-      --accent: #e8ff4f;
-      --accent2: #4fffb0;
-      --text: #f0f0f0;
-      --muted: #6b7280;
-      --muted2: #9ca3af;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 300;
-      overflow-x: hidden;
-    }
-
-    /* ── Noise grain overlay ── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 999;
-      opacity: 0.4;
-    }
-
-    /* ── Typography ── */
-    .font-display { font-family: 'Syne', sans-serif; }
-    .font-mono { font-family: 'DM Mono', monospace; }
-
-    /* ── Nav ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 1.25rem 2.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(9,9,11,0.7);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 1rem;
-      letter-spacing: -0.02em;
-      color: var(--accent);
-    }
-    .nav-links a {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.08em;
-      color: var(--muted2);
-      text-decoration: none;
-      margin-left: 2rem;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--accent); }
-
-    /* ── Hero ── */
-    #hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 8rem 2.5rem 4rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Animated grid bg */
-    #hero::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(var(--border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border) 1px, transparent 1px);
-      background-size: 64px 64px;
-      mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 80%);
-      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 80%);
-      pointer-events: none;
-    }
-
-    .hero-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      width: 100%;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-tag {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      color: var(--accent);
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-    .hero-tag::before {
-      content: '';
-      display: block;
-      width: 2rem;
-      height: 1px;
-      background: var(--accent);
-    }
-
-    .hero-name {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(3rem, 8vw, 7rem);
-      line-height: 0.95;
-      letter-spacing: -0.04em;
-      margin-bottom: 1rem;
-    }
-
-    .hero-name .line2 {
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(240,240,240,0.3);
-    }
-
-    .hero-role {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(1rem, 2.2vw, 1.4rem);
-      font-weight: 600;
-      color: var(--muted2);
-      margin-bottom: 2rem;
-      letter-spacing: -0.01em;
-    }
-    .hero-role span { color: var(--accent2); }
-
-    .hero-summary {
-      max-width: 540px;
-      font-size: 1rem;
-      line-height: 1.75;
-      color: var(--muted2);
-      margin-bottom: 3rem;
-    }
-
-    .hero-cta {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .btn-primary {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 0.85rem 1.75rem;
-      background: var(--accent);
-      color: #09090b;
-      font-weight: 400;
-      text-decoration: none;
-      transition: all 0.2s;
-      border: 1px solid var(--accent);
-    }
-    .btn-primary:hover {
-      background: transparent;
-      color: var(--accent);
-    }
-
-    .btn-ghost {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 0.85rem 1.75rem;
-      background: transparent;
-      color: var(--muted2);
-      font-weight: 400;
-      text-decoration: none;
-      border: 1px solid var(--border);
-      transition: all 0.2s;
-    }
-    .btn-ghost:hover {
-      border-color: var(--muted2);
-      color: var(--text);
-    }
-
-    /* Stats row */
-    .hero-stats {
-      display: flex;
-      gap: 3rem;
-      margin-top: 5rem;
-      padding-top: 3rem;
-      border-top: 1px solid var(--border);
-      flex-wrap: wrap;
-    }
-    .stat-item { }
-    .stat-number {
-      font-family: 'Syne', sans-serif;
-      font-size: 2.25rem;
-      font-weight: 800;
-      line-height: 1;
-      color: var(--accent);
-      letter-spacing: -0.04em;
-    }
-    .stat-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-top: 0.35rem;
-    }
-
-    /* ── Section shared ── */
-    section {
-      padding: 7rem 2.5rem;
-    }
-    .section-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .section-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.75rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-    .section-label::before {
-      content: '';
-      display: block;
-      width: 1.5rem;
-      height: 1px;
-      background: var(--accent);
-    }
-    .section-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(2rem, 4vw, 3.25rem);
-      letter-spacing: -0.04em;
-      line-height: 1.05;
-      margin-bottom: 4rem;
-    }
-
-    /* ── Experience / Timeline ── */
-    #experience { background: var(--surface); }
-
-    .timeline {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0;
-      position: relative;
-      padding-left: 2rem;
-    }
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0.5rem;
-      bottom: 0;
-      width: 1px;
-      background: linear-gradient(to bottom, var(--accent), transparent);
-    }
-
-    .timeline-item {
-      position: relative;
-      padding: 0 0 3.5rem 2.5rem;
-    }
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -0.3rem;
-      top: 0.45rem;
-      width: 0.6rem;
-      height: 0.6rem;
-      background: var(--accent);
-      border-radius: 50%;
-      box-shadow: 0 0 0 4px rgba(232,255,79,0.1);
-    }
-
-    .timeline-date {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      color: var(--accent2);
-      text-transform: uppercase;
-      margin-bottom: 0.5rem;
-    }
-    .timeline-company {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 1.2rem;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.2rem;
-    }
-    .timeline-role {
-      font-size: 0.85rem;
-      color: var(--muted2);
-      font-style: italic;
-      margin-bottom: 1rem;
-    }
-    .timeline-bullets {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    .timeline-bullets li {
-      font-size: 0.875rem;
-      color: var(--muted2);
-      line-height: 1.6;
-      padding-left: 1.25rem;
-      position: relative;
-    }
-    .timeline-bullets li::before {
-      content: '—';
-      position: absolute;
-      left: 0;
-      color: var(--muted);
-      font-size: 0.7rem;
-    }
-    .highlight { color: var(--text); font-weight: 500; }
-
-    /* Certs row */
-    .certs-row {
-      display: flex;
-      gap: 1rem;
-      margin-top: 3rem;
-      flex-wrap: wrap;
-    }
-    .cert-badge {
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
-      padding: 0.6rem 1rem;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      font-family: 'DM Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.05em;
-      color: var(--accent2);
-      transition: all 0.2s;
-    }
-    .cert-badge:hover {
-      border-color: var(--accent2);
-    }
-    .cert-badge .cert-icon {
-      font-size: 1rem;
-    }
-
-    /* Education */
-    .edu-card {
-      margin-top: 3rem;
-      padding: 1.5rem;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-left: 2px solid var(--accent);
-    }
-    .edu-uni {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 1rem;
-      margin-bottom: 0.5rem;
-    }
-    .edu-degree {
-      font-size: 0.85rem;
-      color: var(--muted2);
-      margin-bottom: 0.25rem;
-    }
-
-    /* ── Skills grid ── */
-    .skills-section {
-      margin-top: 4rem;
-    }
-    .skills-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-    .skill-tag {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.68rem;
-      letter-spacing: 0.05em;
-      padding: 0.35rem 0.75rem;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      color: var(--muted2);
-      transition: all 0.2s;
-    }
-    .skill-tag:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    /* ── Projects ── */
-    #projects { background: var(--bg); }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .project-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      overflow: hidden;
-      transition: border-color 0.3s, transform 0.3s;
-    }
-    .project-card:hover {
-      border-color: rgba(232,255,79,0.25);
-      transform: translateY(-2px);
-    }
-    .project-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.4s;
-    }
-    .project-card:hover::before {
-      transform: scaleX(1);
-    }
-
-    .card-body {
-      padding: 1.75rem;
-      flex: 1;
-    }
-    .card-number {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      color: var(--muted);
-      margin-bottom: 1rem;
-    }
-    .card-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 1.2rem;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.75rem;
-      line-height: 1.2;
-    }
-    .card-desc {
-      font-size: 0.85rem;
-      color: var(--muted2);
-      line-height: 1.7;
-      margin-bottom: 1.25rem;
-    }
-    .card-stack {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-bottom: 1.25rem;
-    }
-    .stack-tag {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.62rem;
-      letter-spacing: 0.05em;
-      padding: 0.25rem 0.6rem;
-      background: rgba(232,255,79,0.06);
-      border: 1px solid rgba(232,255,79,0.15);
-      color: var(--accent);
-    }
-
-    .card-footer {
-      padding: 1rem 1.75rem 1.75rem;
-      display: flex;
-      gap: 0.75rem;
-    }
-
-    .btn-launch {
-      flex: 1;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 0.7rem 1rem;
-      background: var(--accent);
-      color: #09090b;
-      border: none;
-      cursor: pointer;
-      text-align: center;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-      transition: all 0.2s;
-    }
-    .btn-launch:hover {
-      background: #d4eb3d;
-    }
-
-    .btn-github {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 0.7rem 1rem;
-      background: transparent;
-      color: var(--muted2);
-      border: 1px solid var(--border);
-      cursor: pointer;
-      text-align: center;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-      transition: all 0.2s;
-    }
-    .btn-github:hover {
-      border-color: var(--muted2);
-      color: var(--text);
-    }
-
-    /* ── Footer ── */
-    footer {
-      padding: 3rem 2.5rem;
-      border-top: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: gap;
-      gap: 1rem;
-    }
-    .footer-name {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 0.9rem;
-      letter-spacing: -0.02em;
-    }
-    .footer-links {
-      display: flex;
-      gap: 1.5rem;
-    }
-    .footer-links a {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .footer-links a:hover { color: var(--accent); }
-    .footer-copy {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.65rem;
-      color: var(--muted);
-    }
-
-    /* ── Scroll animations ── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 640px) {
-      nav { padding: 1rem 1.25rem; }
-      #hero { padding: 7rem 1.25rem 3rem; }
-      section { padding: 4rem 1.25rem; }
-      .hero-stats { gap: 2rem; }
-      .projects-grid { grid-template-columns: 1fr; }
-      .footer-links { display: none; }
-    }
-
-    /* Cursor dot */
-    .cursor {
-      width: 8px; height: 8px;
-      background: var(--accent);
-      border-radius: 50%;
-      position: fixed;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: transform 0.1s, width 0.2s, height 0.2s;
-      mix-blend-mode: difference;
-    }
-
-    a:hover ~ .cursor,
-    button:hover ~ .cursor {
-      width: 24px; height: 24px;
-    }
-  </style>
+  <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 
@@ -658,9 +45,9 @@
       </div>
 
       <p class="hero-summary reveal">
-        6+ years building data systems and ML products across Singapore's
-        banking, telco, and e-commerce sectors. Currently engineering analytics
-        infrastructure and AI applications at GXS Bank — a Grab × Singtel venture.
+        6+ years bridging raw data and business strategy across Singapore's
+        banking, telco, and e-commerce sectors. Currently deploying predictive
+        models and autonomous GenAI Agent at GXS Bank — a Grab × Singtel venture.
       </p>
 
       <div class="hero-cta reveal">
@@ -868,23 +255,34 @@
           </div>
         </div>
 
-        <!-- Coming soon card -->
-        <div class="project-card reveal" style="opacity: 0.5; pointer-events: none;">
+        <!-- Project 3: AI Twin -->
+        <div class="project-card reveal">
           <div class="card-body">
             <div class="card-number">PROJECT — 03</div>
-            <div class="card-title">More Coming Soon</div>
+            <div class="card-title">AI Twin Recruiter Chatbot</div>
             <p class="card-desc">
-              Currently building new GenAI applications. Check back soon or
-              follow the GitHub for updates.
+              An AI-powered digital twin built on my resume and 4 years of
+              performance reviews — so recruiters can interview "me" directly
+              on this site. Features streaming responses, a full knowledge base
+              of real work achievements, and context-aware answers about fit
+              for specific roles.
             </p>
             <div class="card-stack">
-              <span class="stack-tag">In Progress</span>
+              <span class="stack-tag">Claude API</span>
+              <span class="stack-tag">Vanilla JS</span>
+              <span class="stack-tag">Streaming</span>
+              <span class="stack-tag">Prompt Engineering</span>
+              <span class="stack-tag">HTML/CSS</span>
             </div>
           </div>
           <div class="card-footer">
-            <span class="btn-launch" style="cursor:default;">Coming Soon</span>
-            <a href="https://github.com/pinpingpong" target="_blank" class="btn-github" style="pointer-events:all;">
-              GitHub ↗
+            <button class="btn-launch" onclick="document.getElementById('chat-btn').click(); this.closest('section').scrollIntoView();">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              Try It Live ↗
+            </button>
+            <a href="https://github.com/pinpingpong" target="_blank" class="btn-github">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub
             </a>
           </div>
         </div>
@@ -927,6 +325,180 @@
     document.querySelectorAll('.timeline-item.reveal, .project-card.reveal').forEach((el, i) => {
       el.style.transitionDelay = `${(i % 3) * 100}ms`;
     });
+  </script>
+
+  <!-- ── CHATBOT FLOAT BUTTON + PANEL ── -->
+  <button id="chat-btn" aria-label="Chat with Pin Xiu AI twin">
+    <svg class="chat-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#09090b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <svg class="close-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#09090b" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <div id="chat-label">Interview my AI twin ↗</div>
+
+  <div id="chat-panel" role="dialog" aria-label="Chat with Pin Xiu AI twin">
+    <div class="chat-header">
+      <div class="chat-avatar">PX</div>
+      <div class="chat-header-info">
+        <div class="chat-header-name">Pin Xiu — AI Twin</div>
+        <div class="chat-header-sub">Senior Data Specialist · GXS Bank</div>
+      </div>
+      <div class="chat-status-dot"></div>
+    </div>
+    <div id="chat-messages"></div>
+    <div id="chat-chips">
+      <button class="chip" onclick="sendChip(this)">What are your strengths?</button>
+      <button class="chip" onclick="sendChip(this)">Tell me about your ML work</button>
+      <button class="chip" onclick="sendChip(this)">Why AI roles?</button>
+      <button class="chip" onclick="sendChip(this)">Biggest achievement?</button>
+      <button class="chip" onclick="sendChip(this)">Your tech stack?</button>
+    </div>
+    <div class="chat-input-row">
+      <textarea id="chat-input" rows="1" placeholder="Ask me anything..." aria-label="Your message"></textarea>
+      <button id="chat-send" disabled aria-label="Send">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#09090b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <script>
+  (function() {
+    // system prompt is provided server-side in `api/chat.js`
+    const messages = [];
+    let isLoading = false;
+
+    const panel = document.getElementById('chat-panel');
+    const btn = document.getElementById('chat-btn');
+    const label = document.getElementById('chat-label');
+    const msgsEl = document.getElementById('chat-messages');
+    const input = document.getElementById('chat-input');
+    const sendBtn = document.getElementById('chat-send');
+    const chipsEl = document.getElementById('chat-chips');
+
+    // Open/close
+    btn.addEventListener('click', () => {
+      const isOpen = panel.classList.toggle('open');
+      btn.classList.toggle('open', isOpen);
+      label.classList.toggle('hide', isOpen);
+      if (isOpen && messages.length === 0) addBotMsg("Hi! I'm Pin Xiu's AI twin 👋 I'm here to give recruiters a real sense of who she is — her experience, skills, and fit for your team. What would you like to know?");
+      if (isOpen) setTimeout(() => input.focus(), 300);
+    });
+
+    // Input auto-resize + enable send
+    input.addEventListener('input', () => {
+      input.style.height = 'auto';
+      input.style.height = Math.min(input.scrollHeight, 80) + 'px';
+      sendBtn.disabled = !input.value.trim() || isLoading;
+    });
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(input.value.trim()); }
+    });
+
+    sendBtn.addEventListener('click', () => send(input.value.trim()));
+
+    function sendChip(el) {
+      send(el.textContent.trim());
+      chipsEl.style.display = 'none';
+    }
+    window.sendChip = sendChip;
+
+    function addBotMsg(text) {
+      const div = document.createElement('div');
+      div.className = 'msg bot';
+      div.innerHTML = `<div class="msg-avatar">PX</div><div class="msg-bubble"></div>`;
+      div.querySelector('.msg-bubble').textContent = text;
+      msgsEl.appendChild(div);
+      scrollToBottom();
+      return div.querySelector('.msg-bubble');
+    }
+
+    function addUserMsg(text) {
+      const div = document.createElement('div');
+      div.className = 'msg user';
+      div.innerHTML = `<div class="msg-avatar">You</div><div class="msg-bubble"></div>`;
+      div.querySelector('.msg-bubble').textContent = text;
+      msgsEl.appendChild(div);
+      scrollToBottom();
+    }
+
+    function addTyping() {
+      const div = document.createElement('div');
+      div.className = 'msg bot';
+      div.id = 'typing-indicator';
+      div.innerHTML = `<div class="msg-avatar">PX</div><div class="typing-dots"><span></span><span></span><span></span></div>`;
+      msgsEl.appendChild(div);
+      scrollToBottom();
+    }
+
+    function removeTyping() {
+      const t = document.getElementById('typing-indicator');
+      if (t) t.remove();
+    }
+
+    function scrollToBottom() {
+      msgsEl.scrollTop = msgsEl.scrollHeight;
+    }
+
+    async function send(text) {
+      if (!text || isLoading) return;
+      input.value = '';
+      input.style.height = 'auto';
+      sendBtn.disabled = true;
+      isLoading = true;
+      chipsEl.style.display = 'none';
+
+      addUserMsg(text);
+      messages.push({ role: 'user', parts: [{ text }] });
+
+      addTyping();
+
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ messages })
+        });
+
+        removeTyping();
+        const bubble = addBotMsg('');
+        let fullText = '';
+
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split('\n');
+          buffer = lines.pop();
+          for (const line of lines) {
+            if (!line.startsWith('data: ')) continue;
+            const data = line.slice(6).trim();
+            if (data === '[DONE]') continue;
+            try {
+              const parsed = JSON.parse(data);
+              const chunk = parsed.candidates?.[0]?.content?.parts?.[0]?.text || '';
+              if (chunk) {
+                fullText += chunk;
+                bubble.textContent = fullText;
+                scrollToBottom();
+              }
+            } catch {}
+          }
+        }
+
+        messages.push({ role: 'model', parts: [{ text: fullText }] });
+
+      } catch (err) {
+        removeTyping();
+        addBotMsg('Sorry, something went wrong. Please try again!');
+      }
+
+      isLoading = false;
+      sendBtn.disabled = !input.value.trim();
+    }
+  })();
   </script>
 
 </body>
