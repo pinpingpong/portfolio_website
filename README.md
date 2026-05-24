@@ -26,10 +26,15 @@ vercel --prod
 
 ## Local Preview
 ```bash
-# Any static server works
-npx serve .
-# or
-python3 -m http.server 3000
+npm install
+cp .env.example .env
+# edit .env and add your Gemini API key
+npm run dev
+```
+
+If you only want to preview the static site without the API, you can still use:
+```bash
+npm run serve
 ```
 
 ## Push to GitHub
