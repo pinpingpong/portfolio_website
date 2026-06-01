@@ -304,18 +304,19 @@
             <div class="card-number">PROJECT — 04</div>
             <div class="card-title">AI Twin Recruiter Chatbot</div>
             <p class="card-desc">
-              An AI-powered digital twin built on my resume and 4 years of
-              performance reviews — so recruiters can interview "me" directly
-              on this site. Features streaming responses, a full knowledge base
-              of real work achievements, and context-aware answers about fit
-              for specific roles.
+              An AI-powered digital twin that lets recruiters interview "me" directly on this site.
+              Built with RAG — my resume and 4 years of performance reviews are chunked, embedded,
+              and stored in a vector database. Each question retrieves the most relevant context
+              before generating a response, giving accurate, grounded answers about my experience.
             </p>
             <div class="card-stack">
               <span class="stack-tag">Gemini API</span>
-              <span class="stack-tag">Vanilla JS</span>
+              <span class="stack-tag">RAG</span>
+              <span class="stack-tag">Pinecone</span>
+              <span class="stack-tag">Vector Embeddings</span>
               <span class="stack-tag">Streaming</span>
+              <span class="stack-tag">Vanilla JS</span>
               <span class="stack-tag">Prompt Engineering</span>
-              <span class="stack-tag">HTML/CSS</span>
             </div>
           </div>
           <div class="card-footer">
@@ -369,22 +370,10 @@
               and it understands every available table and its documentation.
             </p>
             <div class="agent-highlights">
-              <div class="highlight-item">
-                <span class="highlight-dot"></span>
-                Reads dbt repo for full table context and team documentation
-              </div>
-              <div class="highlight-item">
-                <span class="highlight-dot"></span>
-                Queries Snowflake directly via <code>.env</code> credentials — no manual SQL
-              </div>
-              <div class="highlight-item">
-                <span class="highlight-dot"></span>
-                Outputs a ready-to-share <code>.ipynb</code> notebook and slide deck per analysis
-              </div>
-              <div class="highlight-item">
-                <span class="highlight-dot"></span>
-                Teammates install in one bash script — pull repo, run, done
-              </div>
+              <div class="highlight-item"><span class="highlight-dot"></span><span>Reads dbt repo for full table context and team documentation</span></div>
+              <div class="highlight-item"><span class="highlight-dot"></span><span>Queries Snowflake directly via <code>.env</code> credentials — no manual SQL</span></div>
+              <div class="highlight-item"><span class="highlight-dot"></span><span>Outputs a ready-to-share <code>.ipynb</code> notebook and slide deck per analysis</span></div>
+              <div class="highlight-item"><span class="highlight-dot"></span><span>Teammates install in one bash script — pull repo, run, done</span></div>
             </div>
             <div class="card-stack">
               <span class="stack-tag">VS Code Agent</span>

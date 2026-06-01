@@ -631,6 +631,8 @@ section {
   color: var(--accent);
   background: rgba(232,255,79,0.08);
   padding: 0.1rem 0.3rem;
+  display: inline;
+  white-space: nowrap;
 }
 
 /* ── Footer ── */
