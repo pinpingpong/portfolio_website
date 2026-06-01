@@ -68,6 +68,11 @@ nav {
   transition: color 0.2s;
 }
 .nav-links a:hover { color: var(--accent); }
+.nav-links a.nav-active {
+  color: var(--accent);
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 2px;
+}
 
 /* ── Hero ── */
 #hero {
@@ -534,6 +539,98 @@ section {
 .btn-github:hover {
   border-color: var(--muted2);
   color: var(--text);
+}
+
+/* ── Section divider ── */
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0 2.5rem;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.divider-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── Agents section ── */
+.agents-intro {
+  color: var(--muted2);
+  font-size: 0.95rem;
+  max-width: 540px;
+  margin-bottom: 3rem;
+  line-height: 1.7;
+}
+
+.card-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.card-header-row .card-title {
+  margin-bottom: 0;
+}
+
+.agent-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--accent2);
+  color: var(--accent2);
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.agent-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin: 1rem 0 1.25rem;
+  padding: 1rem 1.25rem;
+  background: rgba(255,255,255,0.02);
+  border-left: 2px solid var(--accent2);
+}
+
+.highlight-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.82rem;
+  color: var(--muted2);
+  line-height: 1.5;
+}
+
+.highlight-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent2);
+  flex-shrink: 0;
+  margin-top: 0.45rem;
+}
+
+.highlight-item code {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--accent);
+  background: rgba(232,255,79,0.08);
+  padding: 0.1rem 0.3rem;
 }
 
 /* ── Footer ── */

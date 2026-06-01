@@ -29,7 +29,8 @@
     <div class="nav-links">
       <a href="#hero">Home</a>
       <a href="#experience">Experience</a>
-      <a href="#projects">Projects</a>
+      <a href="#projects">Apps</a>
+      <a href="#agents">Agents</a>
       <a href="https://www.linkedin.com/in/pin-xiu-lim-376b1b115/" target="_blank">LinkedIn ↗</a>
     </div>
   </nav>
@@ -55,7 +56,7 @@
       </p>
 
       <div class="hero-cta reveal">
-        <a href="#projects" class="btn-primary">View Projects ↓</a>
+        <a href="#projects" class="btn-primary">View My Work ↓</a>
         <a href="https://www.linkedin.com/in/pin-xiu-lim-376b1b115/" target="_blank" class="btn-ghost">LinkedIn Profile ↗</a>
       </div>
 
@@ -194,6 +195,10 @@
     <div class="section-inner">
       <div class="section-label reveal">03 / GenAI Portfolio</div>
       <h2 class="section-title reveal">Live<br>Applications</h2>
+      <p class="agents-intro reveal">
+        Built from personal curiosity, real frustrations, and things I genuinely care about —
+        each app started as something I wanted to exist, so I built it.
+      </p>
 
       <div class="projects-grid">
 
@@ -329,6 +334,74 @@
     </div>
   </section>
 
+  <!-- ── SECTION DIVIDER ── -->
+  <div class="section-divider">
+    <span class="divider-line"></span>
+    <span class="divider-label">Next: AI Agents</span>
+    <span class="divider-line"></span>
+  </div>
+
+  <!-- ── AGENTS ── -->
+  <section id="agents">
+    <div class="section-inner">
+      <div class="section-label reveal">04 / GenAI Agents</div>
+      <h2 class="section-title reveal">AI<br>Agents</h2>
+      <p class="agents-intro reveal">
+        Agents built for actual workflows — some for personal projects, some for my day job.
+        Personal agents include source code; day-job agents are shared as case studies only.
+      </p>
+
+      <div class="projects-grid">
+
+        <!-- Agent 1: Analyst Agent -->
+        <div class="project-card reveal">
+          <div class="card-body">
+            <div class="card-number">AGENT — 01</div>
+            <div class="card-header-row">
+              <div class="card-title">Analyst Agent</div>
+              <span class="agent-badge">Local · Enterprise</span>
+            </div>
+            <p class="card-desc">
+              A VS Code Copilot agent that turns natural language questions into
+              full analyses — querying Snowflake directly, generating Jupyter
+              notebooks as output, and producing presentation slides on demand.
+              Designed for a data team environment: point it at your dbt repo
+              and it understands every available table and its documentation.
+            </p>
+            <div class="agent-highlights">
+              <div class="highlight-item">
+                <span class="highlight-dot"></span>
+                Reads dbt repo for full table context and team documentation
+              </div>
+              <div class="highlight-item">
+                <span class="highlight-dot"></span>
+                Queries Snowflake directly via <code>.env</code> credentials — no manual SQL
+              </div>
+              <div class="highlight-item">
+                <span class="highlight-dot"></span>
+                Outputs a ready-to-share <code>.ipynb</code> notebook and slide deck per analysis
+              </div>
+              <div class="highlight-item">
+                <span class="highlight-dot"></span>
+                Teammates install in one bash script — pull repo, run, done
+              </div>
+            </div>
+            <div class="card-stack">
+              <span class="stack-tag">VS Code Agent</span>
+              <span class="stack-tag">GitHub Copilot</span>
+              <span class="stack-tag">Snowflake</span>
+              <span class="stack-tag">dbt</span>
+              <span class="stack-tag">Python</span>
+              <span class="stack-tag">Jupyter Notebooks</span>
+              <span class="stack-tag">Bash</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- ── FOOTER ── -->
   <footer>
     <div class="footer-name">Lim Pin Xiu</div>
@@ -363,6 +436,23 @@
     document.querySelectorAll('.timeline-item.reveal, .project-card.reveal').forEach((el, i) => {
       el.style.transitionDelay = `${(i % 3) * 100}ms`;
     });
+
+    // Active nav highlight on scroll
+    const sections = document.querySelectorAll('section[id], #agents');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => {
+            link.classList.remove('nav-active');
+            if (link.getAttribute('href') === '#' + entry.target.id) {
+              link.classList.add('nav-active');
+            }
+          });
+        }
+      });
+    }, { threshold: 0.3 });
+    sections.forEach(s => navObserver.observe(s));
   </script>
 
   <!-- ── CHATBOT FLOAT BUTTON + PANEL ── -->
