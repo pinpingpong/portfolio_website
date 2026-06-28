@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "issue": 1,
+    "date": "2026-06-28",
+    "dateDisplay": "28 Jun 2026",
+    "slug": "2026-06-28.html",
+    "title": "Giants Sprint, Labs Poach, Agents Ship",
+    "desc": "Model releases collide at the frontier, a Nobel laureate defects to Anthropic, and the agent framework era officially matures.",
+    "tags": ["Models", "Agents", "Funding"]
+  }
+]

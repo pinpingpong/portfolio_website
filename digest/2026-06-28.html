@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Digest #1 — 2026-06-28</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root { --bg:#0a0a0a;--surface:#111111;--border:#1e1e1e;--text:#e8e8e8;--muted:#666;--accent:#c8ff00;--font-display:'Syne',sans-serif;--font-mono:'DM Mono',monospace;--font-body:'DM Sans',sans-serif; }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.7;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2.5rem;background:rgba(10,10,10,0.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+    .nav-logo{font-family:var(--font-display);font-weight:800;font-size:1rem;}
+    .nav-back{font-family:var(--font-mono);font-size:0.75rem;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+    .nav-back:hover{color:var(--accent);}
+    .issue-wrap{max-width:720px;margin:0 auto;padding:7rem 2.5rem 6rem;}
+    .issue-meta{font-family:var(--font-mono);font-size:0.7rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;}
+    .issue-title{font-family:var(--font-display);font-size:clamp(1.8rem,5vw,3rem);font-weight:800;line-height:1.1;margin-bottom:1rem;}
+    .issue-sub{font-size:0.95rem;color:var(--muted);margin-bottom:2.5rem;border-bottom:1px solid var(--border);padding-bottom:2rem;}
+    .digest-section{margin-bottom:3rem;}
+    .digest-section-label{font-family:var(--font-mono);font-size:0.65rem;color:var(--accent);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:1.25rem;}
+    .story{padding:1.25rem 0;border-bottom:1px solid var(--border);}
+    .story:last-child{border-bottom:none;}
+    .story-headline{font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:0.4rem;}
+    .story-body{font-size:0.88rem;color:#aaa;line-height:1.7;}
+    .story-body a{color:var(--muted);text-decoration:underline;text-underline-offset:2px;}
+    .story-body a:hover{color:var(--accent);}
+    .story-tags{display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:0.6rem;}
+    .story-tag{font-family:var(--font-mono);font-size:0.62rem;border:1px solid var(--border);border-radius:2px;padding:0.12rem 0.45rem;color:var(--muted);}
+    .tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;}
+    .tool-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.25rem;}
+    .tool-name{font-family:var(--font-display);font-size:0.95rem;font-weight:700;margin-bottom:0.3rem;}
+    .tool-stars{font-family:var(--font-mono);font-size:0.65rem;color:var(--accent);margin-bottom:0.5rem;}
+    .tool-desc{font-size:0.82rem;color:#999;line-height:1.6;}
+    .for-you{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:4px;padding:1.5rem;}
+    .for-you-label{font-family:var(--font-mono);font-size:0.65rem;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.75rem;}
+    .for-you-body{font-size:0.88rem;color:#bbb;line-height:1.75;}
+    .for-you-body p{margin-bottom:0.75rem;}
+    .for-you-body p:last-child{margin-bottom:0;}
+    .pick-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.5rem;display:flex;gap:1.5rem;align-items:flex-start;}
+    .pick-number{font-family:var(--font-mono);font-size:2rem;color:var(--border);font-weight:700;flex-shrink:0;line-height:1;}
+    .pick-title{font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:0.4rem;}
+    .pick-desc{font-size:0.85rem;color:#999;line-height:1.6;}
+    .issue-nav{display:flex;justify-content:space-between;margin-top:4rem;padding-top:2rem;border-top:1px solid var(--border);}
+    .issue-nav a{font-family:var(--font-mono);font-size:0.75rem;color:var(--muted);text-decoration:none;}
+    .issue-nav a:hover{color:var(--accent);}
+    footer{text-align:center;padding:2rem;border-top:1px solid var(--border);font-family:var(--font-mono);font-size:0.7rem;color:var(--muted);}
+    footer a{color:var(--muted);text-decoration:none;margin:0 0.75rem;}
+    footer a:hover{color:var(--accent);}
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-logo">LPX</div>
+    <a href="/digest/" class="nav-back">← All issues</a>
+  </nav>
+
+  <div class="issue-wrap">
+    <div class="issue-meta">Issue #1 · 28 Jun 2026 · Weekly AI Digest</div>
+    <h1 class="issue-title">Giants Sprint,<br>Labs Poach,<br>Agents Ship</h1>
+    <p class="issue-sub">Model releases collide at the frontier, a Nobel laureate defects to Anthropic, and the agent framework era officially matures — all in the same week.</p>
+
+    <div class="digest-section">
+      <div class="digest-section-label">Big News</div>
+
+      <div class="story">
+        <div class="story-headline">Nobel Laureate John Jumper Leaves DeepMind for Anthropic</div>
+        <div class="story-body">
+          John Jumper — who shared the 2024 Nobel Prize in Chemistry for his work on AlphaFold at DeepMind — is leaving Google after nearly 9 years to join Anthropic. The move is one of the highest-profile talent defections in AI history and underscores how aggressively Anthropic is recruiting elite scientific minds. Character AI co-founder Noam Shazeer also announced a departure from DeepMind this week, heading to OpenAI.
+          <br><a href="https://techcrunch.com/2026/06/20/nobel-laureate-john-jumper-is-leaving-deepmind-for-rival-anthropic/" target="_blank" rel="noopener">TechCrunch ↗</a>
+        </div>
+        <div class="story-tags">
+          <span class="story-tag">Anthropic</span>
+          <span class="story-tag">DeepMind</span>
+          <span class="story-tag">Talent</span>
+        </div>
+      </div>
+
+      <div class="story">
+        <div class="story-headline">The Model Race Goes Vertical — Gemini Deep Think vs GPT-5.6</div>
+        <div class="story-body">
+          Google launched Gemini 2.5 Pro with "Deep Think" reasoning mode, calling it the most capable model it has ever released. OpenAI countered with a limited preview of the GPT-5.6 series: Sol (flagship), Terra (balanced, 2× cheaper than GPT-5.5), and Luna (fast and affordable). Two frontier model families dropped in the same week — and Terra's pricing shift may matter most for practitioners building pipelines.
+        </div>
+        <div class="story-tags">
+          <span class="story-tag">Models</span>
+          <span class="story-tag">Google</span>
+          <span class="story-tag">OpenAI</span>
+        </div>
+      </div>
+
+      <div class="story">
+        <div class="story-headline">Qualcomm to Acquire AI Startup Modular for ~$4B</div>
+        <div class="story-body">
+          Qualcomm is acquiring Modular, an AI infrastructure startup best known for the Mojo programming language and MAX inference engine, for roughly $4 billion — nearly triple its September 2025 valuation of $1.6B. The deal signals that chip companies are racing to own the full AI stack, not just the silicon.
+          <br><a href="https://www.globalbankingandfinance.com/qualcomm-buy-ai-startup-modular/" target="_blank" rel="noopener">Global Banking &amp; Finance ↗</a>
+        </div>
+        <div class="story-tags">
+          <span class="story-tag">Acquisition</span>
+          <span class="story-tag">Infrastructure</span>
+          <span class="story-tag">Qualcomm</span>
+        </div>
+      </div>
+
+      <div class="story">
+        <div class="story-headline">AI Layoffs Tracker: GitLab Cuts 14% to Fund AI Infrastructure</div>
+        <div class="story-body">
+          GitLab laid off approximately 350 people — about 14% of its staff — explicitly to fund AI infrastructure investment and handle surging AI workflow traffic. TechCrunch is running a live tracker of major 2026 tech layoffs where employers cited AI as the reason. The pattern is accelerating across the industry.
+          <br><a href="https://techcrunch.com/2026/06/22/the-running-list-major-tech-layoffs-in-2026-where-employers-cited-ai/" target="_blank" rel="noopener">TechCrunch ↗</a>
+        </div>
+        <div class="story-tags">
+          <span class="story-tag">Layoffs</span>
+          <span class="story-tag">Industry</span>
+          <span class="story-tag">Trend</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="digest-section">
+      <div class="digest-section-label">Tools Worth Knowing</div>
+      <div class="tool-grid">
+
+        <div class="tool-card">
+          <div class="tool-name">OpenClaw</div>
+          <div class="tool-stars">★ 210,000+ GitHub stars</div>
+          <div class="tool-desc">The fastest-growing open-source project in GitHub history. A local AI gateway connecting models to 50+ integrations — WhatsApp, Telegram, Slack, iMessage, Discord — all running on your own hardware with no cloud required.</div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-name">Microsoft Agent Framework 1.0</div>
+          <div class="tool-stars">Generally Available — June 2026</div>
+          <div class="tool-desc">Merges AutoGen and Semantic Kernel into a unified .NET and Python SDK. GA'd at Build 2026, it's Microsoft's official bet on multi-agent orchestration with built-in observability, evals, and open-source governance.</div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-name">DeepSeek V4 (1.6T MoE)</div>
+          <div class="tool-stars">Open-weight preview — June 2026</div>
+          <div class="tool-desc">A 1.6-trillion-parameter mixture-of-experts reasoning model in preview. Fully open-weight, aimed at matching frontier closed models on coding and heavy reasoning tasks. Continues DeepSeek's run as open-source's best response to GPT.</div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-name">Zoom AI Productivity Suite</div>
+          <div class="tool-stars">Launched 1 Jun 2026</div>
+          <div class="tool-desc">Wraps Zoom Canvas (docs), Slides, Sheets, and Paper into one AI-powered workspace designed to turn meetings into deliverables. The pitch: full workflow completion, not just note-taking.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="digest-section">
+      <div class="digest-section-label">Wild Card</div>
+
+      <div class="story">
+        <div class="story-headline">Google DeepMind Bets $75M on AI's Future in Hollywood via A24</div>
+        <div class="story-body">
+          Google DeepMind is partnering with indie prestige studio A24 and investing $75 million to build AI filmmaking tools. A24 is behind <em>Everything Everywhere All at Once</em>, <em>Midsommar</em>, and <em>Hereditary</em> — arguably the most creatively ambitious studio in Hollywood right now. This is the most serious real-money bet yet on generative AI as a tool for serious filmmakers rather than a content factory.
+          <br><a href="https://techcrunch.com/2026/06/22/google-deepmind-bets-75m-on-ais-future-in-hollywood-with-a24-deal/" target="_blank" rel="noopener">TechCrunch ↗</a>
+        </div>
+        <div class="story-tags">
+          <span class="story-tag">Wild Card</span>
+          <span class="story-tag">Creative AI</span>
+          <span class="story-tag">Hollywood</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="digest-section">
+      <div class="digest-section-label">For You — Pin Xiu</div>
+      <div class="for-you">
+        <div class="for-you-label">Personalised picks</div>
+        <div class="for-you-body">
+          <p><strong>Taktile — $110M Series C for Financial AI Decision Automation.</strong> You're building LightGBM models, churn prediction, and funnel analytics at GXS Bank. Taktile just raised $110M specifically to productionise automated decision flows in financial services — credit scoring, risk controls, real-time model serving. It's essentially a startup trying to productise what you're building internally. Worth watching how they're structuring model governance and auditability layers; those patterns tend to flow back into internal tooling at banks.</p>
+          <p><strong>Microsoft Agent Framework 1.0 GA.</strong> You're running three active agents: the Analyst Agent (VS Code + Copilot + Snowflake/dbt), MapleStory automation (Claude computer use + Routines), and this digest. The GA merges AutoGen and Semantic Kernel into a single Python SDK with first-class support for multi-agent orchestration, observability, and evals. Even if you stay on Claude's Agent SDK, the patterns and tooling coming out of this ecosystem are worth benchmarking against — especially the eval frameworks for agents making data decisions.</p>
+          <p><strong>Claude Agent SDK Billing Change — June 15.</strong> Starting June 15, Agent SDK usage draws from a separate monthly credit pool on subscription plans ($20 on Pro, $100 on Max 5×, $200 on Max 20×) rather than your interactive chat limit. This directly affects the digest agent and your MapleStory Routines. If you're on Pro, it's worth reviewing how many agent-hours those pipelines consume per month to decide whether a Max plan makes more economic sense.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="digest-section">
+      <div class="digest-section-label">Pick of the Week</div>
+      <div class="pick-card">
+        <div class="pick-number">01</div>
+        <div>
+          <div class="pick-title">Terra (GPT-5.6) — Frontier Reasoning at Half the Price</div>
+          <div class="pick-desc">Two model families dropped at the frontier this week, but the single most practically interesting detail is Terra: OpenAI's balanced GPT-5.6 model that matches GPT-5.5 performance at 2× lower cost. For anyone building agent pipelines — where model calls stack up fast — that pricing shift changes the economic calculus entirely. Pair it with Gemini 2.5 Pro Deep Think as the reasoning baseline and you've got a genuinely different cost-capability tradeoff curve than existed two weeks ago.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="issue-nav">
+      <a href="/digest/">← All issues</a>
+      <a href="/">Back to portfolio ↗</a>
+    </div>
+  </div>
+
+  <footer>
+    <a href="/digest/">All Issues</a>
+    <a href="/">Portfolio</a>
+    <a href="https://www.linkedin.com/in/pin-xiu-lim-376b1b115/" target="_blank">LinkedIn</a>
+  </footer>
+</body>
+</html>
