@@ -1,11 +1,11 @@
 [
   {
-    "issue": 1,
+    "issue": 2,
     "date": "2026-06-28",
     "dateDisplay": "28 Jun 2026",
     "slug": "2026-06-28.html",
-    "title": "Claude on iPhone, SpaceX buys Cursor, ChatGPT loses ground",
-    "desc": "Big structural shifts — distribution, acquisition, and a market share milestone. Plus open-source tools quietly becoming load-bearing infrastructure.",
-    "tags": ["Models", "Tools", "Industry"]
+    "title": "Fable 5 is here, Qualcomm bets $4B, agents ship to prod",
+    "desc": "Anthropic drops its biggest model yet, Qualcomm acquires Modular for ~$4B, and Microsoft's Agent Framework goes GA — a week where AI infrastructure finally solidified.",
+    "tags": ["Models", "Acquisitions", "Agents"]
   }
 ]

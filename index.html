@@ -519,19 +519,7 @@
       </p>
 
       <div class="digest-preview-grid" id="digest-preview">
-
-        <a href="/digest/2026-06-28.html" class="digest-preview-card reveal">
-          <div class="digest-preview-meta">Issue #1 · 28 Jun 2026</div>
-          <div class="digest-preview-title">Claude on iPhone, SpaceX buys Cursor, ChatGPT loses ground</div>
-          <div class="digest-preview-desc">Big structural shifts — distribution, acquisition, and a market share milestone. Plus open-source tools quietly becoming load-bearing infrastructure.</div>
-          <div class="digest-preview-tags">
-            <span class="stack-tag">Models</span>
-            <span class="stack-tag">Tools</span>
-            <span class="stack-tag">Industry</span>
-          </div>
-          <div class="digest-preview-cta">Read issue →</div>
-        </a>
-
+        <!-- Populated dynamically from digest/manifest.json -->
       </div>
 
       <div class="digest-archive-link reveal">
@@ -591,6 +579,28 @@
       });
     }, { threshold: 0.3 });
     sections.forEach(s => navObserver.observe(s));
+
+    // Digest preview — load latest issue from manifest.json
+    fetch('/digest/manifest.json')
+      .then(r => r.json())
+      .then(issues => {
+        const latest = issues[0];
+        if (!latest) return;
+        const grid = document.getElementById('digest-preview');
+        grid.innerHTML = `
+          <a href="/digest/${latest.slug}" class="digest-preview-card reveal">
+            <div class="digest-preview-meta">Issue #${latest.issue} · ${latest.dateDisplay}</div>
+            <div class="digest-preview-title">${latest.title}</div>
+            <div class="digest-preview-desc">${latest.desc}</div>
+            <div class="digest-preview-tags">
+              ${latest.tags.map(t => `<span class="stack-tag">${t}</span>`).join('')}
+            </div>
+            <div class="digest-preview-cta">Read issue →</div>
+          </a>`;
+        // trigger reveal animation
+        grid.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+      })
+      .catch(() => {});
   </script>
 
   <!-- ── CHATBOT FLOAT BUTTON + PANEL ── -->

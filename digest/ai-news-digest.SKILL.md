@@ -199,7 +199,7 @@ Write the full HTML file to `${FILENAME}`. Use the template below exactly — on
 
 ## Step 6 — Update digest/index.html
 
-In `/tmp/portfolio/digest/index.html`, add a new `<a class="digest-item">` entry **at the top** of the `<div class="digest-list">` block (newest first).
+Before inserting, check if an entry for `${TODAY}.html` already exists in the file. Search for `href="${TODAY}.html"` — if found, **skip this step** (do not add a duplicate). If not found, add a new `<a class="digest-item">` entry **at the very top** of the `<div class="digest-list">` block (newest first):
 
 ```html
 <a href="${TODAY}.html" class="digest-item">
@@ -217,11 +217,31 @@ In `/tmp/portfolio/digest/index.html`, add a new `<a class="digest-item">` entry
 
 ---
 
-## Step 7 — Commit and push
+## Step 7 — Update digest/manifest.json
+
+Read the current `/tmp/portfolio/digest/manifest.json`. It is a JSON array ordered newest-first. Check if an entry with `"slug": "${TODAY}.html"` already exists — if so, update it in place. If not, prepend a new entry at the top:
+
+```json
+{
+  "issue": ${ISSUE_NUMBER},
+  "date": "${TODAY}",
+  "dateDisplay": "${TODAY_DISPLAY}",
+  "slug": "${TODAY}.html",
+  "title": "${SHORT_TITLE}",
+  "desc": "${ONE_SENTENCE_SUMMARY}",
+  "tags": ["TAG_1", "TAG_2", "TAG_3"]
+}
+```
+
+Write the updated array back to `/tmp/portfolio/digest/manifest.json`.
+
+---
+
+## Step 8 — Commit and push
 
 ```bash
 cd /tmp/portfolio
-git add digest/${TODAY}.html digest/index.html
+git add digest/${TODAY}.html digest/index.html digest/manifest.json
 git commit -m "Add AI Digest issue #${ISSUE_NUMBER} — ${TODAY}"
 git push origin main
 ```
@@ -231,7 +251,8 @@ Vercel will auto-deploy within ~60 seconds. Done.
 ---
 
 ## Output checklist
-- [ ] New `digest/YYYY-MM-DD.html` written
-- [ ] `digest/index.html` updated with new entry at top
+- [ ] New `digest/YYYY-MM-DD.html` written with no placeholder text remaining
+- [ ] `digest/index.html` updated (or skipped if date entry already exists)
+- [ ] `digest/manifest.json` updated with new entry at top (or updated in place)
 - [ ] Commit pushed to main
-- [ ] No placeholder text left in HTML (`${...}` variables fully replaced)
+- [ ] No `${...}` variables left unreplaced in any output file
