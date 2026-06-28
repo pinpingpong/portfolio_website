@@ -1055,3 +1055,83 @@ a:hover ~ .cursor,
 button:hover ~ .cursor {
   width: 24px; height: 24px;
 }
+
+/* ── Digest section ── */
+.digest-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.digest-preview-card {
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1.75rem;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.digest-preview-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.digest-preview-meta {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+.digest-preview-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.35;
+  margin-bottom: 0.6rem;
+}
+.digest-preview-desc {
+  font-size: 0.82rem;
+  color: var(--muted2);
+  line-height: 1.65;
+  margin-bottom: 1rem;
+}
+.digest-preview-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+.digest-preview-cta {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+}
+
+.digest-archive-link {
+  margin-top: 2rem;
+}
+
+.btn-outline {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.85rem 1.75rem;
+  background: transparent;
+  color: var(--accent);
+  font-weight: 400;
+  text-decoration: none;
+  border: 1px solid var(--accent);
+  transition: all 0.2s;
+  display: inline-block;
+}
+.btn-outline:hover {
+  background: var(--accent);
+  color: #09090b;
+}

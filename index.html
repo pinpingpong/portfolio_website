@@ -32,6 +32,7 @@
       <a href="#projects">Apps</a>
       <a href="#agents">Agents</a>
       <a href="#workflow">Workflow</a>
+      <a href="#digest">Digest</a>
       <a href="https://www.linkedin.com/in/pin-xiu-lim-376b1b115/" target="_blank">LinkedIn ↗</a>
     </div>
   </nav>
@@ -417,6 +418,38 @@
           </div>
         </div>
 
+        <!-- Agent 3: AI Digest Agent -->
+        <div class="project-card reveal">
+          <div class="card-body">
+            <div class="card-number">AGENT — 03</div>
+            <div class="card-header-row">
+              <div class="card-title">Weekly AI Digest Agent</div>
+              <span class="agent-badge">Personal</span>
+            </div>
+            <p class="card-desc">
+              A scheduled cloud agent that autonomously scrapes AI news each week,
+              generates a styled HTML newsletter, and publishes it directly to this
+              website — no manual steps. Built around a <code>SKILL.md</code> SOP that
+              defines research queries, output format, a personalised "For You" section,
+              and the full git push pipeline to auto-deploy via Vercel.
+            </p>
+            <div class="agent-highlights">
+              <div class="highlight-item"><span class="highlight-dot"></span><span>Runs 6 targeted search queries to sweep models, tools, research, and industry news</span></div>
+              <div class="highlight-item"><span class="highlight-dot"></span><span>Generates a dark-themed HTML issue with Big News, Tool Cards, Wild Card, and Pick of the Week</span></div>
+              <div class="highlight-item"><span class="highlight-dot"></span><span>"For You" section personalised to my stack, projects, and career direction each week</span></div>
+              <div class="highlight-item"><span class="highlight-dot"></span><span>Auto-commits new issue + updates archive index — Vercel deploys within 60s</span></div>
+            </div>
+            <div class="card-stack">
+              <span class="stack-tag">Claude Agent SDK</span>
+              <span class="stack-tag">Claude /schedule</span>
+              <span class="stack-tag">SKILL.md</span>
+              <span class="stack-tag">Web Search</span>
+              <span class="stack-tag">GitHub API</span>
+              <span class="stack-tag">Vercel</span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -464,6 +497,45 @@
           </div>
         </div>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION DIVIDER ── -->
+  <div class="section-divider">
+    <span class="divider-line"></span>
+    <span class="divider-label">Next: AI Digest</span>
+    <span class="divider-line"></span>
+  </div>
+
+  <!-- ── AI DIGEST ── -->
+  <section id="digest">
+    <div class="section-inner">
+      <div class="section-label reveal">06 / AI Digest</div>
+      <h2 class="section-title reveal">Weekly<br>AI Digest</h2>
+      <p class="agents-intro reveal">
+        A weekly sweep of what's moving in AI — models, tools, research, and the wild cards.
+        Curated and written by a scheduled Claude agent. Published here automatically every week.
+      </p>
+
+      <div class="digest-preview-grid" id="digest-preview">
+
+        <a href="/digest/2026-06-28.html" class="digest-preview-card reveal">
+          <div class="digest-preview-meta">Issue #1 · 28 Jun 2026</div>
+          <div class="digest-preview-title">Claude on iPhone, SpaceX buys Cursor, ChatGPT loses ground</div>
+          <div class="digest-preview-desc">Big structural shifts — distribution, acquisition, and a market share milestone. Plus open-source tools quietly becoming load-bearing infrastructure.</div>
+          <div class="digest-preview-tags">
+            <span class="stack-tag">Models</span>
+            <span class="stack-tag">Tools</span>
+            <span class="stack-tag">Industry</span>
+          </div>
+          <div class="digest-preview-cta">Read issue →</div>
+        </a>
+
+      </div>
+
+      <div class="digest-archive-link reveal">
+        <a href="/digest/" class="btn-outline">View all issues ↗</a>
       </div>
     </div>
   </section>
