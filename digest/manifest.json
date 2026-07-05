@@ -1,5 +1,14 @@
 [
   {
+    "issue": 2,
+    "date": "2026-07-05",
+    "dateDisplay": "05 Jul 2026",
+    "slug": "2026-07-05.html",
+    "title": "Chips Get Personal, Money Chases Inference, Agents Play Games",
+    "desc": "Anthropic and OpenAI both move toward custom chips, Baseten raises $1.5B for inference infra, and Meta ships a weird mini-game generator.",
+    "tags": ["Chips", "Funding", "Infra"]
+  },
+  {
     "issue": 1,
     "date": "2026-06-28",
     "dateDisplay": "28 Jun 2026",
