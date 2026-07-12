@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Digest #3 — 2026-07-12</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root { --bg:#0a0a0a;--surface:#111111;--border:#1e1e1e;--text:#e8e8e8;--muted:#666;--accent:#c8ff00;--font-display:'Syne',sans-serif;--font-mono:'DM Mono',monospace;--font-body:'DM Sans',sans-serif; }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.7;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2.5rem;background:rgba(10,10,10,0.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+    .nav-logo{font-family:var(--font-display);font-weight:800;font-size:1rem;}
+    .nav-back{font-family:var(--font-mono);font-size:0.75rem;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+    .nav-back:hover{color:var(--accent);}
+    .issue-wrap{max-width:720px;margin:0 auto;padding:7rem 2.5rem 6rem;}
+    .issue-meta{font-family:var(--font-mono);font-size:0.7rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;}
+    .issue-title{font-family:var(--font-display);font-size:clamp(1.8rem,5vw,3rem);font-weight:800;line-height:1.1;margin-bottom:1rem;}
+    .issue-sub{font-size:0.95rem;color:var(--muted);margin-bottom:2.5rem;border-bottom:1px solid var(--border);padding-bottom:2rem;}
+    .digest-section{margin-bottom:3rem;}
+    .digest-section-label{font-family:var(--font-mono);font-size:0.65rem;color:var(--accent);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:1.25rem;}
+    .story{padding:1.25rem 0;border-bottom:1px solid var(--border);}
+    .story:last-child{border-bottom:none;}
+    .story-headline{font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:0.4rem;}
+    .story-body{font-size:0.88rem;color:#aaa;line-height:1.7;}
+    .story-tags{display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:0.6rem;}
+    .story-tag{font-family:var(--font-mono);font-size:0.62rem;border:1px solid var(--border);border-radius:2px;padding:0.12rem 0.45rem;color:var(--muted);}
+    .tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;}
+    .tool-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.25rem;}
+    .tool-name{font-family:var(--font-display);font-size:0.95rem;font-weight:700;margin-bottom:0.3rem;}
+    .tool-stars{font-family:var(--font-mono);font-size:0.65rem;color:var(--accent);margin-bottom:0.5rem;}
+    .tool-desc{font-size:0.82rem;color:#999;line-height:1.6;}
+    .for-you{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:4px;padding:1.5rem;}
+    .for-you-label{font-family:var(--font-mono);font-size:0.65rem;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.75rem;}
+    .for-you-body{font-size:0.88rem;color:#bbb;line-height:1.75;}
+    .for-you-body p{margin-bottom:0.75rem;}
+    .for-you-body p:last-child{margin-bottom:0;}
+    .pick-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.5rem;display:flex;gap:1.5rem;align-items:flex-start;}
+    .pick-number{font-family:var(--font-mono);font-size:2rem;color:var(--border);font-weight:700;flex-shrink:0;line-height:1;}
+    .pick-title{font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:0.4rem;}
+    .pick-desc{font-size:0.85rem;color:#999;line-height:1.6;}
+    .issue-nav{display:flex;justify-content:space-between;margin-top:4rem;padding-top:2rem;border-top:1px solid var(--border);}
+    .issue-nav a{font-family:var(--font-mono);font-size:0.75rem;color:var(--muted);text-decoration:none;}
+    .issue-nav a:hover{color:var(--accent);}
+    footer{text-align:center;padding:2rem;border-top:1px solid var(--border);font-family:var(--font-mono);font-size:0.7rem;color:var(--muted);}
+    footer a{color:var(--muted);text-decoration:none;margin:0 0.75rem;}
+    footer a:hover{color:var(--accent);}
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-logo">LPX</div>
+    <a href="/digest/" class="nav-back">← All issues</a>
+  </nav>
+  <div class="issue-wrap">
+    <div class="issue-meta">Issue #3 · 12 Jul 2026 · Weekly AI Digest</div>
+    <h1 class="issue-title">GPT-5.6 Lands,<br>Agents Get Memory,<br>Banks Cut Headcount</h1>
+    <p class="issue-sub">OpenAI ships a three-tier model family and a real-time voice model, Microsoft and AgentPrizm push agent infrastructure toward production, and PayPal's AI turnaround plan costs 4,500 jobs.</p>
+
+    <div class="digest-section">
+      <div class="digest-section-label">Big News</div>
+
+      <div class="story">
+        <div class="story-headline">OpenAI ships GPT-5.6 as three tiers, plus a real-time voice model</div>
+        <div class="story-body">OpenAI publicly released GPT-5.6 Sol (flagship), Terra (mid-tier), and Luna (cost-efficient) on Thursday, alongside GPT-Live — a new voice model that listens and speaks simultaneously for more natural conversation. The tiered release strategy signals OpenAI leaning into cost-segmented deployment rather than one-size-fits-all models.</div>
+        <div class="story-tags"><span class="story-tag">OpenAI</span><span class="story-tag">LLM</span><span class="story-tag">Voice AI</span></div>
+      </div>
+
+      <div class="story">
+        <div class="story-headline">xAI releases Grok 4.5, teases an Anysphere collaboration</div>
+        <div class="story-body">SpaceXAI's Grok 4.5 launched July 8, pitched as an "Opus-class" workhorse for coding, research, and office work with claimed 2x token efficiency over rivals. xAI is also reportedly working with Cursor-maker Anysphere on a coding-focused model to compete directly with Claude Opus and GPT-5.5.</div>
+        <div class="story-tags"><span class="story-tag">xAI</span><span class="story-tag">Coding AI</span></div>
+      </div>
+
+      <div class="story">
+        <div class="story-headline">Meta enters image generation with Muse</div>
+        <div class="story-body">Meta Superintelligence Labs shipped its first image-generation model, Muse Image, supporting prompt-based generation and editing. It's Meta's clearest signal yet that its reorganised superintelligence unit is shipping product, not just research.</div>
+        <div class="story-tags"><span class="story-tag">Meta</span><span class="story-tag">Image Gen</span></div>
+      </div>
+
+      <div class="story">
+        <div class="story-headline">PayPal and Cisco cut thousands of jobs, both cite AI</div>
+        <div class="story-body">PayPal announced plans to cut roughly 20% of its workforce (4,500+ roles) over two to three years as part of an AI-centred turnaround. Cisco is cutting about 4,000 jobs (5% of headcount) to realign around silicon, optics, security, and AI. Both add to a growing 2026 list of layoffs explicitly tied to AI adoption.</div>
+        <div class="story-tags"><span class="story-tag">Layoffs</span><span class="story-tag">Enterprise AI</span></div>
+      </div>
+    </div>
+
+    <div class="digest-section">
+      <div class="digest-section-label">Tools Worth Knowing</div>
+      <div class="tool-grid">
+        <div class="tool-card">
+          <div class="tool-name">Microsoft Agent Framework 1.0</div>
+          <div class="tool-stars">Production-ready · .NET + Python</div>
+          <div class="tool-desc">Microsoft's agent SDK hit a stable 1.0, aimed at teams shipping agents into production rather than prototyping. Unifies orchestration, tool-calling, and multi-agent patterns across both language runtimes.</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">AgentPrizm — AgentMemory & AgentSkills</div>
+          <div class="tool-stars">Launched Jul 9 · REST API + MCP</div>
+          <div class="tool-desc">A persistent-memory layer for agents with a built-in audit trail that shows exactly which memory decision drove which action — aimed at enterprise teams that need to explain agent behaviour after the fact.</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">Automox MCP Server 2.2</div>
+          <div class="tool-stars">New release</div>
+          <div class="tool-desc">Adds a visual review surface for agent actions before they execute, a patch-by-severity policy builder, and live capability discovery so agents can see available tools and credentials up front.</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">Zoom AI Productivity Suite</div>
+          <div class="tool-stars">General availability</div>
+          <div class="tool-desc">Bundles Zoom Canvas, Slides, Sheets, and Paper around a shared AI layer that turns meeting conversations directly into documents and deliverables — one more entrant in the "meeting to output" race.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="digest-section">
+      <div class="digest-section-label">Wild Card</div>
+      <div class="story">
+        <div class="story-headline">Mercor hit $2B in annualised revenue just four months after $1B</div>
+        <div class="story-body">The less-than-three-year-old startup — which hires domain experts to train and evaluate AI models — doubled its run-rate in a third of a year. It's a strange, very 2026 business model: paying humans to teach machines, at a growth curve that used to be reserved for viral consumer apps.</div>
+        <div class="story-tags"><span class="story-tag">Startups</span><span class="story-tag">Data Labeling</span></div>
+      </div>
+    </div>
+
+    <div class="digest-section">
+      <div class="digest-section-label">For You — Pin Xiu</div>
+      <div class="for-you">
+        <div class="for-you-label">Personalised picks</div>
+        <div class="for-you-body">
+          <p><strong>Microsoft Agent Framework 1.0</strong> is worth a skim against your Analyst Agent setup. You've already built a VS Code Copilot agent that queries Snowflake and reads your dbt repo directly — seeing how a "production-ready" framework structures tool-calling and multi-agent orchestration could sharpen the next iteration you ship at GXS.</p>
+          <p><strong>AgentPrizm's audit-trail memory layer</strong> lands squarely in your world. You're deploying agentic products at a bank, where every action needs to be explainable after the fact — a memory system that shows which decision drove which output is exactly the kind of governance primitive that turns "cool agent demo" into something Risk will actually sign off on.</p>
+          <p><strong>GPT-5.6's three-tier release (Sol/Terra/Luna)</strong> mirrors the cost-vs-capability tradeoffs you've already solved once, cutting Snowflake spend 60% by redesigning consumption logic. Tiered model pricing is the same problem one layer up — worth tracking as an option if any of your Gemini-API-based apps ever need a cheaper fallback tier.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="digest-section">
+      <div class="digest-section-label">Pick of the Week</div>
+      <div class="pick-card">
+        <div class="pick-number">01</div>
+        <div>
+          <div class="pick-title">OpenAI's GPT-5.6 tiered release + GPT-Live</div>
+          <div class="pick-desc">The most consequential move this week isn't a single model — it's OpenAI formally segmenting its lineup by cost and capability (Sol/Terra/Luna) while shipping a voice model built for real-time, overlapping conversation. Expect competitors to follow the tiering playbook fast, and expect voice interfaces to get noticeably less awkward over the next few months.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="issue-nav">
+      <a href="/digest/">← All issues</a>
+      <a href="/">Back to portfolio ↗</a>
+    </div>
+  </div>
+  <footer>
+    <a href="/digest/">All Issues</a>
+    <a href="/">Portfolio</a>
+    <a href="https://www.linkedin.com/in/pin-xiu-lim-376b1b115/" target="_blank">LinkedIn</a>
+  </footer>
+</body>
+</html>

@@ -1,5 +1,14 @@
 [
   {
+    "issue": 3,
+    "date": "2026-07-12",
+    "dateDisplay": "12 Jul 2026",
+    "slug": "2026-07-12.html",
+    "title": "GPT-5.6 Lands, Agents Get Memory, Banks Cut Headcount",
+    "desc": "OpenAI ships a three-tier model family and a real-time voice model, Microsoft and AgentPrizm push agent infrastructure toward production, and PayPal's AI turnaround plan costs 4,500 jobs.",
+    "tags": ["Models", "Agents", "Layoffs"]
+  },
+  {
     "issue": 2,
     "date": "2026-07-05",
     "dateDisplay": "05 Jul 2026",
