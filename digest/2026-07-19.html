@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Digest #4 — 2026-07-19</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root { --bg:#0a0a0a;--surface:#111111;--border:#1e1e1e;--text:#e8e8e8;--muted:#666;--accent:#c8ff00;--font-display:'Syne',sans-serif;--font-mono:'DM Mono',monospace;--font-body:'DM Sans',sans-serif; }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.7;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2.5rem;background:rgba(10,10,10,0.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+    .nav-logo{font-family:var(--font-display);font-weight:800;font-size:1rem;}
+    .nav-back{font-family:var(--font-mono);font-size:0.75rem;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+    .nav-back:hover{color:var(--accent);}
+    .issue-wrap{max-width:720px;margin:0 auto;padding:7rem 2.5rem 6rem;}
+    .issue-meta{font-family:var(--font-mono);font-size:0.7rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;}
+    .issue-title{font-family:var(--font-display);font-size:clamp(1.8rem,5vw,3rem);font-weight:800;line-height:1.1;margin-bottom:1rem;}
+    .issue-sub{font-size:0.95rem;color:var(--muted);margin-bottom:2.5rem;border-bottom:1px solid var(--border);padding-bottom:2rem;}
+    .digest-section{margin-bottom:3rem;}
+    .digest-section-label{font-family:var(--font-mono);font-size:0.65rem;color:var(--accent);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:1.25rem;}
+    .story{padding:1.25rem 0;border-bottom:1px solid var(--border);}
+    .story:last-child{border-bottom:none;}
+    .story-headline{font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:0.4rem;}
+    .story-body{font-size:0.88rem;color:#aaa;line-height:1.7;}
+    .story-tags{display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:0.6rem;}
+    .story-tag{font-family:var(--font-mono);font-size:0.62rem;border:1px solid var(--border);border-radius:2px;padding:0.12rem 0.45rem;color:var(--muted);}
+    .tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;}
+    .tool-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.25rem;}
+    .tool-name{font-family:var(--font-display);font-size:0.95rem;font-weight:700;margin-bottom:0.3rem;}
+    .tool-stars{font-family:var(--font-mono);font-size:0.65rem;color:var(--accent);margin-bottom:0.5rem;}
+    .tool-desc{font-size:0.82rem;color:#999;line-height:1.6;}
+    .for-you{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:4px;padding:1.5rem;}
+    .for-you-label{font-family:var(--font-mono);font-size:0.65rem;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.75rem;}
+    .for-you-body{font-size:0.88rem;color:#bbb;line-height:1.75;}
+    .for-you-body p{margin-bottom:0.75rem;}
+    .for-you-body p:last-child{margin-bottom:0;}
+    .pick-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.5rem;display:flex;gap:1.5rem;align-items:flex-start;}
+    .pick-number{font-family:var(--font-mono);font-size:2rem;color:var(--border);font-weight:700;flex-shrink:0;line-height:1;}
+    .pick-title{font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:0.4rem;}
+    .pick-desc{font-size:0.85rem;color:#999;line-height:1.6;}
+    .issue-nav{display:flex;justify-content:space-between;margin-top:4rem;padding-top:2rem;border-top:1px solid var(--border);}
+    .issue-nav a{font-family:var(--font-mono);font-size:0.75rem;color:var(--muted);text-decoration:none;}
+    .issue-nav a:hover{color:var(--accent);}
+    footer{text-align:center;padding:2rem;border-top:1px solid var(--border);font-family:var(--font-mono);font-size:0.7rem;color:var(--muted);}
+    footer a{color:var(--muted);text-decoration:none;margin:0 0.75rem;}
+    footer a:hover{color:var(--accent);}
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-logo">LPX</div>
+    <a href="/digest/" class="nav-back">← All issues</a>
+  </nav>
+  <div class="issue-wrap">
+    <div class="issue-meta">Issue #4 · 19 Jul 2026 · Weekly AI Digest</div>
+    <h1 class="issue-title">Open models<br>just ate the<br>frontier's lunch</h1>
+    <p class="issue-sub">Chinese open-weight models overtook US labs on downloads this week, Moonshot's Kimi K3 spooked Wall Street, and OpenAI answered with a three-tier GPT-5.6 family — all while the agent-tooling stack quietly kept shipping.</p>
+    <div class="digest-section">
+      <div class="digest-section-label">Big News</div>
+      <div class="story">
+        <div class="story-headline">Kimi K3 release rattles chip stocks</div>
+        <div class="story-body">Moonshot AI shipped Kimi K3 the same week Xi Jinping addressed the World AI Conference in Shanghai — the coincidence spooked Wall Street enough that the Nasdaq dropped about 1% on Friday as investors sold off Nvidia and other chip names.</div>
+        <div class="story-tags"><span class="story-tag">China</span><span class="story-tag">Markets</span></div>
+      </div>
+      <div class="story">
+        <div class="story-headline">Chinese open-weight models overtake the US on downloads</div>
+        <div class="story-body">Chinese open-weight models accounted for 41% of Hugging Face downloads this spring, and on OpenRouter the top six most-used models — from Tencent, Xiaomi, DeepSeek, MiniMax, and Z.ai — are all Chinese. The frontier race is increasingly happening outside the closed US labs.</div>
+        <div class="story-tags"><span class="story-tag">Open Source</span><span class="story-tag">Industry Shift</span></div>
+      </div>
+      <div class="story">
+        <div class="story-headline">OpenAI launches GPT-5.6 in three flavors</div>
+        <div class="story-body">OpenAI released GPT-5.6 as a family rather than a single model: Sol is the most powerful tier, Luna is built for speed, and Terra aims for a balance — alongside a new ChatGPT Work tool aimed at enterprise use.</div>
+        <div class="story-tags"><span class="story-tag">OpenAI</span><span class="story-tag">Model Release</span></div>
+      </div>
+      <div class="story">
+        <div class="story-headline">Thinking Machines ships its first open model</div>
+        <div class="story-body">Mira Murati's Thinking Machines released Inkling, its first open model, doubling down on a bet against one-size-fits-all AI — specialized models tuned for specific workloads rather than a single general-purpose giant.</div>
+        <div class="story-tags"><span class="story-tag">Open Source</span><span class="story-tag">New Lab</span></div>
+      </div>
+    </div>
+    <div class="digest-section">
+      <div class="digest-section-label">Tools Worth Knowing</div>
+      <div class="tool-grid">
+        <div class="tool-card">
+          <div class="tool-name">Microsoft Agent Framework</div>
+          <div class="tool-stars">1.0 STABLE · .NET + Python</div>
+          <div class="tool-desc">Now production-ready with a stable GitHub Copilot SDK v1.0, a Mistral embedding client, and refactored Skill APIs — Microsoft's answer to LangGraph and CrewAI for enterprise agent builds.</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">Featured MCP Server</div>
+          <div class="tool-stars">NOW GENERALLY AVAILABLE</div>
+          <div class="tool-desc">An MCP server that lets Claude, Cursor, and VS Code agents act directly inside a user's own PR co-pilot account instead of routing through a shared API key — a small but telling sign of where MCP auth patterns are heading.</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">OpenClaw</div>
+          <div class="tool-stars">210,000+ STARS</div>
+          <div class="tool-desc">The breakout open-source project of 2026 — surged from 9,000 to 60,000 stars in days after going viral in January, and hasn't stopped climbing since.</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">Browser Use</div>
+          <div class="tool-stars">~99,500 STARS</div>
+          <div class="tool-desc">Went from near-zero to ~99,500 GitHub stars in under 18 months. Browser-driving agents are now one of the fastest-growing categories in open-source AI tooling.</div>
+        </div>
+      </div>
+    </div>
+    <div class="digest-section">
+      <div class="digest-section-label">Wild Card</div>
+      <div class="story">
+        <div class="story-headline">A gadget to control your AI agents, not record you</div>
+        <div class="story-body">Ultrahuman's former hardware VP raised $5.5M for Aina, a startup building physical hardware specifically to control and trigger AI agents — a quiet bet that as agents take over more of daily computing, people will want a dedicated dial for them rather than another wearable that just listens.</div>
+        <div class="story-tags"><span class="story-tag">Hardware</span><span class="story-tag">Funding</span></div>
+      </div>
+    </div>
+    <div class="digest-section">
+      <div class="digest-section-label">For You — Pin Xiu</div>
+      <div class="for-you">
+        <div class="for-you-label">Personalised picks</div>
+        <div class="for-you-body">
+          <p><strong>Microsoft Agent Framework hitting 1.0 stable</strong> is worth watching closely — you're already running production agents (the Analyst Agent on VS Code Copilot, plus the agentic products you're shipping at GXS with Grab), and a stable, enterprise-backed framework with a proper Skill API is a real alternative to the custom scaffolding you've built by hand.</p>
+          <p><strong>Chinese open-weight models overtaking US downloads</strong> matters directly for your Streamlit apps — all five currently run on the Gemini API. If open models like Kimi K3 or DeepSeek variants keep closing the quality gap, they're a cheaper or self-hostable option worth benchmarking against, especially given how much you've already optimized for cost (the 60% Snowflake spend cut shows that instinct).</p>
+          <p><strong>The Featured MCP server going GA</strong> is a good data point for your own MCP habits — you're already wiring Notion MCP into your content workflow, and this is another example of MCP servers moving from shared-key integrations toward acting inside a user's own account, which is the direction your Analyst Agent's dbt/Snowflake access could evolve toward too.</p>
+        </div>
+      </div>
+    </div>
+    <div class="digest-section">
+      <div class="digest-section-label">Pick of the Week</div>
+      <div class="pick-card">
+        <div class="pick-number">01</div>
+        <div>
+          <div class="pick-title">Open-weight models just became the default, not the alternative</div>
+          <div class="pick-desc">41% of Hugging Face downloads and six of the top six OpenRouter models being Chinese open-weight releases isn't a niche trend anymore — it's a structural shift in where the frontier lives. Combined with Kimi K3 moving Nasdaq chip stocks, this is the story to track: the center of gravity in AI is shifting from a handful of closed US labs to an open, fast-moving, increasingly Chinese-led ecosystem.</div>
+        </div>
+      </div>
+    </div>
+    <div class="issue-nav">
+      <a href="/digest/">← All issues</a>
+      <a href="/">Back to portfolio ↗</a>
+    </div>
+  </div>
+  <footer>
+    <a href="/digest/">All Issues</a>
+    <a href="/">Portfolio</a>
+    <a href="https://www.linkedin.com/in/pin-xiu-lim-376b1b115/" target="_blank">LinkedIn</a>
+  </footer>
+</body>
+</html>

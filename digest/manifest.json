@@ -1,5 +1,14 @@
 [
   {
+    "issue": 4,
+    "date": "2026-07-19",
+    "dateDisplay": "19 Jul 2026",
+    "slug": "2026-07-19.html",
+    "title": "Open Models Just Ate the Frontier's Lunch",
+    "desc": "Chinese open-weight models overtake US labs on downloads, Kimi K3 spooks chip stocks, and OpenAI answers with a three-tier GPT-5.6 family.",
+    "tags": ["Open Source", "Models", "Agents"]
+  },
+  {
     "issue": 3,
     "date": "2026-07-12",
     "dateDisplay": "12 Jul 2026",
