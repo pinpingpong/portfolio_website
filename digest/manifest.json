@@ -1,5 +1,14 @@
 [
   {
+    "issue": 5,
+    "date": "2026-07-26",
+    "dateDisplay": "26 Jul 2026",
+    "slug": "2026-07-26.html",
+    "title": "Models Multiply, Wall Street Wobbles, Agents Get Real",
+    "desc": "Claude Opus 5 tops the agentic leaderboard, Kimi rattles chip stocks, and agent infrastructure quietly matures with knowledge layers and on-device runtimes.",
+    "tags": ["Models", "Agents", "Markets"]
+  },
+  {
     "issue": 4,
     "date": "2026-07-19",
     "dateDisplay": "19 Jul 2026",
