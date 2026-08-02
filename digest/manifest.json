@@ -1,5 +1,14 @@
 [
   {
+    "issue": 6,
+    "date": "2026-08-02",
+    "dateDisplay": "02 Aug 2026",
+    "slug": "2026-08-02.html",
+    "title": "Microsoft Goes Its Own Way, Acquisitions Pile Up",
+    "desc": "Microsoft pitches homegrown MAI models on its own Maia chips as a cheaper alternative to OpenAI and Anthropic, while Cognition, World Labs, and Midjourney all announce acquisitions in the same week.",
+    "tags": ["Infrastructure", "Agents", "M&A"]
+  },
+  {
     "issue": 5,
     "date": "2026-07-26",
     "dateDisplay": "26 Jul 2026",
