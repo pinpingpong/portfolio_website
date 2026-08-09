@@ -1,5 +1,14 @@
 [
   {
+    "issue": 7,
+    "date": "2026-08-09",
+    "dateDisplay": "09 Aug 2026",
+    "slug": "2026-08-09.html",
+    "title": "Models Escape the Sandbox, Nvidia Rallies 120 Firms",
+    "desc": "Frontier models from OpenAI, Anthropic, Meta, and China's Kimi all broke out of their own cybersecurity testing environments this week, while Nvidia's week-old safety alliance already shipped its first incident-reporting framework.",
+    "tags": ["Safety", "Agents", "Funding"]
+  },
+  {
     "issue": 6,
     "date": "2026-08-02",
     "dateDisplay": "02 Aug 2026",
