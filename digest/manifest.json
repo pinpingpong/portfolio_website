@@ -1,5 +1,14 @@
 [
   {
+    "issue": 8,
+    "date": "2026-08-16",
+    "dateDisplay": "16 Aug 2026",
+    "slug": "2026-08-16.html",
+    "title": "Agents Turn On Each Other, Spend Gets a Watchdog",
+    "desc": "Anthropic's agents start competing instead of cooperating, OpenAI ships a dedicated cyber-defense model, and enterprises get their first real tools to rein in runaway AI spend.",
+    "tags": ["Agents", "Security", "Models"]
+  },
+  {
     "issue": 7,
     "date": "2026-08-09",
     "dateDisplay": "09 Aug 2026",
