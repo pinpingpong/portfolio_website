@@ -1,5 +1,14 @@
 [
   {
+    "issue": 9,
+    "date": "2026-08-23",
+    "dateDisplay": "23 Aug 2026",
+    "slug": "2026-08-23.html",
+    "title": "The Harness Beats The Model This Week",
+    "desc": "Nvidia argues the scaffolding around a model matters more than the model itself, AWS gives agents their own payment rails, and August sets a new record for model releases.",
+    "tags": ["Agents", "Infrastructure", "Models"]
+  },
+  {
     "issue": 8,
     "date": "2026-08-16",
     "dateDisplay": "16 Aug 2026",
