@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Digest #10 — 2026-09-15</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root { --bg:#0a0a0a;--surface:#111111;--border:#1e1e1e;--text:#e8e8e8;--muted:#666;--accent:#c8ff00;--font-display:'Syne',sans-serif;--font-mono:'DM Mono',monospace;--font-body:'DM Sans',sans-serif; }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.7;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2.5rem;background:rgba(10,10,10,0.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+    .nav-logo{font-family:var(--font-display);font-weight:800;font-size:1rem;}
+    .nav-back{font-family:var(--font-mono);font-size:0.75rem;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+    .nav-back:hover{color:var(--accent);}
+    .issue-wrap{max-width:720px;margin:0 auto;padding:7rem 2.5rem 6rem;}
+    .issue-meta{font-family:var(--font-mono);font-size:0.7rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;}
+    .issue-title{font-family:var(--font-display);font-size:clamp(1.8rem,5vw,3rem);font-weight:800;line-height:1.1;margin-bottom:1rem;}
+    .issue-sub{font-size:0.95rem;color:var(--muted);margin-bottom:2.5rem;border-bottom:1px solid var(--border);padding-bottom:2rem;}
+    .digest-section{margin-bottom:3rem;}
+    .digest-section-label{font-family:var(--font-mono);font-size:0.65rem;color:var(--accent);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:1.25rem;}
+    .story{padding:1.25rem 0;border-bottom:1px solid var(--border);}
+    .story:last-child{border-bottom:none;}
+    .story-headline{font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:0.4rem;}
+    .story-body{font-size:0.88rem;color:#aaa;line-height:1.7;}
+    .story-tags{display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:0.6rem;}
+    .story-tag{font-family:var(--font-mono);font-size:0.62rem;border:1px solid var(--border);border-radius:2px;padding:0.12rem 0.45rem;color:var(--muted);}
+    .tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;}
+    .tool-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.25rem;}
+    .tool-name{font-family:var(--font-display);font-size:0.95rem;font-weight:700;margin-bottom:0.3rem;}
+    .tool-stars{font-family:var(--font-mono);font-size:0.65rem;color:var(--accent);margin-bottom:0.5rem;}
+    .tool-desc{font-size:0.82rem;color:#999;line-height:1.6;}
+    .for-you{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:4px;padding:1.5rem;}
+    .for-you-label{font-family:var(--font-mono);font-size:0.65rem;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.75rem;}
+    .for-you-body{font-size:0.88rem;color:#bbb;line-height:1.75;}
+    .for-you-body p{margin-bottom:0.75rem;}
+    .for-you-body p:last-child{margin-bottom:0;}
+    .pick-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.5rem;display:flex;gap:1.5rem;align-items:flex-start;}
+    .pick-number{font-family:var(--font-mono);font-size:2rem;color:var(--border);font-weight:700;flex-shrink:0;line-height:1;}
+    .pick-title{font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:0.4rem;}
+    .pick-desc{font-size:0.85rem;color:#999;line-height:1.6;}
+    .issue-nav{display:flex;justify-content:space-between;margin-top:4rem;padding-top:2rem;border-top:1px solid var(--border);}
+    .issue-nav a{font-family:var(--font-mono);font-size:0.75rem;color:var(--muted);text-decoration:none;}
+    .issue-nav a:hover{color:var(--accent);}
+    footer{text-align:center;padding:2rem;border-top:1px solid var(--border);font-family:var(--font-mono);font-size:0.7rem;color:var(--muted);}
+    footer a{color:var(--muted);text-decoration:none;margin:0 0.75rem;}
+    footer a:hover{color:var(--accent);}
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-logo">LPX</div>
+    <a href="/digest/" class="nav-back">← All issues</a>
+  </nav>
+  <div class="issue-wrap">
+    <div class="issue-meta">Issue #10 · 15 Sep 2026 · Weekly AI Digest</div>
+    <h1 class="issue-title">The Model Flood,<br>The Agent Land<br>Grab</h1>
+    <p class="issue-sub">Five frontier models land in two weeks, Nvidia moves to own the open-weight commons, and OpenAI stakes its claim on agents as the default way to control anything.</p>
+
+    <div class="digest-section">
+      <div class="digest-section-label">Big News</div>
+
+      <div class="story">
+        <div class="story-headline">Nvidia moves to buy Hugging Face for $13B, tightening its grip on open-weight AI</div>
+        <div class="story-body">Nvidia is reportedly in talks to acquire Hugging Face, the platform hosting most of the world's open-weight models and benchmarks, for roughly $13 billion. It's the clearest sign yet that owning the distribution layer for open models is becoming as strategically valuable as owning the chips underneath them.</div>
+        <div class="story-tags"><span class="story-tag">M&A</span><span class="story-tag">Infrastructure</span></div>
+      </div>
+
+      <div class="story">
+        <div class="story-headline">Five frontier labs ship new flagships inside two weeks</div>
+        <div class="story-body">Anthropic opened September with Claude Fable 5.1 and an invite-only Claude Mythos 5.1, Google and Meta followed a day later with Gemini 3.8 Flash and Muse Spark 1.3, OpenAI answered with GPT-6 Astra on September 3, and Sakana AI closed the run with Fugu Ultra v2.0 on September 11. Eleven new models have shipped from seven providers so far this month.</div>
+        <div class="story-tags"><span class="story-tag">Models</span><span class="story-tag">Anthropic</span><span class="story-tag">OpenAI</span></div>
+      </div>
+
+      <div class="story">
+        <div class="story-headline">OpenAI opens its Agents API, betting agents become the default control surface</div>
+        <div class="story-body">OpenAI exposed its Agents API and ChatGPT Work agent infrastructure this week, a move aimed squarely at device and hardware makers. The pitch: instead of building bespoke integrations for every product, let an agent be the interface — for your home, your desk, your workflow.</div>
+        <div class="story-tags"><span class="story-tag">Agents</span><span class="story-tag">OpenAI</span></div>
+      </div>
+
+      <div class="story">
+        <div class="story-headline">AI funding keeps setting records: $11B across 18 rounds in a single week</div>
+        <div class="story-body">Poolside raised $6B led by Nvidia, Mistral closed $3.5B at a $24.4B valuation, and Cognition — maker of the Devin coding agent — raised $2B at a $48B valuation, all in the week of September 7–13. Legal AI startup Harvey hit a $15.5B valuation, months after its last raise.</div>
+        <div class="story-tags"><span class="story-tag">Funding</span><span class="story-tag">Markets</span></div>
+      </div>
+    </div>
+
+    <div class="digest-section">
+      <div class="digest-section-label">Tools Worth Knowing</div>
+      <div class="tool-grid">
+        <div class="tool-card">
+          <div class="tool-name">Beyond the Chatbox</div>
+          <div class="tool-stars">Wavespace · design framework</div>
+          <div class="tool-desc">Replaces the single chat stream with generative UI — visible agent reasoning, explicit trust cues, and human approval checkpoints baked into task-specific interfaces instead of generic replies.</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">Agent skill registries</div>
+          <div class="tool-stars">Fast-growing category</div>
+          <div class="tool-desc">Standardized, security-validated skill marketplaces are maturing for Claude Code, Cursor, and Copilot — a step toward "npm for agent skills" rather than copy-pasted SOPs.</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">Local MoE inference engines</div>
+          <div class="tool-stars">Trending on GitHub</div>
+          <div class="tool-desc">A new wave of dependency-free, fully local inference engines for frontier mixture-of-experts models is gaining traction, letting commodity hardware run models once thought to need a data center.</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">DeepSeek-V4.1-Flash</div>
+          <div class="tool-stars">DeepSeek · new release</div>
+          <div class="tool-desc">The single tracked model release of the past seven days — an efficiency-focused flash variant continuing DeepSeek's push on cost-per-token rather than raw benchmark scores.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="digest-section">
+      <div class="digest-section-label">Wild Card</div>
+      <div class="story">
+        <div class="story-headline">Bending Spoons bought Miro for $1.3B — a fraction of its 2022 peak valuation</div>
+        <div class="story-body">Serial acquirer Bending Spoons picked up collaboration-board maker Miro for $1.3 billion, a steep markdown from the $17.5 billion Miro was valued at in 2022. A quiet reminder that in the AI era, even well-loved SaaS tools without a clear agentic story are getting repriced.</div>
+        <div class="story-tags"><span class="story-tag">M&A</span><span class="story-tag">SaaS</span></div>
+      </div>
+    </div>
+
+    <div class="digest-section">
+      <div class="digest-section-label">For You — Pin Xiu</div>
+      <div class="for-you">
+        <div class="for-you-label">Personalised picks</div>
+        <div class="for-you-body">
+          <p><strong>OpenAI's Agents API and the "agent as control surface" pitch</strong> land right on top of what you're doing at GXS — deploying agentic products in a regulated environment — and on your own Analyst Agent, which already treats a VS Code agent as the interface to Snowflake and dbt rather than a chat sidebar. Worth a skim for how OpenAI is standardizing the same pattern at platform scale.</p>
+          <p><strong>Agent skill registries maturing for Claude Code and Cursor</strong> is the exact problem your SKILL.md-based agents already solve informally — the Analyst Agent's dbt-aware SOP, the Digest Agent writing this issue, and your TikTok persona skill. A standardized, security-validated registry is worth watching as a distribution channel if you ever want to package and share any of them.</p>
+          <p><strong>Cognition's $48B raise on the back of Devin</strong> is a useful data point for your Career & Interview Intelligence workflow — it's a concrete signal of where investor conviction (and hiring budgets) are concentrating in agentic coding tools, which is directly adjacent to the "Orchestrated Analyst Agent" work you'd highlight in interviews.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="digest-section">
+      <div class="digest-section-label">Pick of the Week</div>
+      <div class="pick-card">
+        <div class="pick-number">01</div>
+        <div>
+          <div class="pick-title">Agents are being positioned as the default interface, not a feature</div>
+          <div class="pick-desc">OpenAI's Agents API push, the record agent-infrastructure funding, and even Nvidia's move on Hugging Face's distribution layer all point the same direction: the industry is racing to own the agent layer itself, not just the models underneath it. If you're building agents for a living, this is the week to notice where the platform bets are landing — and plan your own tooling choices accordingly.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="issue-nav">
+      <a href="/digest/">← All issues</a>
+      <a href="/">Back to portfolio ↗</a>
+    </div>
+  </div>
+  <footer>
+    <a href="/digest/">All Issues</a>
+    <a href="/">Portfolio</a>
+    <a href="https://www.linkedin.com/in/pin-xiu-lim-376b1b115/" target="_blank">LinkedIn</a>
+  </footer>
+</body>
+</html>

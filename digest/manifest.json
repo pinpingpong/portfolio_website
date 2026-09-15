@@ -1,5 +1,14 @@
 [
   {
+    "issue": 10,
+    "date": "2026-09-15",
+    "dateDisplay": "15 Sep 2026",
+    "slug": "2026-09-15.html",
+    "title": "The Model Flood, The Agent Land Grab",
+    "desc": "Nvidia moves to buy Hugging Face for $13B, five frontier labs ship new flagships in two weeks, and OpenAI stakes agents as the default control surface.",
+    "tags": ["Agents", "Models", "Funding"]
+  },
+  {
     "issue": 9,
     "date": "2026-08-23",
     "dateDisplay": "23 Aug 2026",
