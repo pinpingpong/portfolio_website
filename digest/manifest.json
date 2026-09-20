@@ -1,5 +1,14 @@
 [
   {
+    "issue": 11,
+    "date": "2026-09-21",
+    "dateDisplay": "21 Sep 2026",
+    "slug": "2026-09-21.html",
+    "title": "Rivals Huddle On Safety, A Model Skips Language",
+    "desc": "OpenAI, Anthropic, and Google quietly align on pacing frontier AI, a non-LLM model stuns developers with 5–18x speedups, and long-running agent infrastructure pulls in half a billion dollars.",
+    "tags": ["Safety", "Agents", "Funding"]
+  },
+  {
     "issue": 10,
     "date": "2026-09-15",
     "dateDisplay": "15 Sep 2026",
