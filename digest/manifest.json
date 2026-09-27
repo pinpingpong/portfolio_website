@@ -1,5 +1,14 @@
 [
   {
+    "issue": 12,
+    "date": "2026-09-27",
+    "dateDisplay": "27 Sep 2026",
+    "slug": "2026-09-27.html",
+    "title": "Frontier Models Start A Price War",
+    "desc": "Anthropic and OpenAI ship flagships 90 minutes apart and slash prices, Meta's Muse agent climbs the charts, and enterprises shift from building agents to governing them.",
+    "tags": ["Models", "Agents", "Pricing"]
+  },
+  {
     "issue": 11,
     "date": "2026-09-21",
     "dateDisplay": "21 Sep 2026",
