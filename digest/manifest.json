@@ -1,5 +1,14 @@
 [
   {
+    "issue": 13,
+    "date": "2026-10-04",
+    "dateDisplay": "04 Oct 2026",
+    "slug": "2026-10-04.html",
+    "title": "Agents Go Always-On, A Model Gets Benched",
+    "desc": "OpenAI launches always-on Dots agents but shelves GPT-6.1 Astra over safety failures, Google and Anthropic converge on $2/$10 pricing, and AMD buys World Labs for $8.2B.",
+    "tags": ["Agents", "Safety", "Models"]
+  },
+  {
     "issue": 12,
     "date": "2026-09-27",
     "dateDisplay": "27 Sep 2026",
