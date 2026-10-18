@@ -1,5 +1,14 @@
 [
   {
+    "issue": 14,
+    "date": "2026-10-11",
+    "dateDisplay": "11 Oct 2026",
+    "slug": "2026-10-11.html",
+    "title": "Small Models Go Cheap, Agents Get Inboxes",
+    "desc": "Haiku 5.5 drops to ten cents per million tokens, Google's Gemini agent gets its own Gmail and calendar, and Claude Dashboards builds live charts on Snowflake and Databricks.",
+    "tags": ["Models", "Agents", "Analytics"]
+  },
+  {
     "issue": 13,
     "date": "2026-10-04",
     "dateDisplay": "04 Oct 2026",
