@@ -1,5 +1,14 @@
 [
   {
+    "issue": 16,
+    "date": "2026-10-25",
+    "dateDisplay": "25 Oct 2026",
+    "slug": "2026-10-25.html",
+    "title": "Claude Duet Arrives As Banks Push Back On Agents",
+    "desc": "Anthropic previews Claude Duet, OpenAI's models arrive on Google Cloud, OpenAI and DeepSeek chase giant new rounds, and US banks find unvetted AI agents inside customer accounts.",
+    "tags": ["Agents", "Funding", "Security"]
+  },
+  {
     "issue": 15,
     "date": "2026-10-18",
     "dateDisplay": "18 Oct 2026",
