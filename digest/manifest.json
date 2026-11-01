@@ -1,5 +1,14 @@
 [
   {
+    "issue": 17,
+    "date": "2026-11-01",
+    "dateDisplay": "01 Nov 2026",
+    "slug": "2026-11-01.html",
+    "title": "Anthropic Files To Go Public As OpenAI Trims Its Round",
+    "desc": "Anthropic's S-1 shows $16.3B in half-year revenue, OpenAI cuts its raise to $20B as AI stocks slide, Apple picks Qwen for China, and a startup's agents found a way into Anthropic's business systems in under 12 hours.",
+    "tags": ["IPO", "Funding", "Security"]
+  },
+  {
     "issue": 16,
     "date": "2026-10-25",
     "dateDisplay": "25 Oct 2026",
