@@ -531,28 +531,28 @@
               <span class="agent-badge">Personal</span>
             </div>
             <p class="card-desc">
-              The buying half of my Renovation AI Agent. Given a short brief (one shower set,
-              one bathroom basin tap, one kitchen tap), Claude browses Shopee and Amazon.de
-              page by page like a human shopper, keeps only listings that ship to Singapore,
-              and logs every model, variant and price into one Google Sheet. It then matches
-              equivalent products across platforms, benchmarks them against local brand Rigel,
-              and recommends what to buy where, including whether a premium brand like
-              Hansgrohe is worth the splurge.
+              The buying half of my 5-room HDB renovation. I directed Claude in a live browser
+              session to act as a personal shopper across Amazon.de, Shopee and Taobao/Tmall
+              (three currencies, three sets of shipping rules). It collected about 1,400
+              Hansgrohe and Rigel listings, converted each to a delivered SGD cost, and kept a
+              multi-tab comparison synced to my Google Sheet. The result was a costed buying plan:
+              Hansgrohe in the master bath and kitchen, Rigel in the common bath, for S$1,780.
+              That's about S$500 less than going all-Hansgrohe.
             </p>
             <div class="agent-highlights">
-              <div class="highlight-item"><span class="highlight-dot"></span><span>Navigates listings in English and German, including variant menus and per-SKU pricing</span></div>
-              <div class="highlight-item"><span class="highlight-dot"></span><span>Matches the same fitting across platforms despite different names and specs (spout type, pull-out, thermostatic vs manual)</span></div>
-              <div class="highlight-item"><span class="highlight-dot"></span><span>Compares delivered cost in SGD (shipping and GST included), not just list price</span></div>
-              <div class="highlight-item"><span class="highlight-dot"></span><span>Splurge-or-save call: weighs imported Hansgrohe against local Rigel on price gap, specs, warranty and local servicing</span></div>
-              <div class="highlight-item"><span class="highlight-dot"></span><span>Limitation: Taobao flags automated browsing, so Taobao options are added manually and compared alongside the rest</span></div>
+              <div class="highlight-item"><span class="highlight-dot"></span><span>Collected full official-store catalogues: ~1,060 Amazon.de listings, 152 Tmall, 90 Hansgrohe and 137 Rigel on Shopee</span></div>
+              <div class="highlight-item"><span class="highlight-dot"></span><span>Checked other sellers on 1,000+ Amazon listings and found 300+ items that ship to Singapore only through third-party sellers</span></div>
+              <div class="highlight-item"><span class="highlight-dot"></span><span>Extracted model numbers, flagged 128 US-market versions and generic Taobao taps that can't be compared like-for-like</span></div>
+              <div class="highlight-item"><span class="highlight-dot"></span><span>Found the same Hansgrohe taps 40–55% cheaper on Amazon.de than on Shopee (Vivenis S$222 vs S$395)</span></div>
+              <div class="highlight-item"><span class="highlight-dot"></span><span>Human in the loop: I handled logins and verification steps. After Tmall flagged fast page loads, the agent slowed down and never tried to bypass a security check</span></div>
             </div>
             <div class="card-stack">
               <span class="stack-tag">Claude</span>
               <span class="stack-tag">Browser Agent</span>
-              <span class="stack-tag">Google Sheets</span>
-              <span class="stack-tag">Cross-border Pricing</span>
-              <span class="stack-tag">Brand Benchmarking</span>
-              <span class="stack-tag">Prompt Engineering</span>
+              <span class="stack-tag">JavaScript Extraction</span>
+              <span class="stack-tag">Python</span>
+              <span class="stack-tag">Google Sheets API</span>
+              <span class="stack-tag">Claude Sheets</span>
             </div>
           </div>
         </div>
