@@ -31,6 +31,7 @@
       <a href="#experience">Experience</a>
       <a href="#projects">Apps</a>
       <a href="#agents">Agents</a>
+      <a href="#tools">Tools</a>
       <a href="#workflow">Workflow</a>
       <a href="#digest">Digest</a>
       <a href="https://www.linkedin.com/in/pin-xiu-lim-376b1b115/" target="_blank">LinkedIn ↗</a>
@@ -559,6 +560,55 @@
   <!-- ── SECTION DIVIDER ── -->
   <div class="section-divider">
     <span class="divider-line"></span>
+    <span class="divider-label">Next: Built with AI</span>
+    <span class="divider-line"></span>
+  </div>
+
+  <!-- ── BUILT WITH AI (tools) ── -->
+  <section id="tools">
+    <div class="section-inner">
+      <div class="section-label reveal">05 / Built with AI</div>
+      <h2 class="section-title reveal">Everyday<br>Tools</h2>
+      <p class="agents-intro reveal">
+        Small utilities I built with AI as a coding partner. No AI runs inside them.
+        They exist to fix a specific annoyance in my own setup.
+      </p>
+
+      <div class="projects-grid">
+
+        <!-- Tool 1: Claude Usage Menu Bar -->
+        <div class="project-card reveal">
+          <div class="card-body">
+            <div class="card-number">TOOL — 01</div>
+            <div class="card-title">Claude Usage Menu Bar</div>
+            <p class="card-desc">
+              A macOS menu bar widget that shows my Claude plan usage (5-hour session and weekly)
+              with reset times, so I can pace heavy Claude Code sessions without checking
+              settings. Reuses the existing Claude Code login from Keychain, so there's no extra
+              setup or API key.
+            </p>
+            <div class="card-stack">
+              <span class="stack-tag">Python</span>
+              <span class="stack-tag">SwiftBar</span>
+              <span class="stack-tag">macOS Keychain</span>
+              <span class="stack-tag">Built with Claude Code</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a href="https://github.com/pinpingpong/claude-usage-menubar" target="_blank" class="btn-github">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION DIVIDER ── -->
+  <div class="section-divider">
+    <span class="divider-line"></span>
     <span class="divider-label">Next: AI Workflow</span>
     <span class="divider-line"></span>
   </div>
@@ -566,7 +616,7 @@
   <!-- ── AI WORKFLOW ── -->
   <section id="workflow">
     <div class="section-inner">
-      <div class="section-label reveal">05 / AI Workflow</div>
+      <div class="section-label reveal">06 / AI Workflow</div>
       <h2 class="section-title reveal">How I Use<br>AI Daily</h2>
       <p class="agents-intro reveal">
         Beyond building — how AI is woven into how I actually work, create, and live.
@@ -652,6 +702,33 @@
           </div>
         </div>
 
+        <!-- Workflow 4: Weekly YouTube Upload Tracker -->
+        <div class="workflow-card reveal">
+          <div class="workflow-tag">Scheduled Automation</div>
+          <div class="workflow-title">Weekly YouTube Upload Tracker</div>
+          <p class="workflow-desc">
+            I watch a handful of YouTube channels and was checking each one by hand every week for
+            new videos. Now a Claude Code cloud routine does it every Saturday morning: it checks all
+            four sources for the past week's uploads, applies per-source filters, and sends me an email
+            digest plus a phone notification. No custom agent.
+            The work is in the prompt spec, source handling, filtering logic and failure handling,
+            tested end to end.
+          </p>
+          <div class="workflow-highlights">
+            <div class="highlight-item"><span class="highlight-dot"></span><span>Free YouTube RSS feeds, no API key or quota. Falls back to parsing the channel page where RSS only covers 15 items</span></div>
+            <div class="highlight-item"><span class="highlight-dot"></span><span>Per-source filters: drops podcasts and livestreams on one channel, keeps a single show from a high-volume network channel</span></div>
+            <div class="highlight-item"><span class="highlight-dot"></span><span>Reports a failed fetch per source instead of a false "0 new", and always sends, even with zero results</span></div>
+            <div class="highlight-item"><span class="highlight-dot"></span><span>First run hit a 403 from the cloud sandbox's network proxy. Failure alerts still arrived, proving delivery worked; allowlisting youtube.com fixed it</span></div>
+          </div>
+          <div class="workflow-stack">
+            <span class="stack-tag">Claude Code Routines</span>
+            <span class="stack-tag">Gmail MCP</span>
+            <span class="stack-tag">YouTube RSS</span>
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">Workflow Design</span>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -666,7 +743,7 @@
   <!-- ── AI DIGEST ── -->
   <section id="digest">
     <div class="section-inner">
-      <div class="section-label reveal">06 / AI Digest</div>
+      <div class="section-label reveal">07 / AI Digest</div>
       <h2 class="section-title reveal">Weekly<br>AI Digest</h2>
       <p class="agents-intro reveal">
         A weekly sweep of what's moving in AI — models, tools, research, and the wild cards.
