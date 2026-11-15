@@ -78,15 +78,15 @@
       <!-- Counts are filled from the cards on this page, so they stay in sync as work is added -->
       <div class="hero-stats reveal">
         <a href="#projects" class="stat-item">
-          <div class="stat-number" data-count="#projects .project-card">6</div>
+          <div class="stat-number" data-count="#projects .work-row">6</div>
           <div class="stat-label">Live Apps</div>
         </a>
         <a href="#agents" class="stat-item">
-          <div class="stat-number" data-count="#agents .project-card">4</div>
+          <div class="stat-number" data-count="#agents .work-row">4</div>
           <div class="stat-label">AI Agents</div>
         </a>
         <a href="#workflow" class="stat-item">
-          <div class="stat-number" data-count="#workflow .workflow-card">4</div>
+          <div class="stat-number" data-count="#workflow .work-row">4</div>
           <div class="stat-label">AI Workflows</div>
         </a>
         <a href="#digest" class="stat-item">
@@ -101,19 +101,26 @@
   <section id="projects">
     <div class="section-inner">
       <div class="section-label reveal">01 / Apps</div>
-      <h2 class="section-title reveal">Live<br>Applications</h2>
+      <h2 class="section-title reveal">Live Applications</h2>
       <p class="agents-intro reveal">
         Built from personal curiosity, real frustrations, and things I genuinely care about —
         each app started as something I wanted to exist, so I built it.
       </p>
 
-      <div class="projects-grid">
+      <div class="work-list">
 
         <!-- Project 1: AWS AI Tutor -->
-        <div class="project-card reveal">
-          <div class="card-body">
-            <div class="card-number">PROJECT — 01</div>
-            <div class="card-title">AWS AI Certification Tutor</div>
+        <details class="work-row reveal" data-title="AWS AI Certification Tutor">
+          <summary>
+            <span class="row-num">01</span>
+            <span class="row-main">
+              <span class="row-title">AWS AI Certification Tutor</span>
+              <span class="row-line">Practice questions and explanations that adapt to your weak areas.</span>
+            </span>
+            <span class="row-meta">Gemini · Streamlit</span>
+            <span class="row-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="row-body">
             <p class="card-desc">
               An interactive AI-powered study companion that generates
               practice questions, explains AWS ML concepts, and adapts
@@ -127,7 +134,6 @@
               <span class="stack-tag">Jina AI</span>
               <span class="stack-tag">Prompt Engineering</span>
             </div>
-          </div>
           <div class="card-footer">
             <a href="https://px-aws-tutor.streamlit.app/" target="_blank" class="btn-launch">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -139,13 +145,22 @@
             </a>
           </div>
           <div class="card-note">Hosted on Streamlit's free tier. If it's asleep, click "Yes, get this app back up" and give it about 30 seconds.</div>
-        </div>
+        
+          </div>
+        </details>
 
         <!-- Project 2: TikTok Analytics -->
-        <div class="project-card reveal">
-          <div class="card-body">
-            <div class="card-number">PROJECT — 02</div>
-            <div class="card-title">TikTok Analytics Dashboard</div>
+        <details class="work-row reveal" data-title="TikTok Analytics Dashboard">
+          <summary>
+            <span class="row-num">02</span>
+            <span class="row-main">
+              <span class="row-title">TikTok Analytics Dashboard</span>
+              <span class="row-line">TikTok performance data in, engagement trends and AI-written recommendations out.</span>
+            </span>
+            <span class="row-meta">Plotly · LLM insights</span>
+            <span class="row-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="row-body">
             <p class="card-desc">
               A data analytics web app that ingests TikTok performance
               data and surfaces actionable insights on engagement trends,
@@ -161,7 +176,6 @@
               <span class="stack-tag">Gemini API</span>
               <span class="stack-tag">Prompt Engineering</span>
             </div>
-          </div>
           <div class="card-footer">
             <a href="https://px-tiktok-strategist.streamlit.app/" target="_blank" class="btn-launch">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -173,13 +187,22 @@
             </a>
           </div>
           <div class="card-note">Hosted on Streamlit's free tier. If it's asleep, click "Yes, get this app back up" and give it about 30 seconds.</div>
-        </div>
+        
+          </div>
+        </details>
 
         <!-- Project 3: BaZi Reader -->
-        <div class="project-card reveal">
-          <div class="card-body">
-            <div class="card-number">PROJECT — 03</div>
-            <div class="card-title">AI BaZi Reader</div>
+        <details class="work-row reveal" data-title="AI BaZi Reader">
+          <summary>
+            <span class="row-num">03</span>
+            <span class="row-main">
+              <span class="row-title">AI BaZi Reader</span>
+              <span class="row-line">A Four Pillars chart from your birth details, then a personalised reading you can chat with.</span>
+            </span>
+            <span class="row-meta">Gemini · Chat</span>
+            <span class="row-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="row-body">
             <p class="card-desc">
               An AI-powered Chinese astrology app that generates a full BaZi
               (Four Pillars of Destiny) chart from a user's birth date and time,
@@ -193,7 +216,6 @@
               <span class="stack-tag">Prompt Engineering</span>
               <span class="stack-tag">Chinese Metaphysics</span>
             </div>
-          </div>
           <div class="card-footer">
             <a href="https://px-bazireader.streamlit.app/" target="_blank" class="btn-launch">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -205,13 +227,22 @@
             </a>
           </div>
           <div class="card-note">Hosted on Streamlit's free tier. If it's asleep, click "Yes, get this app back up" and give it about 30 seconds.</div>
-        </div>
+        
+          </div>
+        </details>
 
         <!-- Project 4: AI Twin -->
-        <div class="project-card reveal">
-          <div class="card-body">
-            <div class="card-number">PROJECT — 04</div>
-            <div class="card-title">AI Twin Recruiter Chatbot</div>
+        <details class="work-row reveal" data-title="AI Twin Recruiter Chatbot">
+          <summary>
+            <span class="row-num">04</span>
+            <span class="row-main">
+              <span class="row-title">AI Twin Recruiter Chatbot</span>
+              <span class="row-line">Ask "me" about my work. RAG over this site, running in the corner of this page.</span>
+            </span>
+            <span class="row-meta">RAG · Pinecone</span>
+            <span class="row-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="row-body">
             <p class="card-desc">
               A digital twin that lets visitors ask "me" about my work directly on this site.
               Built with RAG: the published content of this site (project write-ups, workflows,
@@ -228,7 +259,6 @@
               <span class="stack-tag">Vanilla JS</span>
               <span class="stack-tag">Prompt Engineering</span>
             </div>
-          </div>
           <div class="card-footer">
             <button class="btn-launch" onclick="document.getElementById('chat-btn').click(); this.closest('section').scrollIntoView();">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -239,13 +269,22 @@
               GitHub
             </a>
           </div>
-        </div>
+        
+          </div>
+        </details>
 
         <!-- Project 5: Content Analytics Agent -->
-        <div class="project-card reveal">
-          <div class="card-body">
-            <div class="card-number">PROJECT — 05</div>
-            <div class="card-title">Content Analytics Agent</div>
+        <details class="work-row reveal" data-title="Content Analytics Agent">
+          <summary>
+            <span class="row-num">05</span>
+            <span class="row-main">
+              <span class="row-title">Content Analytics Agent</span>
+              <span class="row-line">Plain-English questions in, guardrailed SQL, results and a chart out.</span>
+            </span>
+            <span class="row-meta">NL-to-SQL · DuckDB</span>
+            <span class="row-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="row-body">
             <p class="card-desc">
               A conversational AI agent over social/content analytics data,
               expanded from my TikTok Analytics Dashboard into a case-study
@@ -264,7 +303,6 @@
               <span class="stack-tag">NL-to-SQL</span>
               <span class="stack-tag">Prompt Engineering</span>
             </div>
-          </div>
           <div class="card-footer">
             <a href="https://px-content-analytics-agent.streamlit.app/" target="_blank" class="btn-launch">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -276,13 +314,22 @@
             </a>
           </div>
           <div class="card-note">Hosted on Streamlit's free tier. If it's asleep, click "Yes, get this app back up" and give it about 30 seconds.</div>
-        </div>
+        
+          </div>
+        </details>
 
         <!-- Project 6: Renovation AI Agent -->
-        <div class="project-card reveal">
-          <div class="card-body">
-            <div class="card-number">PROJECT — 06</div>
-            <div class="card-title">Renovation AI Agent</div>
+        <details class="work-row reveal" data-title="Renovation AI Agent">
+          <summary>
+            <span class="row-num">06</span>
+            <span class="row-main">
+              <span class="row-title">Renovation AI Agent</span>
+              <span class="row-line">Supplier links and design rules in, whole-room schemes rendered onto your room photo.</span>
+            </span>
+            <span class="row-meta">Multimodal · Gemini</span>
+            <span class="row-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="row-body">
             <p class="card-desc">
               An interior design copilot born from renovating my own 5-room BTO in a
               zero-wood Desert Modernism style. Paste real supplier catalogue links
@@ -301,7 +348,6 @@
               <span class="stack-tag">Structured Outputs</span>
               <span class="stack-tag">Prompt Engineering</span>
             </div>
-          </div>
           <div class="card-footer">
             <a href="https://px-renovation-ai-agent.streamlit.app/" target="_blank" class="btn-launch">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -313,7 +359,9 @@
             </a>
           </div>
           <div class="card-note">Hosted on Streamlit's free tier. If it's asleep, click "Yes, get this app back up" and give it about 30 seconds.</div>
-        </div>
+        
+          </div>
+        </details>
 
       </div>
     </div>
@@ -330,22 +378,26 @@
   <section id="agents">
     <div class="section-inner">
       <div class="section-label reveal">02 / Agents</div>
-      <h2 class="section-title reveal">AI<br>Agents</h2>
+      <h2 class="section-title reveal">AI Agents</h2>
       <p class="agents-intro reveal">
         Agents built for actual workflows — some for personal projects, some for my day job.
         Personal agents include source code; day-job agents are shared as case studies only.
       </p>
 
-      <div class="projects-grid">
+      <div class="work-list">
 
         <!-- Agent 1: Analyst Agent -->
-        <div class="project-card reveal">
-          <div class="card-body">
-            <div class="card-number">AGENT — 01</div>
-            <div class="card-header-row">
-              <div class="card-title">Analyst Agent</div>
-              <span class="agent-badge">Local · Enterprise</span>
-            </div>
+        <details class="work-row reveal" data-title="Analyst Agent">
+          <summary>
+            <span class="row-num">01</span>
+            <span class="row-main">
+              <span class="row-title">Analyst Agent</span>
+              <span class="row-line">A VS Code agent: question in, Snowflake queries, notebook and slide deck out.</span>
+            </span>
+            <span class="row-meta">Local · Enterprise</span>
+            <span class="row-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="row-body">
             <p class="card-desc">
               A VS Code Copilot agent that turns natural language questions into
               full analyses — querying Snowflake directly, generating Jupyter
@@ -368,17 +420,22 @@
               <span class="stack-tag">Jupyter Notebooks</span>
               <span class="stack-tag">Bash</span>
             </div>
+        
           </div>
-        </div>
+        </details>
 
         <!-- Agent 2: MapleStory Idle Daily Agent -->
-        <div class="project-card reveal">
-          <div class="card-body">
-            <div class="card-number">AGENT — 02</div>
-            <div class="card-header-row">
-              <div class="card-title">MapleStory R Idle Daily Agent</div>
-              <span class="agent-badge">Personal</span>
-            </div>
+        <details class="work-row reveal" data-title="MapleStory R Idle Daily Agent">
+          <summary>
+            <span class="row-num">02</span>
+            <span class="row-main">
+              <span class="row-title">MapleStory R Idle Daily Agent</span>
+              <span class="row-line">Plays my daily game routine hands-free through computer use, on a schedule.</span>
+            </span>
+            <span class="row-meta">Personal</span>
+            <span class="row-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="row-body">
             <p class="card-desc">
               A fully hands-free AI agent that plays my MapleStory R Idle daily routine on BlueStacks —
               because life's too short for repetitive tapping. Claude takes control of the screen each day
@@ -398,17 +455,22 @@
               <span class="stack-tag">Claude Routines</span>
               <span class="stack-tag">Prompt Engineering</span>
             </div>
+        
           </div>
-        </div>
+        </details>
 
         <!-- Agent 3: AI Digest Agent -->
-        <div class="project-card reveal">
-          <div class="card-body">
-            <div class="card-number">AGENT — 03</div>
-            <div class="card-header-row">
-              <div class="card-title">Weekly AI Digest Agent</div>
-              <span class="agent-badge">Personal</span>
-            </div>
+        <details class="work-row reveal" data-title="Weekly AI Digest Agent">
+          <summary>
+            <span class="row-num">03</span>
+            <span class="row-main">
+              <span class="row-title">Weekly AI Digest Agent</span>
+              <span class="row-line">Researches AI news every week and publishes the issue to this site by itself.</span>
+            </span>
+            <span class="row-meta">Personal</span>
+            <span class="row-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="row-body">
             <p class="card-desc">
               A scheduled agent that autonomously scrapes AI news each week,
               generates a styled HTML newsletter, and publishes it directly to this
@@ -430,17 +492,22 @@
               <span class="stack-tag">GitHub API</span>
               <span class="stack-tag">Vercel</span>
             </div>
+        
           </div>
-        </div>
+        </details>
 
         <!-- Agent 4: AI-Assisted Price Intelligence -->
-        <div class="project-card reveal">
-          <div class="card-body">
-            <div class="card-number">AGENT — 04</div>
-            <div class="card-header-row">
-              <div class="card-title">AI-Assisted Price Intelligence</div>
-              <span class="agent-badge">Personal · Case Study</span>
-            </div>
+        <details class="work-row reveal" data-title="AI-Assisted Price Intelligence">
+          <summary>
+            <span class="row-num">04</span>
+            <span class="row-main">
+              <span class="row-title">AI-Assisted Price Intelligence</span>
+              <span class="row-line">Compared ~1,400 tap listings across 3 marketplaces and saved about S$500.</span>
+            </span>
+            <span class="row-meta">Personal · Case Study</span>
+            <span class="row-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="row-body">
             <p class="card-desc">
               A Claude browser session I directed as a personal shopper for my HDB renovation,
               comparing ~1,400 Hansgrohe and Rigel listings across Amazon.de, Shopee and Tmall
@@ -460,8 +527,9 @@
               <span class="stack-tag">Python</span>
               <span class="stack-tag">Google Sheets API</span>
             </div>
+        
           </div>
-        </div>
+        </details>
 
       </div>
     </div>
@@ -478,19 +546,26 @@
   <section id="tools">
     <div class="section-inner">
       <div class="section-label reveal">03 / Built with AI</div>
-      <h2 class="section-title reveal">Everyday<br>Tools</h2>
+      <h2 class="section-title reveal">Everyday Tools</h2>
       <p class="agents-intro reveal">
         Small utilities I built with AI as a coding partner. No AI runs inside them.
         They exist to fix a specific annoyance in my own setup.
       </p>
 
-      <div class="projects-grid">
+      <div class="work-list">
 
         <!-- Tool 1: Claude Usage Menu Bar -->
-        <div class="project-card reveal">
-          <div class="card-body">
-            <div class="card-number">TOOL — 01</div>
-            <div class="card-title">Claude Usage Menu Bar</div>
+        <details class="work-row reveal" data-title="Claude Usage Menu Bar">
+          <summary>
+            <span class="row-num">01</span>
+            <span class="row-main">
+              <span class="row-title">Claude Usage Menu Bar</span>
+              <span class="row-line">A macOS menu bar widget showing my Claude plan usage and reset times.</span>
+            </span>
+            <span class="row-meta">Python · SwiftBar</span>
+            <span class="row-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="row-body">
             <p class="card-desc">
               A macOS menu bar widget that shows my Claude plan usage (5-hour session and weekly)
               with reset times, so I can pace heavy Claude Code sessions without checking
@@ -503,14 +578,15 @@
               <span class="stack-tag">macOS Keychain</span>
               <span class="stack-tag">Built with Claude Code</span>
             </div>
-          </div>
           <div class="card-footer">
             <a href="https://github.com/pinpingpong/claude-usage-menubar" target="_blank" class="btn-github">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
               GitHub
             </a>
           </div>
-        </div>
+        
+          </div>
+        </details>
 
       </div>
     </div>
@@ -527,18 +603,26 @@
   <section id="workflow">
     <div class="section-inner">
       <div class="section-label reveal">04 / AI Workflow</div>
-      <h2 class="section-title reveal">How I Use<br>AI Daily</h2>
+      <h2 class="section-title reveal">How I Use AI Daily</h2>
       <p class="agents-intro reveal">
         Beyond building — how AI is woven into how I actually work, create, and live.
         These aren't projects; they're habits.
       </p>
 
-      <div class="workflow-grid">
+      <div class="work-list">
 
         <!-- Workflow 1: TikTok Content -->
-        <div class="workflow-card reveal">
-          <div class="workflow-tag">Content Creation</div>
-          <div class="workflow-title">TikTok Content Workflow</div>
+        <details class="work-row reveal" data-title="TikTok Content Workflow">
+          <summary>
+            <span class="row-num">01</span>
+            <span class="row-main">
+              <span class="row-title">TikTok Content Workflow</span>
+              <span class="row-line">A Claude persona plus a Notion calendar run my content planning and scripts.</span>
+            </span>
+            <span class="row-meta">Content Creation</span>
+            <span class="row-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="row-body">
           <p class="workflow-desc">
             My entire TikTok content operation runs through Claude and Notion. I designed a custom
             content persona (<code>SKILL.md</code>) that nails my voice — grounded, casual, no AI buzzwords —
@@ -557,12 +641,22 @@
             <span class="stack-tag">Prompt Engineering</span>
             <span class="stack-tag">Workflow Design</span>
           </div>
-        </div>
+        
+          </div>
+        </details>
 
         <!-- Workflow 2: Personal Finance Pipeline -->
-        <div class="workflow-card reveal">
-          <div class="workflow-tag">Data Engineering</div>
-          <div class="workflow-title">Personal Finance Pipeline</div>
+        <details class="work-row reveal" data-title="Personal Finance Pipeline">
+          <summary>
+            <span class="row-num">02</span>
+            <span class="row-main">
+              <span class="row-title">Personal Finance Pipeline</span>
+              <span class="row-line">80 bank statement PDFs turned into a clean, redacted, interactive dashboard.</span>
+            </span>
+            <span class="row-meta">Data Engineering</span>
+            <span class="row-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="row-body">
           <p class="workflow-desc">
             Turned 80 PDF bank statements across 5 Singapore banks into a clean, structured financial picture —
             with Claude handling the messy parts: OCR on scanned HSBC images, iterative PII redaction
@@ -583,12 +677,22 @@
             <span class="stack-tag">Data Cleaning</span>
             <span class="stack-tag">HTML Dashboard</span>
           </div>
-        </div>
+        
+          </div>
+        </details>
 
         <!-- Workflow 3: Career & Interview Intelligence -->
-        <div class="workflow-card reveal">
-          <div class="workflow-tag">Career Strategy</div>
-          <div class="workflow-title">Career & Interview Intelligence</div>
+        <details class="work-row reveal" data-title="Career & Interview Intelligence">
+          <summary>
+            <span class="row-num">03</span>
+            <span class="row-main">
+              <span class="row-title">Career & Interview Intelligence</span>
+              <span class="row-line">A private Claude Project that maps every interview answer to real evidence.</span>
+            </span>
+            <span class="row-meta">Career Strategy</span>
+            <span class="row-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="row-body">
           <p class="workflow-desc">
             A persistent Claude Project holding my resume and four years of peer evaluations,
             kept private and used only by me.
@@ -610,12 +714,22 @@
             <span class="stack-tag">Research Synthesis</span>
             <span class="stack-tag">Evidence Mapping</span>
           </div>
-        </div>
+        
+          </div>
+        </details>
 
         <!-- Workflow 4: Weekly YouTube Upload Tracker -->
-        <div class="workflow-card reveal">
-          <div class="workflow-tag">Scheduled Automation</div>
-          <div class="workflow-title">Weekly YouTube Upload Tracker</div>
+        <details class="work-row reveal" data-title="Weekly YouTube Upload Tracker">
+          <summary>
+            <span class="row-num">04</span>
+            <span class="row-main">
+              <span class="row-title">Weekly YouTube Upload Tracker</span>
+              <span class="row-line">A Saturday routine that checks 4 channels and emails me what's new.</span>
+            </span>
+            <span class="row-meta">Scheduled Automation</span>
+            <span class="row-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="row-body">
           <p class="workflow-desc">
             I watch a handful of YouTube channels and was checking each one by hand every week for
             new videos. Now a Claude Code cloud routine does it every Saturday morning: it checks all
@@ -637,7 +751,9 @@
             <span class="stack-tag">Python</span>
             <span class="stack-tag">Workflow Design</span>
           </div>
-        </div>
+        
+          </div>
+        </details>
 
       </div>
     </div>
@@ -654,7 +770,7 @@
   <section id="digest">
     <div class="section-inner">
       <div class="section-label reveal">05 / AI Digest</div>
-      <h2 class="section-title reveal">Weekly<br>AI Digest</h2>
+      <h2 class="section-title reveal">Weekly AI Digest</h2>
       <p class="agents-intro reveal">
         A weekly sweep of what's moving in AI — models, tools, research, and the wild cards.
         Curated and written by a scheduled Claude agent. Published here automatically every week.
@@ -681,7 +797,7 @@
   <section id="experience">
     <div class="section-inner">
       <div class="section-label reveal">06 / Experience</div>
-      <h2 class="section-title reveal">Career<br>Timeline</h2>
+      <h2 class="section-title reveal">Career Timeline</h2>
 
       <div class="timeline">
 
@@ -817,7 +933,7 @@
     reveals.forEach(el => observer.observe(el));
 
     // Stagger siblings in same parent
-    document.querySelectorAll('.timeline-item.reveal, .project-card.reveal').forEach((el, i) => {
+    document.querySelectorAll('.timeline-item.reveal, .work-row.reveal').forEach((el, i) => {
       el.style.transitionDelay = `${(i % 3) * 100}ms`;
     });
 
@@ -844,7 +960,8 @@
       if (n) el.textContent = n;
     });
 
-    // Digest preview — load latest issue from manifest.json
+    // Digest preview: latest issue as a card, the 2 before it as rows beside it
+    const esc = v => String(v).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
     fetch('/digest/manifest.json')
       .then(r => r.json())
       .then(issues => {
@@ -852,16 +969,26 @@
         const latest = issues[0];
         if (!latest) return;
         const grid = document.getElementById('digest-preview');
+        const earlier = issues.slice(1, 3).map(i => `
+            <a href="/digest/${esc(i.slug)}" class="digest-row">
+              <span class="row-num">#${esc(i.issue)}</span>
+              <span class="row-main">
+                <span class="row-title">${esc(i.title)}</span>
+                <span class="row-line">${esc(i.dateDisplay)}</span>
+              </span>
+              <span class="digest-row-arrow" aria-hidden="true">→</span>
+            </a>`).join('');
         grid.innerHTML = `
-          <a href="/digest/${latest.slug}" class="digest-preview-card reveal">
-            <div class="digest-preview-meta">Issue #${latest.issue} · ${latest.dateDisplay}</div>
-            <div class="digest-preview-title">${latest.title}</div>
-            <div class="digest-preview-desc">${latest.desc}</div>
+          <a href="/digest/${esc(latest.slug)}" class="digest-preview-card reveal">
+            <div class="digest-preview-meta">Latest · Issue #${esc(latest.issue)} · ${esc(latest.dateDisplay)}</div>
+            <div class="digest-preview-title">${esc(latest.title)}</div>
+            <div class="digest-preview-desc">${esc(latest.desc)}</div>
             <div class="digest-preview-tags">
-              ${latest.tags.map(t => `<span class="stack-tag">${t}</span>`).join('')}
+              ${latest.tags.map(t => `<span class="stack-tag">${esc(t)}</span>`).join('')}
             </div>
             <div class="digest-preview-cta">Read issue →</div>
-          </a>`;
+          </a>
+          ${earlier ? `<div class="digest-earlier reveal"><div class="digest-earlier-label">Earlier issues</div>${earlier}</div>` : ''}`;
         // trigger reveal animation
         grid.querySelectorAll('.reveal').forEach(el => observer.observe(el));
       })

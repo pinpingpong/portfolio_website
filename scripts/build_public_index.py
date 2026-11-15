@@ -36,7 +36,7 @@ EMBED_MODEL = "gemini-embedding-001"
 DIMENSION = 3072
 
 # Elements whose text becomes one chunk each
-CHUNK_CLASSES = {"project-card", "workflow-card", "timeline-item", "edu-card", "skills-section", "hero-inner"}
+CHUNK_CLASSES = {"work-row", "project-card", "workflow-card", "timeline-item", "edu-card", "skills-section", "hero-inner"}
 SKIP_TAGS = {"script", "style", "svg"}
 SECTION_NAMES = {
     "hero": "Intro",
@@ -57,7 +57,8 @@ class ChunkParser(HTMLParser):
         self.stack = []          # tag names currently open inside a chunk
         self.buf = None          # text parts of the chunk being collected
         self.skip_depth = 0
-        self.chunks = []         # (section_id, text)
+        self.chunks = []         # (section_id, text, data-title)
+        self.title = None
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
@@ -68,6 +69,7 @@ class ChunkParser(HTMLParser):
         classes = set((attrs.get("class") or "").split())
         if self.buf is None and classes & CHUNK_CLASSES:
             self.buf, self.stack = [], [tag]
+            self.title = attrs.get("data-title")
             return
         if self.buf is not None and tag not in {"br", "img", "input", "meta", "link", "path", "line", "polyline", "polygon"}:
             self.stack.append(tag)
@@ -85,7 +87,7 @@ class ChunkParser(HTMLParser):
             text = re.sub(r"[ \t]+", " ", "".join(self.buf))
             text = "\n".join(line.strip() for line in text.splitlines() if line.strip())
             if text:
-                self.chunks.append((self.section, text))
+                self.chunks.append((self.section, text, self.title))
             self.buf = None
 
     def handle_data(self, data):
@@ -97,12 +99,14 @@ def build_chunks():
     parser = ChunkParser()
     parser.feed(INDEX_HTML.read_text())
     out = []
-    for i, (section, text) in enumerate(parser.chunks):
+    for i, (section, text, data_title) in enumerate(parser.chunks):
         kind = SECTION_NAMES.get(section, section or "Site")
         title = text.splitlines()[0] if section != "hero" else "About Pin Xiu"
         # Card numbers like "PROJECT — 01" are noise; use the title line instead
         lines = text.splitlines()
-        if re.match(r"^(PROJECT|AGENT|TOOL)\s", lines[0]) and len(lines) > 1:
+        if data_title:                                    # list rows carry their title
+            title = data_title
+        elif re.match(r"^(PROJECT|AGENT|TOOL)\s", lines[0]) and len(lines) > 1:
             title = lines[1]
         elif section == "workflow" and len(lines) > 1:   # first line is the category tag
             title = lines[1]
