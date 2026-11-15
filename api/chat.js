@@ -55,6 +55,12 @@ const MAX_TOTAL_CHARS = 12_000;   // whole history
 const RATE_PER_MINUTE = 8;
 const RATE_PER_HOUR = 40;
 const PINECONE_NAMESPACE = 'website';
+// [model, ms to wait for response headers]. Total stays under Vercel's 25s first-byte limit with RAG time included.
+const MODELS = [
+  ['gemini-flash-latest', 11_000],
+  ['gemini-flash-lite-latest', 8_000],
+];
+const RAG_TIMEOUT_MS = 4_000;
 
 // Best-effort per-IP limiter. Memory lives per edge instance, so a determined
 // client spread across regions can exceed it; the Vercel Firewall rule is the hard cap.
@@ -122,6 +128,7 @@ async function embedQuery(query, geminiKey) {
         content: { parts: [{ text: query }] },
         taskType: 'RETRIEVAL_QUERY',
       }),
+      signal: AbortSignal.timeout(RAG_TIMEOUT_MS),
     }
   );
   const data = await res.json();
@@ -135,6 +142,7 @@ async function retrieveContext(query, geminiKey, pineconeKey, pineconeHost) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Api-Key': pineconeKey },
     body: JSON.stringify({ vector, topK: 5, includeMetadata: true, namespace: PINECONE_NAMESPACE }),
+    signal: AbortSignal.timeout(RAG_TIMEOUT_MS),
   });
   const data = await res.json();
   if (!data.matches?.length) return '';
@@ -181,22 +189,35 @@ export default async function handler(req) {
       ? `${SYSTEM_BASE}\n\nRELEVANT CONTEXT FROM THIS WEBSITE:\n${ragContext}`
       : SYSTEM_BASE;
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:streamGenerateContent?alt=sse&key=${geminiKey}`;
-
-    const geminiRes = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        systemInstruction: { parts: [{ text: systemPrompt }] },
-        contents: messages,
-        generationConfig: { maxOutputTokens: 1024, temperature: 0.7 },
-      }),
+    const payload = JSON.stringify({
+      systemInstruction: { parts: [{ text: systemPrompt }] },
+      contents: messages,
+      generationConfig: { maxOutputTokens: 1024, temperature: 0.7 },
     });
 
-    if (!geminiRes.ok) {
-      console.error('Gemini error', geminiRes.status, await geminiRes.text());
-      // Pass 429 through so the client can show a "try again shortly" message; hide other upstream detail
-      return json(geminiRes.status === 429 ? 429 : 502, { error: 'Upstream error' });
+    // Vercel kills the function if no bytes arrive within 25s, and Gemini free tier
+    // sometimes returns 503 or stalls under load. Try each model with its own timeout.
+    let geminiRes;
+    for (const [model, timeoutMs] of MODELS) {
+      try {
+        geminiRes = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/${model}:streamGenerateContent?alt=sse&key=${geminiKey}`,
+          { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload, signal: AbortSignal.timeout(timeoutMs) }
+        );
+      } catch (e) {
+        console.error('Gemini timeout/network', model, e?.name);
+        geminiRes = null;
+        continue;
+      }
+      if (geminiRes.ok) break;
+      console.error('Gemini error', model, geminiRes.status, await geminiRes.text());
+      if (geminiRes.status !== 503 && geminiRes.status !== 429 && geminiRes.status !== 500) break; // not worth retrying
+    }
+
+    if (!geminiRes?.ok) {
+      // Pass 429/503 through so the client can show a "try again shortly" message; hide upstream detail
+      const s = geminiRes?.status;
+      return json(s === 429 || s === 503 || !geminiRes ? 429 : 502, { error: 'Upstream error' });
     }
 
     return new Response(geminiRes.body, {
