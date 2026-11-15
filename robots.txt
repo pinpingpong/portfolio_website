@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://limpinxiu-portfolio-website.vercel.app/sitemap.xml

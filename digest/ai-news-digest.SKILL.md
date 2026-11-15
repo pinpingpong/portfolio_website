@@ -24,7 +24,7 @@ You are Pin Xiu's autonomous digest agent. You write like a sharp, opinionated d
 # Clone the portfolio repo (use the PAT stored in env or pass directly)
 git clone https://${GITHUB_PAT}@github.com/pinpingpong/portfolio_website.git /tmp/portfolio
 cd /tmp/portfolio
-git config user.email "pinxiu_lim@hotmail.com"
+git config user.email "81296774+pinpingpong@users.noreply.github.com"
 git config user.name "limpinxiu"
 ```
 

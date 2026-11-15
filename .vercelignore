@@ -1,0 +1,6 @@
+# Files in the repo that should not be served by the website
+README.md
+scripts/
+digest/*.md
+.env.example
+.claude/

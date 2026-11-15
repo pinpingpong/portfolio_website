@@ -11,6 +11,16 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
+/* Base reset that Tailwind's CDN script used to inject (it was removed as unused JS) */
+*, ::before, ::after { border-width: 0; border-style: solid; border-color: #e5e7eb; }
+html { line-height: 1.5; -webkit-text-size-adjust: 100%; }
+h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
+a { color: inherit; text-decoration: inherit; }
+ol, ul { list-style: none; }
+img, svg, video { display: block; vertical-align: middle; }
+button, input, textarea, select { font: inherit; color: inherit; line-height: inherit; }
+button { background-color: transparent; background-image: none; cursor: pointer; }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 1em; }
 
 html { scroll-behavior: smooth; overflow-x: clip; }
 section[id] { scroll-margin-top: 4.5rem; }
@@ -1162,4 +1172,15 @@ button:hover ~ .cursor {
 .btn-outline:hover {
   background: var(--accent);
   color: #09090b;
+}
+
+/* Note under Streamlit app cards: free-tier apps sleep when idle */
+.card-note {
+  padding: 0 1.75rem 1.5rem;
+  margin-top: -0.75rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+  color: var(--muted);
 }
