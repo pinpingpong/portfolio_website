@@ -5,8 +5,13 @@ Each project/agent/tool/workflow card, each experience entry, the hero and the
 education/skills blocks become one chunk. Everything is written to the "website"
 namespace, which is wiped and rebuilt on every run, so removed cards disappear too.
 
-Private documents (resume, performance reviews) must never go into this index:
+Private documents (resume, raw performance reviews) must never go into this index:
 the chatbot is public and can quote anything it retrieves.
+
+Optional second namespace, "working-style": a curated, approved summary of colleague
+feedback (themes plus short anonymous quotes) kept OUTSIDE this public repo, by default at
+~/Document/resume/how_i_work.md (override with HOW_I_WORK_PATH). It is rebuilt only when that
+file exists, so a run without it (e.g. CI) leaves the namespace untouched.
 
 Setup:
   pip install pinecone google-genai
@@ -25,6 +30,8 @@ from pathlib import Path
 INDEX_HTML = Path(__file__).resolve().parent.parent / "index.html"
 PINECONE_INDEX = "pinxiu-portfolio"
 NAMESPACE = "website"
+STYLE_NAMESPACE = "working-style"
+STYLE_PATH = Path(os.environ.get("HOW_I_WORK_PATH", "~/Document/resume/how_i_work.md")).expanduser()
 EMBED_MODEL = "gemini-embedding-001"
 DIMENSION = 3072
 
@@ -110,11 +117,59 @@ def build_chunks():
     return out
 
 
+def build_style_chunks():
+    """One chunk for the summary and one per '### ' theme of how_i_work.md."""
+    if not STYLE_PATH.exists():
+        return None
+    text = STYLE_PATH.read_text()
+    parts = re.split(r"^(?=## Summary|### )", text, flags=re.M)[1:]
+    out = []
+    for i, part in enumerate(parts):
+        title = re.sub(r"^#+\s*(\d+\.\s*)?", "", part.splitlines()[0]).strip()
+        body = "\n".join(l for l in part.splitlines()[1:] if l.strip() and not l.startswith("## Themes"))
+        slug = re.sub(r"[^a-z0-9]+", "-", title.lower()).strip("-")[:60]
+        out.append({
+            "id": f"{STYLE_NAMESPACE}__{i:02d}__{slug}",
+            "source": f"Working style (colleague feedback, GXS Bank 2022-2025): {title}",
+            "text": f"Working style, from anonymous colleague feedback at GXS Bank (2022-2025): {title}\n{body}",
+        })
+    return out
+
+
+def embed_all(client, types, chunks):
+    vectors = []
+    for c in chunks:
+        emb = client.models.embed_content(
+            model=EMBED_MODEL,
+            contents=c["text"],
+            config=types.EmbedContentConfig(task_type="RETRIEVAL_DOCUMENT"),
+        ).embeddings[0].values
+        vectors.append({"id": c["id"], "values": emb,
+                        "metadata": {"source": c["source"], "text": c["text"]}})
+        time.sleep(0.3)  # free tier rate limit
+    return vectors
+
+
+def replace_namespace(index, namespace, vectors):
+    """Full refresh: wipe the namespace, then upload."""
+    if namespace in index.describe_index_stats().namespaces:
+        index.delete(delete_all=True, namespace=namespace)
+    for i in range(0, len(vectors), 100):
+        index.upsert(vectors=vectors[i:i + 100], namespace=namespace)
+
+
 def main():
     chunks = build_chunks()
     print(f"Built {len(chunks)} chunks from {INDEX_HTML.name}")
     for c in chunks:
         print(f"  {c['id']}  ({len(c['text'])} chars)")
+    style = build_style_chunks()
+    if style is None:
+        print(f"No {STYLE_PATH}; leaving '{STYLE_NAMESPACE}' namespace untouched")
+    else:
+        print(f"Built {len(style)} working-style chunks from {STYLE_PATH.name}")
+        for c in style:
+            print(f"  {c['id']}  ({len(c['text'])} chars)")
     if "--dry-run" in sys.argv:
         return
 
@@ -131,22 +186,9 @@ def main():
         time.sleep(10)
     index = pc.Index(PINECONE_INDEX)
 
-    vectors = []
-    for c in chunks:
-        emb = client.models.embed_content(
-            model=EMBED_MODEL,
-            contents=c["text"],
-            config=types.EmbedContentConfig(task_type="RETRIEVAL_DOCUMENT"),
-        ).embeddings[0].values
-        vectors.append({"id": c["id"], "values": emb,
-                        "metadata": {"source": c["source"], "text": c["text"]}})
-        time.sleep(0.3)  # free tier rate limit
-
-    # Full refresh: wipe the namespace, then upload
-    if NAMESPACE in index.describe_index_stats().namespaces:
-        index.delete(delete_all=True, namespace=NAMESPACE)
-    for i in range(0, len(vectors), 100):
-        index.upsert(vectors=vectors[i:i + 100], namespace=NAMESPACE)
+    replace_namespace(index, NAMESPACE, embed_all(client, types, chunks))
+    if style:
+        replace_namespace(index, STYLE_NAMESPACE, embed_all(client, types, style))
 
     time.sleep(5)
     print(index.describe_index_stats())
