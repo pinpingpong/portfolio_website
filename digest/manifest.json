@@ -1,5 +1,14 @@
 [
   {
+    "issue": 19,
+    "date": "2026-11-15",
+    "dateDisplay": "15 Nov 2026",
+    "slug": "2026-11-15.html",
+    "title": "Fable 5.2 Lands As Anthropic Starts Its Roadshow",
+    "desc": "Anthropic shipped Claude Fable 5.2, unveiled Claude Sheets, Meetings and Data, and launched its IPO roadshow at $70–78 a share, while OpenAI closed $11B at a $1.25T valuation and Mercor doubled to $20B.",
+    "tags": ["Models", "IPO", "Funding"]
+  },
+  {
     "issue": 18,
     "date": "2026-11-08",
     "dateDisplay": "08 Nov 2026",
