@@ -4,3 +4,5 @@ scripts/
 digest/*.md
 .env.example
 .claude/
+.venv-capture/
+.demo_raw/
