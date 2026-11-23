@@ -185,6 +185,27 @@ def build_index(projects):
 
 # ── Detail pages ─────────────────────────────────────────────────────────────
 
+def compare_html(c):
+    """Drag-to-compare before/after figure. Front matter:
+    compare: {before, after, before_label, after_label, caption}"""
+    if not c:
+        return ""
+    return f'''
+    <figure class="proj-compare">
+      <div class="cmp" style="--x:50%">
+        <img src="/{c["before"]}" alt="{esc(c.get("before_label", "Before"))}">
+        <img class="cmp-after" src="/{c["after"]}" alt="{esc(c.get("after_label", "After"))}">
+        <span class="cmp-tag cmp-l">{esc(c.get("before_label", "Before"))}</span>
+        <span class="cmp-tag cmp-r">{esc(c.get("after_label", "After"))}</span>
+        <i class="cmp-handle" aria-hidden="true"></i>
+        <input type="range" min="0" max="100" value="50" aria-label="Drag to compare before and after"
+               oninput="this.parentNode.style.setProperty('--x', this.value + '%')">
+      </div>
+      <figcaption>{esc(c.get("caption", ""))}</figcaption>
+    </figure>
+'''
+
+
 def page_html(p):
     url = f"{SITE}/projects/{p['slug']}"
     desc = re.sub(r"\s+", " ", re.sub(r"[`*_\[\]]", "", p["line"]))
@@ -233,7 +254,7 @@ def page_html(p):
       <p class="proj-line">{md_inline(p["line"])}</p>
 {stack_html(p, "card-stack", "      ")}{buttons_html(p, "      ", on_page=True)}    </header>
 
-{media_html(p.get("media"), "    ")}
+{media_html(p.get("media"), "    ")}{compare_html(p.get("compare"))}
     <p class="proj-summary">{md_inline(p["summary"])}</p>
     <article class="proj-body">{sections}
     </article>

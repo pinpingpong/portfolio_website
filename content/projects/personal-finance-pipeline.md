@@ -50,6 +50,9 @@ My finances were scattered across 5 Singapore banks, and not seeing the whole pi
 
 One command reruns everything when new statements arrive.
 
+![The finance dashboard with KPI cards and the Goals & Runway projection](/media/finance-dashboard.webp)
+*The dashboard, shown here with made-up numbers. My real data stays private. The Goals & Runway section is editable, so I can test what-ifs like a later reno or a bigger wedding budget.*
+
 ## Key decisions
 
 - **Reconcile every statement.** Each parsed statement must match its own printed totals. A parser that silently drops a row would make every later number wrong, and this catches it.
