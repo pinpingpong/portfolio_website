@@ -969,6 +969,21 @@ footer {
   white-space: pre-wrap;
   word-break: break-word;
 }
+.msg.bot .msg-bubble { white-space: normal; }
+.msg.bot .msg-bubble p { margin: 0 0 0.5em; }
+.msg.bot .msg-bubble p:last-child,
+.msg.bot .msg-bubble ul:last-child,
+.msg.bot .msg-bubble ol:last-child { margin-bottom: 0; }
+.msg.bot .msg-bubble ul,
+.msg.bot .msg-bubble ol { margin: 0 0 0.5em; padding-left: 1.2em; }
+.msg.bot .msg-bubble li { margin: 0.15em 0; }
+.msg.bot .msg-bubble code {
+  font-size: 0.9em;
+  padding: 0.05em 0.3em;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.06);
+}
+.msg.bot .msg-bubble a { color: var(--accent); text-decoration: underline; }
 .msg.bot .msg-bubble {
   background: var(--surface2);
   border: 1px solid var(--border);
