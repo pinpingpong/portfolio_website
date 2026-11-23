@@ -51,7 +51,10 @@ My finances were scattered across 5 Singapore banks, and not seeing the whole pi
 One command reruns everything when new statements arrive.
 
 ![The finance dashboard with KPI cards and the Goals & Runway projection](/media/finance-dashboard.webp)
-*The dashboard, shown here with made-up numbers. My real data stays private. The Goals & Runway section is editable, so I can test what-ifs like a later reno or a bigger wedding budget.*
+![Interactive version of the dashboard with cash balance over time, income vs spending and a spending-by-category donut](/media/finance-dashboard-charts.webp)
+*The interactive version: filter by account and date range to see cash over time, income against spending and where the money goes. Made-up numbers, same layout as my real one.*
+
+*The planning view, shown here with made-up numbers. My real data stays private. The Goals & Runway section is editable, so I can test what-ifs like a later reno or a bigger wedding budget.*
 
 ## Key decisions
 
