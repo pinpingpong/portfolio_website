@@ -55,6 +55,19 @@
       <figcaption>Step-by-step flow: room photo, supplier catalogues, curation, render</figcaption>
     </figure>
 
+    <figure class="proj-compare">
+      <div class="cmp" style="--x:50%">
+        <img src="/media/reno-before.webp" alt="Before · ID&#x27;s 3D render">
+        <img class="cmp-after" src="/media/reno-after.webp" alt="After · agent&#x27;s scheme">
+        <span class="cmp-tag cmp-l">Before · ID&#x27;s 3D render</span>
+        <span class="cmp-tag cmp-r">After · agent&#x27;s scheme</span>
+        <i class="cmp-handle" aria-hidden="true"></i>
+        <input type="range" min="0" max="100" value="50" aria-label="Drag to compare before and after"
+               oninput="this.parentNode.style.setProperty('--x', this.value + '%')">
+      </div>
+      <figcaption>Drag to compare. My interior designer&#x27;s render, repainted with the &quot;Sun-Bleached Oasis&quot; scheme the agent picked.</figcaption>
+    </figure>
+
     <p class="proj-summary">An interior design copilot born from renovating my own 5-room BTO in a zero-wood Desert Modernism style. Paste real supplier catalogue links (laminates, paint, countertops) and describe your design rules in plain English. The agent resolves official product codes with Gemini Search grounding, filters them against your brief with a deterministic validator, composes whole-room schemes, then renders the chosen scheme onto your own room photo while preserving its geometry and lighting.</p>
     <article class="proj-body">
       <div class="proj-section">
@@ -107,6 +120,7 @@
         <h2>Limits and next steps</h2>
         <ul>
 <li>Product codes are resolved by AI from public pages. Check them with the supplier before ordering.</li>
+<li>Renders can spill onto nearby surfaces. In my kitchen run, the textile meant for the tall unit also covered the fridge doors, so I treat renders as a material preview, not a final design.</li>
 <li>When no official swatch image is available, the render uses a synthesised swatch from the material's colour profile, so texture is approximate.</li>
 <li>Next: a mask-painting canvas for pixel-exact surface selection, batch rendering of all combinations, and a PDF mood board export with codes and renders.</li>
 </ul>

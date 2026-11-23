@@ -25,6 +25,12 @@ links:
 streamlit_note: true
 dates: Oct 2026 to now
 featured: 1
+compare:
+  before: media/reno-before.webp
+  after: media/reno-after.webp
+  before_label: Before · ID's 3D render
+  after_label: After · agent's scheme
+  caption: Drag to compare. My interior designer's render, repainted with the "Sun-Bleached Oasis" scheme the agent picked.
 ---
 
 An interior design copilot born from renovating my own 5-room BTO in a zero-wood Desert Modernism style. Paste real supplier catalogue links (laminates, paint, countertops) and describe your design rules in plain English. The agent resolves official product codes with Gemini Search grounding, filters them against your brief with a deterministic validator, composes whole-room schemes, then renders the chosen scheme onto your own room photo while preserving its geometry and lighting.
@@ -75,6 +81,7 @@ Instead of a phone photo, I rendered the chosen scheme onto the 3D render my int
 ## Limits and next steps
 
 - Product codes are resolved by AI from public pages. Check them with the supplier before ordering.
+- Renders can spill onto nearby surfaces. In my kitchen run, the textile meant for the tall unit also covered the fridge doors, so I treat renders as a material preview, not a final design.
 - When no official swatch image is available, the render uses a synthesised swatch from the material's colour profile, so texture is approximate.
 - Next: a mask-painting canvas for pixel-exact surface selection, batch rendering of all combinations, and a PDF mood board export with codes and renders.
 
