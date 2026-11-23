@@ -2,7 +2,7 @@
 title: AWS AI Certification Tutor
 section: projects
 order: 3
-line: Practice questions and explanations that adapt to your weak areas.
+line: Unlimited exam-style practice questions for a new AWS exam, with instant explanations.
 meta: Gemini · Streamlit
 media:
   type: video
