@@ -28,7 +28,7 @@ A scheduled agent that autonomously scrapes AI news each week, generates a style
 
 ## Problem
 
-I wanted to keep up with AI news each week without reading ten sites, and I wanted the result published somewhere useful, not lost in an inbox. The [digest archive](/digest/) on this site is the output.
+There is far too much AI news, and most of it isn't relevant to me. I wanted a filter: once a week, only the stories that are interesting or related to my work, without reading ten sites. I also wanted the result published somewhere useful, not lost in an inbox. The [digest archive](/digest/) on this site is the output.
 
 ## How it works
 

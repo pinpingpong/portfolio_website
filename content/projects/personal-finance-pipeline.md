@@ -39,7 +39,7 @@ Turned 80 PDF bank statements across 5 Singapore banks into a clean, structured 
 
 ## Problem
 
-I wanted one clear picture of my spending and savings across 5 Singapore banks, but the only full record was 80 PDF statements. Bank apps each show their own slice, some statements are scanned images, and credit cards and bank accounts use opposite sign conventions.
+My finances were scattered across 5 Singapore banks, and not seeing the whole picture made me worry about whether I was on track. I wanted one place that combines everything, summarises it, and shows progress toward my big milestones: the home renovation, the wedding and a car. The only full record was 80 PDF statements. Bank apps each show their own slice, some statements are scanned images, and credit cards and bank accounts use opposite sign conventions.
 
 ## How it works
 

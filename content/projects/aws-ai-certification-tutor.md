@@ -27,7 +27,7 @@ An exam tutor for the AWS Certified Generative AI Developer Professional (AIP-C0
 
 ## Problem
 
-I was preparing for AIP-C01, a new professional-level exam with few good practice banks. Question dumps go stale fast, and the exam is known for scenario questions with two or three plausible answers, where cost, latency and security constraints decide which one is right. I wanted unlimited practice at that level, grounded in what recent candidates reported.
+AIP-C01 was a brand-new professional-level exam and I wanted to pass it, but there were few good practice banks yet. So I got AI to write fresh practice questions for me. Question dumps go stale fast, and the exam is known for scenario questions with two or three plausible answers, where cost, latency and security constraints decide which one is right. I wanted unlimited practice at that level, grounded in what recent candidates reported, so I could study by doing rather than only reading.
 
 ## How it works
 

@@ -30,6 +30,8 @@ An AI-powered Chinese astrology app that generates a full BaZi (Four Pillars of 
 
 BaZi (Four Pillars of Destiny) is a traditional Chinese system that reads a person's chart from their birth date and time. Most online calculators either get the hard parts wrong (solar term boundaries, hidden stems, luck pillars) or hand everything to a chatbot that guesses the chart itself. I wanted exact calculation with an AI layer only for interpretation.
 
+The other reason is personal. I enjoy reading how a chart is interpreted, and when life feels heavy, a thoughtful reading is a small motivation boost. Building my own meant I could ask follow-up questions whenever I needed one.
+
 ## How it works
 
 1. **Calculate (pure Python, `bazi.py`).** Year, month, day and hour pillars, with month boundaries from exact solar term times, plus hidden stems, element balance, five special stars and eight ten-year luck pillars (Da Yun) with their direction and start ages.

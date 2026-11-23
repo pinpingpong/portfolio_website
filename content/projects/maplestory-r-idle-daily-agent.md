@@ -34,7 +34,7 @@ Honestly: I was lazy and kept forgetting to log in for my dailies. MapleStory R 
 
 - **Game knowledge lives in the SOP, not the model.** Coordinate maps, task order and UI quirks are written down once. The model follows instructions instead of rediscovering the game every day.
 - **Hard guardrails.** The SOP forbids spending premium currency (gems) under any circumstance. An agent with control of the screen should not be able to make purchases.
-- **Token-saving rules.** Screenshots are the expensive part of computer use. The SOP batches clicks, takes as few screenshots as possible, and uses longer waits rather than checking the screen repeatedly.
+- **Coordinates instead of constant screenshots.** Early runs took a screenshot before almost every action, and that used a lot of tokens. I mapped the coordinates of each button into the SOP, so the agent clicks known positions directly and only takes a screenshot when it needs to check the result. It also batches clicks and uses longer waits rather than checking the screen repeatedly.
 - **A report every time.** A run that says what it did can be trusted without being watched.
 
 ## Limits
