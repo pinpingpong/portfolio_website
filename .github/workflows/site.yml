@@ -1,9 +1,12 @@
 # Keeps the site and the AI Twin index in step with content/projects/*.md.
-#  - check: fails if index.html / projects/*.html / sitemap.xml were not rebuilt
-#           after a content change (run: python3 scripts/build_site.py)
-#  - index: rebuilds the Pinecone "website" namespace on every push to main that
-#           touches site content. The "working-style" namespace is never touched
-#           here, because how_i_work.md is local-only and absent in CI.
+#  - check: on every push / PR. Fails if index.html / projects/*.html / sitemap.xml were not
+#           rebuilt after a content change (run: python3 scripts/build_site.py)
+#  - index: rebuilds the Pinecone "website" namespace once a day (23:30 SGT), and only if
+#           site content changed on main in the last 24 hours. Run the workflow manually
+#           (workflow_dispatch) to rebuild straight away. Batching to once a day keeps the
+#           Gemini free-tier embedding quota (100 requests/minute) out of reach of busy days.
+#           The "working-style" namespace is never touched here, because how_i_work.md is
+#           local-only and absent in CI.
 name: Site content
 
 on:
@@ -21,11 +24,9 @@ on:
     paths:
       - "content/**"
       - "scripts/**"
+  schedule:
+    - cron: "30 15 * * *"   # 23:30 SGT daily
   workflow_dispatch:
-
-concurrency:
-  group: site-index
-  cancel-in-progress: false   # never interrupt a namespace wipe + upload halfway
 
 jobs:
   check:
@@ -40,15 +41,38 @@ jobs:
 
   index:
     needs: check
-    if: github.event_name != 'pull_request'
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
+    concurrency:
+      group: site-index
+      cancel-in-progress: false   # never interrupt a namespace wipe + upload halfway
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+        with:
+          fetch-depth: 0
+      - name: Anything to index since yesterday?
+        id: changes
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          changed=$(git log --since="24 hours ago" --name-only --format= -- \
+            content/ index.html scripts/build_public_index.py | sort -u)
+          if [ -z "$changed" ]; then
+            echo "No content changes in the last 24 hours; skipping index rebuild"
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Changed since yesterday:"; echo "$changed"
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          fi
+      - if: steps.changes.outputs.run == 'true'
+        uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install "markdown>=3.7,<4" "pyyaml>=6,<7" "pinecone>=7,<8" "google-genai>=1.47,<2"
+      - if: steps.changes.outputs.run == 'true'
+        run: pip install "markdown>=3.7,<4" "pyyaml>=6,<7" "pinecone>=7,<8" "google-genai>=1.47,<2"
       - name: Rebuild AI Twin "website" namespace
+        if: steps.changes.outputs.run == 'true'
         env:
           PINECONE_API_KEY: ${{ secrets.PINECONE_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
