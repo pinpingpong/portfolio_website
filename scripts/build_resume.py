@@ -19,6 +19,8 @@ raw = SRC.read_text()
 m = re.match(r"^---\n(.*?)\n---\n(.*)$", raw, re.S)
 fm, body = yaml.safe_load(m.group(1)), m.group(2)
 body = re.sub(r"<!--.*?-->", "", body, flags=re.S)
+# {{YEARS}}: years since the first full-time data role, filled in by the page script (and so in the PDF)
+body = body.replace("{{YEARS}}", '<span data-years-n>several</span>')
 html_body = markdown.markdown(body, extensions=["extra", "sane_lists"])
 
 
@@ -128,6 +130,7 @@ def render(chat_html=""):
 {html_body}
     <footer>See the projects behind this experience on the <a href="/" style="color:var(--lime)">homepage</a>.</footer>
   </main>
+  <script>document.querySelectorAll('[data-years-n]').forEach(el => el.textContent = Math.floor((Date.now() - Date.UTC(2019, 6, 1)) / 31557600000));</script>
 {chat_html}
 </body>
 </html>

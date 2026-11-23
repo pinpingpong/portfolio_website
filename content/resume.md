@@ -7,11 +7,12 @@ pdf: Lim_Pin_Xiu_Resume.pdf
 
 <!-- Public resume. Source of truth for /resume and the downloadable PDF.
      Rules: LinkedIn is the only contact (no phone, no email). GXS shown as Oct 2021 to Sep 2026.
-     Do not name the current employer. -->
+     Do not name the current employer.
+     {{YEARS}} is filled in on the page from Jul 2019 (first full-time data role), so it stays current. -->
 
 ## Summary
 
-A Senior Data Specialist with over 6 years of experience across Singapore telecommunications, e-commerce, and banking. My career has progressed from foundational BI and data extraction at Shopee to supporting strategy at Singtel and architecting analytics infrastructure as a pioneer hire for GXS Bank. I specialize in using SQL, Python, and cloud-native tools to solve practical business problems ranging from automating reporting workflows to targeted acquisition and reducing customer churn.
+A Senior Data Specialist with over {{YEARS}} years of experience across Singapore telecommunications, e-commerce, and banking. My career has progressed from foundational BI and data extraction at Shopee to supporting strategy at Singtel and architecting analytics infrastructure as a pioneer hire for GXS Bank. I specialize in using SQL, Python, and cloud-native tools to solve practical business problems ranging from automating reporting workflows to targeted acquisition and reducing customer churn.
 
 ## Experience
 
