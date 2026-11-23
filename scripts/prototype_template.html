@@ -142,17 +142,21 @@
     .reno[data-step="2"] .sw.wood .x { opacity: 1; }
     .reno[data-step="2"] .sw.keep { transform: translateY(-6px); box-shadow: 0 0 0 2px var(--lime), 0 20px 40px -20px rgba(212,238,110,0.5); }
     .reno .shot { position: absolute; inset: 9% 7%; border-radius: 16px; overflow: hidden; opacity: 0; transform: scale(1.04); transition: opacity 0.9s var(--ease), transform 1.2s var(--ease); box-shadow: 0 40px 80px -30px rgba(0,0,0,0.9); }
-    .compare { --x: 50%; }
+    .reno .compare { --x: 50%; inset: auto 5%; top: 50%; bottom: auto; translate: 0 -50%; aspect-ratio: 1376 / 768; }
     .compare .ph { position: absolute; inset: 0; display: flex; align-items: flex-end; padding: 1rem; }
     .compare .ph span { background: rgba(0,0,0,0.55); padding: 0.4rem 0.7rem; border-radius: 999px; font-size: 0.6rem; }
-    .ph-before { background: linear-gradient(135deg, #3a3833, #24231f); }
-    .ph-after { background: linear-gradient(135deg, #e7dccb, #c98a68); clip-path: inset(0 0 0 var(--x)); justify-content: flex-end; }
+    .compare .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .compare .ph span { position: relative; z-index: 1; }
+    .ph-before { background: #222; }
+    .ph-after { background: #222; clip-path: inset(0 0 0 var(--x)); justify-content: flex-end; }
     .ph-after span { color: #fff; }
     .compare input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; z-index: 3; }
     .compare .handle { position: absolute; top: 0; bottom: 0; left: var(--x); width: 2px; background: #fff; z-index: 2; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
     .compare .handle::after { content: '↔'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 2.4rem; height: 2.4rem; border-radius: 50%; background: #fff; color: #111; display: grid; place-items: center; font-size: 1rem; }
-    .reno[data-step="3"] .swatches { opacity: 0; transform: scale(0.95); }
-    .reno[data-step="3"] .shot { opacity: 1; transform: none; }
+    .reno .real { background: #f7f3ee; }
+    .reno .real img { width: 100%; height: 100%; object-fit: cover; object-position: top left; display: block; }
+    .reno[data-step="1"] .r1, .reno[data-step="2"] .r2 { opacity: 1; transform: none; }
+    .reno[data-step="3"] .compare { opacity: 1; transform: none; }
     .stage-tag { position: absolute; left: 1.25rem; top: 1.1rem; color: var(--dim); z-index: 2; }
 
     /* Finance stage: 80 statements become one dashboard */
@@ -253,6 +257,7 @@
       .stage { top: 10vh; height: 44vh; border-radius: 20px; z-index: 1; }
       .steps { padding: 6vh 0 10vh; }
       .step { min-height: 52vh; position: relative; z-index: 2; }
+      .step { min-height: 92vh; justify-content: flex-end; padding-bottom: 3vh; }
       .step-inner { background: rgba(7,7,10,0.86); backdrop-filter: blur(10px); padding: 1.25rem; border-radius: 18px; border: 1px solid var(--line); }
       .show-grid, .show.flip .show-grid { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
       .show.flip .show-visual { order: 0; }
@@ -311,27 +316,19 @@
       <div class="story-grid">
         <div class="stage reno" data-step="1" data-stage>
           <div class="stage-tag mono">Renovation AI Agent</div>
-          <div class="swatches">
-            <div class="sw keep" data-name="Travertine" style="background:linear-gradient(135deg,#e7dccb,#d4c4ab)"></div>
-            <div class="sw wood" data-name="Oak" style="background:linear-gradient(135deg,#b98a5a,#9a6d42)"><i class="x"></i></div>
-            <div class="sw keep" data-name="Plaster" style="background:linear-gradient(135deg,#efe9df,#ddd3c4)"></div>
-            <div class="sw keep" data-name="Terracotta" style="background:linear-gradient(135deg,#c98a68,#b06f50)"></div>
-            <div class="sw wood" data-name="Walnut" style="background:linear-gradient(135deg,#6e4b33,#553623)"><i class="x"></i></div>
-            <div class="sw keep" data-name="Limestone" style="background:linear-gradient(135deg,#e2ddd0,#cbc5b6)"></div>
-            <div class="sw keep" data-name="Taupe" style="background:linear-gradient(135deg,#a8988a,#8f8072)"></div>
-            <div class="sw wood" data-name="Teak" style="background:linear-gradient(135deg,#a87442,#8a5c31)"><i class="x"></i></div>
-          </div>
+          <div class="shot real r1"><img src="/media/reno-review.webp" alt="The agent's material review: 30 products scored against the brief"></div>
+          <div class="shot real r2"><img src="/media/reno-combinations.webp" alt="Curated combinations, with wood excluded by rule"></div>
           <div class="shot compare" id="compare">
-            <div class="ph ph-before"><span class="mono">Before · ID's 3D render</span></div>
-            <div class="ph ph-after"><span class="mono">After · agent's material scheme</span></div>
+            <div class="ph ph-before"><img src="/media/reno-before.webp" alt="Before: the interior designer's 3D render of the kitchen"><span class="mono">Before · ID render</span></div>
+            <div class="ph ph-after"><img src="/media/reno-after.webp" alt="After: the same kitchen repainted with travertine and plaster laminates"><span class="mono">After · AI</span></div>
             <input type="range" min="0" max="100" value="50" aria-label="Drag to compare before and after">
             <i class="handle" aria-hidden="true"></i>
           </div>
         </div>
         <div class="steps">
-          <div class="step" data-step="1"><div class="step-inner"><div class="n mono">01 · Collect</div><h3>Paste supplier links</h3><p>Real catalogues from real suppliers. The agent finds every product code, colour and finish on the page.</p></div></div>
-          <div class="step" data-step="2"><div class="step-inner"><div class="n mono">02 · Check</div><h3>Rules it can't break</h3><p>My brief said "zero wood". AI scores every sample for style, but a hard rule in code removes anything wood, even if the AI likes it.</p></div></div>
-          <div class="step" data-step="3"><div class="step-inner"><div class="n mono">03 · See it</div><h3>Try it on the real design</h3><p>My ID gave me a 3D render. The agent repaints it with real supplier materials, so I could compare schemes before deciding. Drag to compare.</p><span class="result">Live app, free to try</span><a class="story-link" href="/projects/renovation-ai-agent">Read the full story <span>→</span></a></div></div>
+          <div class="step" data-step="1"><div class="step-inner"><div class="n mono">01 · Collect</div><h3>30 real products, scored</h3><p>I pasted supplier catalogue links. The agent found 30 real laminates, each with its code, colour and finish, and scored every one against my brief.</p></div></div>
+          <div class="step" data-step="2"><div class="step-inner"><div class="n mono">02 · Check</div><h3>12 approved, 4 schemes</h3><p>My brief said "zero wood". AI judges style, but a hard rule in code removes anything wood, even if the AI likes it. The 12 that passed became 4 whole-kitchen schemes.</p></div></div>
+          <div class="step" data-step="3"><div class="step-inner"><div class="n mono">03 · See it</div><h3>Try it on the real design</h3><p>My ID gave me a 3D render. The agent repainted it with the chosen scheme, keeping the layout and lighting, so I could see real materials before deciding. Drag to compare.</p><span class="result">Live app, free to try</span><a class="story-link" href="/projects/renovation-ai-agent">Read the full story <span>→</span></a></div></div>
         </div>
       </div>
     </div>
