@@ -27,7 +27,7 @@ scheduled Claude agent. It also hosts an AI twin chatbot that visitors can quest
 | `scripts/partials/chat.html`, `chat.css` | AI twin chat widget, included on every generated page |
 | `api/chat.js` | AI twin endpoint: request limits, retrieval, Gemini streaming |
 | `scripts/build_public_index.py` | Rebuilds the AI twin's Pinecone index from `content/` |
-| `styles.css`, `revamp.css` | Styles for the project pages |
+| `page.css` | Styles for the project write-up pages (same tokens as the homepage) |
 | `digest/` | Weekly AI digest issues, archive page and `manifest.json` (written by the digest agent; the homepage reads the manifest live) |
 | `.github/workflows/site.yml` | CI: checks generated files are in sync, then rebuilds the AI twin index on push to `main` |
 

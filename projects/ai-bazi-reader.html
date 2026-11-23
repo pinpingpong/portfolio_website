@@ -17,9 +17,8 @@
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.css">
-  <link rel="stylesheet" href="/revamp.css">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Mono:wght@400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/page.css">
   <link rel="stylesheet" href="/chat.css">
   <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
   <script defer src="/_vercel/insights/script.js"></script>
@@ -79,14 +78,13 @@
 <li><strong>Calculation in code, interpretation by the model.</strong> The chart is deterministic and must be exactly right, so the model never computes it. It only explains a chart the code already produced. This also makes readings consistent between runs.</li>
 <li><strong>Exact solar term boundaries.</strong> The month pillar changes at solar terms, not calendar months. The code uses century-specific constants for the 20th and 21st centuries, so births near a boundary get the right pillar.</li>
 <li><strong>Separate prompts per task.</strong> One giant prompt gave shallow answers. Splitting natal, forecast, compatibility and chat lets each prompt ask for a specific structure.</li>
-<li><strong>Chat with memory.</strong> The chat keeps the whole conversation in the session, so follow-ups like "what about next year?" work.</li>
+<li><strong>The chat knows everything already generated.</strong> Its context is the full chart plus any natal reading, forecast or compatibility reading produced so far, so it can build on them instead of starting from zero.</li>
 </ul>
       </div>
       <div class="proj-section">
         <h2>What broke and how I fixed it</h2>
         <ul>
-<li><strong>Streamlit Cloud kept serving an old build.</strong> After adding hidden stems and special stars, the deployed app didn't pick up the change. Adding an explicit version tag forced a redeploy.</li>
-<li><strong>Chat forgot earlier turns.</strong> Streamlit reruns the script on each message, which reset the chat. History now lives in session state, so the conversation survives reruns.</li>
+<li><strong>The chat didn't remember what I'd entered or read.</strong> The first version gave the chat only the raw chart, so it couldn't refer to the readings I had just generated. I rebuilt the chat context to include the chart and every reading generated so far, rebuilt it whenever a new reading arrives, and cleared the conversation when the birth details change so an old chart never leaks into a new one. The HTML export now includes the chat too.</li>
 </ul>
       </div>
       <div class="proj-section">

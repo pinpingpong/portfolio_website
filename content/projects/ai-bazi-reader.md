@@ -44,12 +44,11 @@ The other reason is personal. I enjoy reading how a chart is interpreted, and wh
 - **Calculation in code, interpretation by the model.** The chart is deterministic and must be exactly right, so the model never computes it. It only explains a chart the code already produced. This also makes readings consistent between runs.
 - **Exact solar term boundaries.** The month pillar changes at solar terms, not calendar months. The code uses century-specific constants for the 20th and 21st centuries, so births near a boundary get the right pillar.
 - **Separate prompts per task.** One giant prompt gave shallow answers. Splitting natal, forecast, compatibility and chat lets each prompt ask for a specific structure.
-- **Chat with memory.** The chat keeps the whole conversation in the session, so follow-ups like "what about next year?" work.
+- **The chat knows everything already generated.** Its context is the full chart plus any natal reading, forecast or compatibility reading produced so far, so it can build on them instead of starting from zero.
 
 ## What broke and how I fixed it
 
-- **Streamlit Cloud kept serving an old build.** After adding hidden stems and special stars, the deployed app didn't pick up the change. Adding an explicit version tag forced a redeploy.
-- **Chat forgot earlier turns.** Streamlit reruns the script on each message, which reset the chat. History now lives in session state, so the conversation survives reruns.
+- **The chat didn't remember what I'd entered or read.** The first version gave the chat only the raw chart, so it couldn't refer to the readings I had just generated. I rebuilt the chat context to include the chart and every reading generated so far, rebuilt it whenever a new reading arrives, and cleared the conversation when the birth details change so an old chart never leaks into a new one. The HTML export now includes the chat too.
 
 ## Limits and next steps
 

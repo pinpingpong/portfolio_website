@@ -40,7 +40,7 @@ A persistent Claude Project holding my resume and four years of peer evaluations
 
 ## Problem
 
-When I was looking for my next role, I wanted two things. First, practice with questions specific to each role, not generic prep. Second, help describing my work. I know my work is good, but I'm not good at selling it, so I used AI to rephrase what I'd done into clear, confident answers, while keeping every claim tied to real evidence. I also wanted to judge whether a role was right for me, not just whether I could get it.
+Applying for roles one after another was tiring, so I wanted to be smarter and more targeted about where I applied and how I prepared. I wanted two things. First, practice with questions specific to each role, not generic prep. Second, help describing my work. I know my work is good, but I'm not good at selling it, so I used AI to rephrase what I'd done into clear, confident answers, while keeping every claim tied to real evidence. I also wanted to judge whether a role was right for me, not just whether I could get it.
 
 ## How it works
 

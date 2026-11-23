@@ -292,8 +292,9 @@
   #chat-panel { right: 0; bottom: 4.5rem; width: 100vw; max-width: 100vw; border-left: none; border-right: none; }
   #chat-btn { bottom: 1.25rem; right: 1.25rem; }
   #chat-label { display: none; }
+}
 
 #chat-label { border-radius: 999px; padding-left: 1rem; padding-right: 1rem; }
-/* Detail pages load the old stylesheet, which resets list styles; restore them inside replies */
+/* Keep list markers inside replies whatever the page stylesheet resets */
 #chat-panel .msg-bubble ul { list-style: disc; }
 #chat-panel .msg-bubble ol { list-style: decimal; }

@@ -23,7 +23,7 @@ A VS Code Copilot agent that turns natural language questions into full analyses
 
 ## Problem
 
-On a data team, many requests are small analyses: pull some numbers from the warehouse, chart them, write it up for a stakeholder. Each one means finding the right tables, writing SQL, building a notebook and then a deck. Most of that is routine, and the hard part is knowing which tables to trust.
+I wanted to automate my own analysis work and get to insights faster. On a data team, many requests are small analyses: pull some numbers from the warehouse, chart them, write it up for a stakeholder. Each one means finding the right tables, writing SQL, building a notebook and then a deck. Most of that is routine, and the hard part is knowing which tables to trust.
 
 ## How it works
 

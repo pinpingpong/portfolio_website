@@ -46,6 +46,9 @@ TARGETS = {
 }
 
 
+# Streamlit apps without a fixed theme follow the browser; capture these in dark mode to match the site
+DARK = {"content-agent"}
+
 START = {}  # page -> monotonic time when the demo interaction starts (video trim point)
 
 
@@ -190,6 +193,7 @@ async def run_one(browser, name):
     url, record = TARGETS[name]
     vid_dir = RAW / f"_video_{name}"
     ctx = await browser.new_context(viewport=VIEW, device_scale_factor=1,
+                                    color_scheme="dark" if name in DARK else "light",
                                     record_video_dir=str(vid_dir) if record else None,
                                     record_video_size=VIEW if record else None)
     t0 = time.monotonic()

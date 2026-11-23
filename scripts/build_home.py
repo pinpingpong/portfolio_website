@@ -38,9 +38,9 @@ SKILLS = {
     "RAG & LLM apps": ["ai-twin-recruiter-chatbot", "aws-ai-certification-tutor", "ai-bazi-reader", "content-analytics-agent",
                        "tiktok-analytics-dashboard"],
     "SQL & analytics": ["content-analytics-agent", "analyst-agent", "personal-finance-pipeline", "tiktok-analytics-dashboard"],
-    "Data pipelines": ["personal-finance-pipeline", "ai-assisted-price-intelligence", "content-analytics-agent"],
     "Automation": ["weekly-ai-digest-agent", "weekly-youtube-upload-tracker", "maplestory-r-idle-daily-agent",
-                   "tiktok-content-workflow", "claude-usage-menu-bar"],
+                   "tiktok-content-workflow", "personal-finance-pipeline", "ai-assisted-price-intelligence",
+                   "content-analytics-agent"],
     "Prompt & workflow design": ["career-interview-intelligence", "tiktok-content-workflow"],
 }
 TYPE = {"projects": "App", "agents": "Agent", "tools": "Tool", "workflow": "Workflow"}
