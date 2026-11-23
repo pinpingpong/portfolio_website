@@ -167,16 +167,27 @@ def build_style_chunks():
 
 
 def embed_all(client, types, chunks):
+    # Free tier allows 100 embed requests per minute. With 100+ chunks a fixed short sleep
+    # trips it, so pace at ~85/min and back off on 429 instead of failing the run.
+    from google.genai import errors
     vectors = []
     for c in chunks:
-        emb = client.models.embed_content(
-            model=EMBED_MODEL,
-            contents=c["text"],
-            config=types.EmbedContentConfig(task_type="RETRIEVAL_DOCUMENT"),
-        ).embeddings[0].values
+        for attempt in range(5):
+            try:
+                emb = client.models.embed_content(
+                    model=EMBED_MODEL,
+                    contents=c["text"],
+                    config=types.EmbedContentConfig(task_type="RETRIEVAL_DOCUMENT"),
+                ).embeddings[0].values
+                break
+            except errors.ClientError as e:
+                if e.code != 429 or attempt == 4:
+                    raise
+                print(f"  rate limited on {c['id']}, waiting 30s")
+                time.sleep(30)
         vectors.append({"id": c["id"], "values": emb,
                         "metadata": {"source": c["source"], "text": c["text"]}})
-        time.sleep(0.3)  # free tier rate limit
+        time.sleep(0.7)  # stay under 100 requests/minute
     return vectors
 
 
