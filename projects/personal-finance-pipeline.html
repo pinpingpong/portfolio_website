@@ -96,7 +96,7 @@
         <h2>What broke and how I fixed it</h2>
         <ul>
 <li><strong>OCR picked up the sidebar.</strong> On scanned HSBC statements, the page 1 sidebar bled into the transaction table. Cropping page 1 before OCR fixed it.</li>
-<li><strong>Redaction leaked, then over-redacted.</strong> The first pass missed two names and 52 name fragments, and another rule blanked out CPF entries that weren't personal data. It took several rounds, each re-checked against the output.</li>
+<li><strong>Redaction leaked, then over-redacted.</strong> The first pass missed two names and 52 name fragments. Another rule went too far: it mistook "Central Provident Fund" for a person's name and redacted it, which made a CPF contribution look like ordinary spending. It took several rounds, each re-checked against the output.</li>
 <li><strong>A growing "Other" bucket.</strong> New merchants fell into "Other". Most of it was fixed by adding merchant keywords to the rules.</li>
 </ul>
       </div>

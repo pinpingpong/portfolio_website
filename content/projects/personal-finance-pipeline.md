@@ -66,7 +66,7 @@ One command reruns everything when new statements arrive.
 ## What broke and how I fixed it
 
 - **OCR picked up the sidebar.** On scanned HSBC statements, the page 1 sidebar bled into the transaction table. Cropping page 1 before OCR fixed it.
-- **Redaction leaked, then over-redacted.** The first pass missed two names and 52 name fragments, and another rule blanked out CPF entries that weren't personal data. It took several rounds, each re-checked against the output.
+- **Redaction leaked, then over-redacted.** The first pass missed two names and 52 name fragments. Another rule went too far: it mistook "Central Provident Fund" for a person's name and redacted it, which made a CPF contribution look like ordinary spending. It took several rounds, each re-checked against the output.
 - **A growing "Other" bucket.** New merchants fell into "Other". Most of it was fixed by adding merchant keywords to the rules.
 
 ## Limits
