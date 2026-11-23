@@ -1,5 +1,5 @@
 """
-Build the work rows in index.html and one detail page per project from content/projects/*.md.
+Build the whole site from content: index.html (homepage), resume.html, projects/<slug>.html and sitemap.xml.
 
 Each Markdown file is the single source for a project:
   - front matter (YAML): title, section, order, line, meta, media, highlights, stack, links
@@ -120,7 +120,7 @@ def buttons_html(p, indent, on_page=False):
         btns.append(f'<a href="{esc(links["live"])}" target="_blank" class="btn-launch">{ICON_LAUNCH} Launch Live App</a>')
     if links.get("try_twin"):
         if on_page:
-            btns.append(f'<a href="/#projects" class="btn-launch">{ICON_CHAT} Try It on the Homepage</a>')
+            btns.append(f'<button class="btn-launch" onclick="document.getElementById(\'chat-btn\').click()">{ICON_CHAT} Try It Now</button>')
         else:
             btns.append(f'<button class="btn-launch" onclick="document.getElementById(\'chat-btn\').click(); '
                         f'this.closest(\'section\').scrollIntoView();">{ICON_CHAT} Try It Live ↗</button>')
@@ -137,75 +137,10 @@ def buttons_html(p, indent, on_page=False):
     return out
 
 
-# ── Homepage rows ────────────────────────────────────────────────────────────
+# ── Shared chat widget ───────────────────────────────────────────────────────
 
-def row_html(p):
-    i = "            "
-    workflow = p["section"] == "workflow"
-    desc_cls = "workflow-desc" if workflow else "card-desc"
-    hl_cls = "workflow-highlights" if workflow else "agent-highlights"
-    stack_cls = "workflow-stack" if workflow else "card-stack"
-    out = [f'''        <details class="work-row reveal" data-title="{esc(p["title"])}">
-          <summary>
-            <span class="row-num">{p["order"]:02d}</span>
-            <span class="row-main">
-              <span class="row-title">{esc(p["title"])}</span>
-              <span class="row-line">{md_inline(p["line"])}</span>
-            </span>
-            <span class="row-meta">{esc(p["meta"])}</span>
-            <span class="row-icon" aria-hidden="true"></span>
-          </summary>
-          <div class="row-body">
-''']
-    out.append(media_html(p.get("media"), i))
-    out.append(f'{i}<p class="{desc_cls}">{md_inline(p["summary"])}</p>\n')
-    if p.get("highlights"):
-        items = "".join(f'\n{i}  <div class="highlight-item"><span class="highlight-dot"></span><span>{md_inline(h)}</span></div>'
-                        for h in p["highlights"])
-        out.append(f'{i}<div class="{hl_cls}">{items}\n{i}</div>\n')
-    out.append(stack_html(p, stack_cls, i))
-    out.append(buttons_html(p, i))
-    out.append("          </div>\n        </details>\n")
-    return "".join(out)
+CHAT = (ROOT / "scripts" / "partials" / "chat.html").read_text()
 
-
-def tile_html(p):
-    m = p.get("media") or {}
-    img = m.get("poster") or m.get("src") if m.get("type") in ("image", "video") else None
-    visual = (f'<div class="tile-frame"><span class="tile-dots" aria-hidden="true"><i></i><i></i><i></i></span>'
-              f'<img src="/{img}" alt="{esc(m.get("alt", ""))}" loading="lazy" decoding="async"></div>') if img else ""
-    href = f"/projects/{p['slug']}" if p["has_page"] else f"#{p['section']}"
-    return f'''        <a class="feature-tile reveal" href="{href}">
-          {visual}
-          <div class="tile-text">
-            <span class="tile-kind">{esc(SECTION_LABEL[p["section"]])}</span>
-            <span class="tile-title">{esc(p["title"])}</span>
-            <span class="tile-line">{md_inline(p["line"])}</span>
-            <span class="tile-more">View project <span aria-hidden="true">→</span></span>
-          </div>
-        </a>
-'''
-
-
-def build_index(projects):
-    s = INDEX.read_text()
-    if "<!-- BUILD:featured -->" in s:
-        feats = sorted((p for p in projects if p.get("featured")), key=lambda p: p["featured"])
-        a = s.index("<!-- BUILD:featured -->") + len("<!-- BUILD:featured -->")
-        s = s[:a] + "\n" + "".join(tile_html(p) for p in feats) + "        " + s[s.index("<!-- /BUILD:featured -->"):]
-    for sec in SECTIONS:
-        rows = sorted((p for p in projects if p["section"] == sec), key=lambda p: p["order"])
-        block = "\n".join(row_html(p) for p in rows)
-        start, end = f"<!-- BUILD:rows:{sec} -->", f"<!-- /BUILD:rows:{sec} -->"
-        if start not in s:
-            sys.exit(f"index.html: marker {start} missing")
-        a = s.index(start) + len(start)
-        b = s.index(end)
-        s = s[:a] + "\n" + block + "        " + s[b:]
-    return s
-
-
-# ── Detail pages ─────────────────────────────────────────────────────────────
 
 def compare_html(c):
     """Drag-to-compare before/after figure. Front matter:
@@ -261,12 +196,16 @@ def page_html(p):
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css">
   <link rel="stylesheet" href="/revamp.css">
+  <link rel="stylesheet" href="/chat.css">
+  <script>window.va = window.va || function () {{ (window.vaq = window.vaq || []).push(arguments); }};</script>
+  <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body class="proj-page">
   <nav>
     <a class="nav-logo" href="/">LPX</a>
     <div class="nav-links">
-      <a href="/#{p["section"]}">← All work</a>
+      <a href="/#work">← All work</a>
+      <a href="/resume">Resume</a>
     </div>
   </nav>
 
@@ -283,17 +222,18 @@ def page_html(p):
     </article>
 
     <footer class="proj-footer">
-      <a href="/#{p["section"]}">← Back to all work</a>
-      <span>Questions? Ask my AI twin on the <a href="/">homepage</a>.</span>
+      <a href="/#work">← Back to all work</a>
+      <span>Questions? <a href="#" onclick="document.getElementById('chat-btn').click(); return false;">Ask my AI twin</a>.</span>
     </footer>
   </main>
+{CHAT}
 </body>
 </html>
 '''
 
 
 def build_sitemap(projects):
-    urls = [f"{SITE}/", f"{SITE}/digest/"] + [f"{SITE}/projects/{p['slug']}" for p in projects if p["has_page"]]
+    urls = [f"{SITE}/", f"{SITE}/resume", f"{SITE}/digest/"] + [f"{SITE}/projects/{p['slug']}" for p in projects if p["has_page"]]
     locs = "".join(f"\n  <url><loc>{u}</loc></url>" for u in urls)
     return f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{locs}\n</urlset>\n'
 
@@ -301,7 +241,9 @@ def build_sitemap(projects):
 def main():
     check = "--check" in sys.argv
     projects = load_projects()
-    outputs = {INDEX: build_index(projects), SITEMAP: build_sitemap(projects)}
+    import build_home, build_resume
+    outputs = {INDEX: build_home.render(CHAT), ROOT / "resume.html": build_resume.render(CHAT),
+               SITEMAP: build_sitemap(projects)}
     for p in projects:
         if p["has_page"]:
             outputs[PAGES / f"{p['slug']}.html"] = page_html(p)

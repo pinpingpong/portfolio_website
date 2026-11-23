@@ -3,7 +3,7 @@ Rebuild the AI Twin's Pinecone index from the PUBLIC site content only.
 
 Projects come from content/projects/*.md (the same files that build the homepage rows and
 detail pages): one chunk for each project's overview, plus one per "## " section of its
-detail page. The hero, experience, education and skills blocks still come from index.html. Everything is written to the "website"
+detail page. About, experience, education and skills come from content/about.md. Everything is written to the "website"
 namespace, which is wiped and rebuilt on every run, so removed cards disappear too.
 
 Private documents (resume, raw performance reviews) must never go into this index:
@@ -28,7 +28,8 @@ import time
 from html.parser import HTMLParser
 from pathlib import Path
 
-INDEX_HTML = Path(__file__).resolve().parent.parent / "index.html"
+ROOT = Path(__file__).resolve().parent.parent
+INDEX_HTML = ROOT / "index.html"
 PINECONE_INDEX = "pinxiu-portfolio"
 NAMESPACE = "website"
 STYLE_NAMESPACE = "working-style"
@@ -129,34 +130,20 @@ def build_project_chunks():
 
 
 def build_chunks():
-    parser = ChunkParser()
-    parser.feed(INDEX_HTML.read_text())
     out = []
     for slug, part, source, text in build_project_chunks():
         part_slug = re.sub(r"[^a-z0-9]+", "-", part.lower()).strip("-")
         out.append({"id": f"{NAMESPACE}__{len(out):02d}__{slug}__{part_slug}"[:200], "source": source, "text": text})
-    for section, text, data_title in parser.chunks:
-        if section in PROJECT_SECTIONS:
-            continue  # projects come from content/projects/*.md
-        i = len(out)
-        kind = SECTION_NAMES.get(section, section or "Site")
-        title = text.splitlines()[0] if section != "hero" else "About Pin Xiu"
-        # Card numbers like "PROJECT — 01" are noise; use the title line instead
-        lines = text.splitlines()
-        if data_title:                                    # list rows carry their title
-            title = data_title
-        elif re.match(r"^(PROJECT|AGENT|TOOL)\s", lines[0]) and len(lines) > 1:
-            title = lines[1]
-        elif section == "workflow" and len(lines) > 1:   # first line is the category tag
-            title = lines[1]
-        elif re.match(r"^[A-Z][a-z]{2} \d{4} ", lines[0]) and len(lines) > 1:  # timeline: date, then company
-            title = f"{lines[1]} ({lines[0]})"
-        slug = re.sub(r"[^a-z0-9]+", "-", f"{section}-{title}".lower()).strip("-")[:80]
-        out.append({
-            "id": f"{NAMESPACE}__{i:02d}__{slug}",
-            "source": f"{kind}: {title}",
-            "text": f"{kind}: {title}\n{text}",
-        })
+    # About, experience, education and skills: content/about.md, one chunk per "## " section
+    about = (ROOT / "content" / "about.md").read_text()
+    about = re.sub(r"<!--.*?-->", "", about.split("\n---\n", 1)[1], flags=re.S)
+    for part in re.split(r"^## ", about, flags=re.M)[1:]:
+        heading, _, body = part.partition("\n")
+        heading = heading.strip()
+        kind = "Intro" if heading.startswith("About") else "Experience"
+        slug = re.sub(r"[^a-z0-9]+", "-", heading.lower()).strip("-")[:60]
+        out.append({"id": f"{NAMESPACE}__{len(out):02d}__about__{slug}", "source": f"{kind}: {heading}",
+                    "text": f"{kind}: {heading}\n{body.strip()}"})
     return out
 
 
@@ -203,7 +190,7 @@ def replace_namespace(index, namespace, vectors):
 
 def main():
     chunks = build_chunks()
-    print(f"Built {len(chunks)} chunks from content/projects/*.md and {INDEX_HTML.name}")
+    print(f"Built {len(chunks)} chunks from content/projects/*.md and content/about.md")
     for c in chunks:
         print(f"  {c['id']}  ({len(c['text'])} chars)")
     style = build_style_chunks()

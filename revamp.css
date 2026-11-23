@@ -159,3 +159,6 @@ section { padding: 8rem 2.5rem; }
 .proj-header .card-footer .btn-launch,
 .proj-header .card-footer .btn-github { flex: 0 0 auto; padding-left: 1.5rem; padding-right: 1.5rem; }
 #chat-label { border-radius: 999px; padding-left: 1rem; padding-right: 1rem; }
+
+/* New-site nav on detail pages */
+.proj-page .nav-links { display: flex; gap: 1.75rem; }

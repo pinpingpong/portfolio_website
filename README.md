@@ -17,28 +17,31 @@ scheduled Claude agent. It also hosts an AI twin chatbot that visitors can quest
 
 | Path | What it is |
 |---|---|
-| `content/projects/*.md` | One file per project: the single source for its homepage row, detail page and AI twin chunks |
-| `index.html` | The homepage. Project rows sit between `BUILD:rows` markers and are generated; edit everything else by hand |
-| `projects/*.html` | Generated detail pages, served at `/projects/<slug>` |
-| `scripts/build_site.py` | Builds the rows, detail pages and `sitemap.xml` from `content/projects/` |
-| `styles.css` | All styles, including the mobile layout |
+| `content/projects/*.md` | One file per project: the single source for its homepage entry, its `/projects/<slug>` page and its AI twin chunks |
+| `content/about.md` | About, experience, education and skills text the AI twin indexes |
+| `content/resume.md` | Public resume (LinkedIn only, no phone or email) for `/resume` and the PDF |
+| `scripts/home_template.html` | Homepage design: hero, outcome numbers, the two scroll stories, showcases, All work, digest strip |
+| `scripts/build_home.py` | Plain-English lines, badges, skill filters and order for the homepage (`COPY`, `SKILLS`, `INDEX_ORDER`) |
+| `scripts/build_site.py` | Builds `index.html`, `resume.html`, `projects/*.html` and `sitemap.xml`; `--check` is used in CI |
+| `scripts/build_resume_pdf.py` | Renders `resume.html` to `Lim_Pin_Xiu_Resume.pdf` (Playwright, run locally) |
+| `scripts/partials/chat.html`, `chat.css` | AI twin chat widget, included on every generated page |
 | `api/chat.js` | AI twin endpoint: request limits, retrieval, Gemini streaming |
-| `scripts/build_public_index.py` | Rebuilds the AI twin's Pinecone index from the site content |
-| `digest/` | Weekly AI digest issues, archive page and `manifest.json` (written by the digest agent) |
-| `og-image.png`, `favicon.svg`, `robots.txt`, `sitemap.xml` | Link previews, icon and crawler files |
+| `scripts/build_public_index.py` | Rebuilds the AI twin's Pinecone index from `content/` |
+| `styles.css`, `revamp.css` | Styles for the project pages |
+| `digest/` | Weekly AI digest issues, archive page and `manifest.json` (written by the digest agent; the homepage reads the manifest live) |
 | `.github/workflows/site.yml` | CI: checks generated files are in sync, then rebuilds the AI twin index on push to `main` |
-| `.vercelignore` | Keeps the README, scripts, content sources and the digest agent's skill file off the live site |
 
 ## Add or edit a project
 
-1. Edit or add `content/projects/<slug>.md`. Front matter holds the row fields (title, section,
-   order, line, meta, media, highlights, stack, links). Text before the first `## ` heading is the
-   row summary. Any `## ` sections (Problem, How it works, Key decisions, What broke and how I
-   fixed it, Limits and next steps) become a detail page at `/projects/<slug>` and add a
-   "Read the write-up" link to the row.
-2. `python3 scripts/build_site.py` (needs `pip install markdown pyyaml`).
-3. Commit the Markdown and the generated files, then push. CI fails if you skipped step 2, and
-   rebuilds the AI twin index when it passes.
+1. Edit or add `content/projects/<slug>.md` (front matter for title, section, media, stack, links;
+   text before the first `## ` is the summary; `## ` sections become the write-up).
+2. For a new project, add its plain-English line and badge to `COPY` and its slug to `INDEX_ORDER`
+   (and optionally `SKILLS`) in `scripts/build_home.py`. The build stops if you forget.
+3. `python3 scripts/build_site.py` (needs `pip install markdown pyyaml`), commit, push.
+   CI fails if step 3 was skipped, and rebuilds the AI twin index when it passes.
+
+Resume changes: edit `content/resume.md`, run `build_site.py`, then
+`.venv-capture/bin/python scripts/build_resume_pdf.py` for the PDF.
 
 ## AI twin
 
@@ -46,8 +49,8 @@ scheduled Claude agent. It also hosts an AI twin chatbot that visitors can quest
 2. The function checks the request: same origin, at most 11 turns, 800 characters per message,
    and a per-IP limit of 8 requests a minute and 40 an hour (best effort, per edge instance).
 3. It embeds the latest question with `gemini-embedding-001` and queries two Pinecone namespaces:
-   - `website`: one chunk per project overview and per detail-page section (from `content/projects/`),
-     plus the hero and experience entries from `index.html`.
+   - `website`: one chunk per project overview and per write-up section (`content/projects/`),
+     plus about and experience (`content/about.md`).
    - `working-style`: curated, anonymous colleague feedback, built from a file kept outside this repo.
 4. The best 5 matches are added to the system prompt and Gemini streams the answer back.
 

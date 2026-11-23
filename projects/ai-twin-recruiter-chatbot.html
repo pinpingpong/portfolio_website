@@ -20,12 +20,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css">
   <link rel="stylesheet" href="/revamp.css">
+  <link rel="stylesheet" href="/chat.css">
+  <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+  <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body class="proj-page">
   <nav>
     <a class="nav-logo" href="/">LPX</a>
     <div class="nav-links">
-      <a href="/#projects">← All work</a>
+      <a href="/#work">← All work</a>
+      <a href="/resume">Resume</a>
     </div>
   </nav>
 
@@ -44,7 +48,7 @@
         <span class="stack-tag">Prompt Engineering</span>
       </div>
       <div class="card-footer">
-        <a href="/#projects" class="btn-launch"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Try It on the Homepage</a>
+        <button class="btn-launch" onclick="document.getElementById('chat-btn').click()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Try It Now</button>
         <a href="https://github.com/pinpingpong/portfolio_website" target="_blank" class="btn-github"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg> GitHub</a>
       </div>
     </header>
@@ -101,9 +105,242 @@
     </article>
 
     <footer class="proj-footer">
-      <a href="/#projects">← Back to all work</a>
-      <span>Questions? Ask my AI twin on the <a href="/">homepage</a>.</span>
+      <a href="/#work">← Back to all work</a>
+      <span>Questions? <a href="#" onclick="document.getElementById('chat-btn').click(); return false;">Ask my AI twin</a>.</span>
     </footer>
   </main>
+  <!-- ── CHATBOT FLOAT BUTTON + PANEL ── -->
+  <button id="chat-btn" aria-label="Chat with Pin Xiu AI twin">
+    <svg class="chat-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#09090b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <svg class="close-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#09090b" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <div id="chat-label">Interview my AI twin ↗</div>
+
+  <div id="chat-panel" role="dialog" aria-label="Chat with Pin Xiu AI twin">
+    <div class="chat-header">
+      <div class="chat-avatar">PX</div>
+      <div class="chat-header-info">
+        <div class="chat-header-name">Pin Xiu — AI Twin</div>
+        <div class="chat-header-sub">Data Science & AI · Singapore</div>
+      </div>
+      <div class="chat-status-dot"></div>
+    </div>
+    <div id="chat-messages"></div>
+    <div id="chat-chips">
+      <button class="chip" onclick="sendChip(this)">What are your strengths?</button>
+      <button class="chip" onclick="sendChip(this)">Tell me about your ML work</button>
+      <button class="chip" onclick="sendChip(this)">Which AI project should I try?</button>
+      <button class="chip" onclick="sendChip(this)">Biggest achievement?</button>
+      <button class="chip" onclick="sendChip(this)">Your tech stack?</button>
+    </div>
+    <div class="chat-input-row">
+      <textarea id="chat-input" rows="1" placeholder="Ask me anything..." maxlength="800" aria-label="Your message"></textarea>
+      <button id="chat-send" disabled aria-label="Send">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#09090b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <script>
+  (function() {
+    // system prompt is provided server-side in `api/chat.js`
+    const messages = [];
+    const MAX_HISTORY = 11; // odd, so the slice always starts on a user turn
+    let isLoading = false;
+
+    const panel = document.getElementById('chat-panel');
+    const btn = document.getElementById('chat-btn');
+    const label = document.getElementById('chat-label');
+    const msgsEl = document.getElementById('chat-messages');
+    const input = document.getElementById('chat-input');
+    const sendBtn = document.getElementById('chat-send');
+    const chipsEl = document.getElementById('chat-chips');
+
+    // Open/close
+    btn.addEventListener('click', () => {
+      const isOpen = panel.classList.toggle('open');
+      btn.classList.toggle('open', isOpen);
+      label.classList.toggle('hide', isOpen);
+      if (isOpen && messages.length === 0) addBotMsg("Hi! I'm Pin Xiu's AI twin 👋 Ask me about her experience or anything she's built with AI on this site. I'm still experimental, so for anything important please reach out to Pin Xiu on LinkedIn!");
+      if (isOpen) setTimeout(() => input.focus(), 300);
+    });
+
+    // Input auto-resize + enable send
+    input.addEventListener('input', () => {
+      input.style.height = 'auto';
+      input.style.height = Math.min(input.scrollHeight, 80) + 'px';
+      sendBtn.disabled = !input.value.trim() || isLoading;
+    });
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(input.value.trim()); }
+    });
+
+    sendBtn.addEventListener('click', () => send(input.value.trim()));
+
+    function sendChip(el) {
+      send(el.textContent.trim());
+      chipsEl.style.display = 'none';
+    }
+    window.sendChip = sendChip;
+
+    // Minimal markdown for bot replies. HTML is escaped first, so model output
+    // can never inject tags; only the subset below is turned back into markup.
+    function escapeHtml(s) {
+      return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+              .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
+    function inlineMd(s) {
+      return s
+        .replace(/`([^`]+)`/g, '<code>$1</code>')
+        .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+        .replace(/(^|[^*])\*([^*\s][^*]*)\*/g, '$1<em>$2</em>')
+        .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,
+                 '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+    }
+    function renderMd(text) {
+      const lines = escapeHtml(text).split('\n');
+      let html = '', list = null, para = [];
+      const flushPara = () => { if (para.length) { html += `<p>${inlineMd(para.join('<br>'))}</p>`; para = []; } };
+      const closeList = () => { if (list) { html += `</${list}>`; list = null; } };
+      for (const raw of lines) {
+        const line = raw.trimEnd();
+        const ul = line.match(/^\s*[-*•]\s+(.*)$/);
+        const ol = line.match(/^\s*\d+[.)]\s+(.*)$/);
+        const h = line.match(/^#{1,6}\s+(.*)$/);
+        if (ul || ol) {
+          flushPara();
+          const type = ul ? 'ul' : 'ol';
+          if (list !== type) { closeList(); html += `<${type}>`; list = type; }
+          html += `<li>${inlineMd((ul || ol)[1])}</li>`;
+        } else if (h) {
+          flushPara(); closeList();
+          html += `<p><strong>${inlineMd(h[1])}</strong></p>`;
+        } else if (!line.trim()) {
+          flushPara(); closeList();
+        } else {
+          closeList(); para.push(line);
+        }
+      }
+      flushPara(); closeList();
+      return html;
+    }
+
+    function addBotMsg(text) {
+      const div = document.createElement('div');
+      div.className = 'msg bot';
+      div.innerHTML = `<div class="msg-avatar">PX</div><div class="msg-bubble"></div>`;
+      div.querySelector('.msg-bubble').innerHTML = renderMd(text);
+      msgsEl.appendChild(div);
+      scrollToBottom();
+      return div.querySelector('.msg-bubble');
+    }
+
+    function addUserMsg(text) {
+      const div = document.createElement('div');
+      div.className = 'msg user';
+      div.innerHTML = `<div class="msg-avatar">You</div><div class="msg-bubble"></div>`;
+      div.querySelector('.msg-bubble').textContent = text;
+      msgsEl.appendChild(div);
+      scrollToBottom();
+    }
+
+    function addTyping() {
+      const div = document.createElement('div');
+      div.className = 'msg bot';
+      div.id = 'typing-indicator';
+      div.innerHTML = `<div class="msg-avatar">PX</div><div class="typing-dots"><span></span><span></span><span></span></div>`;
+      msgsEl.appendChild(div);
+      scrollToBottom();
+    }
+
+    function removeTyping() {
+      const t = document.getElementById('typing-indicator');
+      if (t) t.remove();
+    }
+
+    function scrollToBottom() {
+      msgsEl.scrollTop = msgsEl.scrollHeight;
+    }
+
+    async function send(text) {
+      if (!text || isLoading) return;
+      input.value = '';
+      input.style.height = 'auto';
+      sendBtn.disabled = true;
+      isLoading = true;
+      chipsEl.style.display = 'none';
+
+      addUserMsg(text);
+      messages.push({ role: 'user', parts: [{ text }] });
+
+      addTyping();
+
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          // Server caps history too; only send the recent turns
+          body: JSON.stringify({ messages: messages.slice(-MAX_HISTORY) })
+        });
+
+        removeTyping();
+        if (!res.ok) {
+          messages.pop(); // drop the unanswered user turn so history stays user/model alternating
+          addBotMsg(res.status === 429
+            ? "I've had a lot of questions in a short time. Please try again in a minute, or reach Pin Xiu on LinkedIn."
+            : 'Sorry, something went wrong. Please try again!');
+          isLoading = false;
+          sendBtn.disabled = !input.value.trim();
+          return;
+        }
+        const bubble = addBotMsg('');
+        let fullText = '';
+
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split('\n');
+          buffer = lines.pop();
+          for (const line of lines) {
+            if (!line.startsWith('data: ')) continue;
+            const data = line.slice(6).trim();
+            if (data === '[DONE]') continue;
+            try {
+              const parsed = JSON.parse(data);
+              const chunk = parsed.candidates?.[0]?.content?.parts?.[0]?.text || '';
+              if (chunk) {
+                fullText += chunk;
+                bubble.innerHTML = renderMd(fullText);
+                scrollToBottom();
+              }
+            } catch {}
+          }
+        }
+
+        if (fullText) {
+          messages.push({ role: 'model', parts: [{ text: fullText }] });
+        } else {
+          messages.pop();
+          bubble.textContent = 'Sorry, something went wrong. Please try again!';
+        }
+
+      } catch (err) {
+        removeTyping();
+        if (messages.length && messages[messages.length - 1].role === 'user') messages.pop();
+        addBotMsg('Sorry, something went wrong. Please try again!');
+      }
+
+      isLoading = false;
+      sendBtn.disabled = !input.value.trim();
+    }
+  })();
+  </script>
+
 </body>
 </html>

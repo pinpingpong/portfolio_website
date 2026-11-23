@@ -4,13 +4,6 @@ section: projects
 order: 5
 line: Supplier links and design rules in, whole-room schemes rendered onto your room photo or a designer's 3D render.
 meta: Multimodal · Gemini
-media:
-  type: image
-  src: media/reno-agent.webp
-  alt: 'Step-by-step flow: room photo, supplier catalogues, curation, render'
-  width: 1200
-  height: 750
-  caption: 'Step-by-step flow: room photo, supplier catalogues, curation, render'
 stack:
 - Gemini API
 - Search Grounding

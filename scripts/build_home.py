@@ -1,11 +1,10 @@
-"""Build prototype.html (revamp preview) from scripts/prototype_template.html + content/projects.
+"""Render the homepage (index.html) from scripts/home_template.html + content/projects.
 
-Projects are shown in three tiers so size signals importance:
-  SHOWCASE  full-width block, big bright visual
-  MID       large card with the image on top
-  LIST      compact row
-Plain-English lines and impact badges below are drafts for review; they are written for
-non-technical readers and live here until the design is approved.
+Called by scripts/build_site.py; not run on its own. Page order: hero, outcome numbers,
+two scroll stories (hand-written in the template), two showcases, then "All work" with every
+project once (grid or list, filterable). Plain-English lines, badges and skill filters for
+each project live in COPY and SKILLS below; a new project must be added to COPY and
+INDEX_ORDER (the build stops with an error otherwise).
 """
 import html
 import json
@@ -51,9 +50,6 @@ INDEX_ORDER = ["renovation-ai-agent", "ai-twin-recruiter-chatbot", "personal-fin
                "weekly-youtube-upload-tracker", "ai-bazi-reader", "tiktok-content-workflow", "tiktok-analytics-dashboard"]
 
 SHOWCASE = ["ai-twin-recruiter-chatbot", "ai-assisted-price-intelligence"]
-MID = ["content-analytics-agent", "weekly-ai-digest-agent", "aws-ai-certification-tutor", "claude-usage-menu-bar"]
-LIST = ["analyst-agent", "maplestory-r-idle-daily-agent", "career-interview-intelligence", "weekly-youtube-upload-tracker",
-        "ai-bazi-reader", "tiktok-content-workflow", "tiktok-analytics-dashboard"]
 
 esc = html.escape
 P = {p["slug"]: p for p in load_projects()}
@@ -83,20 +79,7 @@ def showcase(slug, i):
   </section>'''
 
 
-def mid(slug):
-    p = P[slug]; line, badge = COPY[slug]
-    return f'''        <a class="mcard reveal" href="/projects/{slug}">
-          <div class="pic">{visual(p)}</div>
-          <div class="body"><span class="badge" style="align-self:flex-start">{esc(badge)}</span><h3>{esc(p["title"])}</h3><p>{esc(line)}</p></div>
-        </a>'''
 
-
-def row(slug):
-    p = P[slug]; line, badge = COPY[slug]
-    return f'''        <a class="lrow reveal" href="/projects/{slug}">
-          <div><h4>{esc(p["title"])}</h4><p>{esc(line)}</p></div>
-          <span class="badge">{esc(badge)}</span><span class="arrow">→</span>
-        </a>'''
 
 
 def index_row(slug):
@@ -120,7 +103,7 @@ def index_row(slug):
 
 
 THUMB = {  # grid thumbnails where the row media is a diagram or missing
-    "renovation-ai-agent": "media/reno-combinations.webp",
+    "renovation-ai-agent": "media/reno-after.webp",
     "personal-finance-pipeline": "media/finance-dashboard-charts.webp",
 }
 
@@ -148,17 +131,14 @@ def chips():
 
 
 assert sorted(INDEX_ORDER) == sorted(P), "INDEX_ORDER must list every project"
-missing = set(P) - set(SHOWCASE + MID + LIST) - {"renovation-ai-agent", "personal-finance-pipeline"}
-if missing:
-    sys.exit(f"Projects not placed in any tier: {sorted(missing)}")
-tpl = (ROOT / "scripts" / "prototype_template.html").read_text()
-out = (tpl.replace("{{SHOWCASES}}", "\n".join(showcase(s, i) for i, s in enumerate(SHOWCASE)))
-          .replace("{{MID}}", "\n".join(mid(s) for s in MID))
-          .replace("{{LIST}}", "\n".join(row(s) for s in LIST))
-          .replace("{{CHIPS}}", chips())
-          .replace("{{GRID}}", "\n".join(grid_card(s) for s in INDEX_ORDER))
-          .replace("{{INDEX_ROWS}}", "\n".join(index_row(s) for s in INDEX_ORDER))
-          .replace("{{N_PROJECTS}}", str(len(P)))
-          .replace("{{N_DIGESTS}}", str(len(json.loads((ROOT / "digest" / "manifest.json").read_text())))))
-(ROOT / "prototype.html").write_text(out)
-print(f"prototype.html: {len(SHOWCASE)} showcases, {len(INDEX_ORDER)} projects in All work")
+def render(chat_html=""):
+    missing = set(P) - set(INDEX_ORDER)
+    if missing:
+        sys.exit(f"Add these projects to COPY and INDEX_ORDER in scripts/build_home.py: {sorted(missing)}")
+    tpl = (ROOT / "scripts" / "home_template.html").read_text()
+    return (tpl.replace("{{SHOWCASES}}", "\n".join(showcase(s, i) for i, s in enumerate(SHOWCASE)))
+               .replace("{{CHIPS}}", chips())
+               .replace("{{GRID}}", "\n".join(grid_card(s) for s in INDEX_ORDER))
+               .replace("{{INDEX_ROWS}}", "\n".join(index_row(s) for s in INDEX_ORDER))
+               .replace("{{N_PROJECTS}}", str(len(P)))
+               .replace("{{CHAT}}", chat_html))

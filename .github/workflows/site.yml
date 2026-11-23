@@ -12,14 +12,14 @@ on:
     paths:
       - "content/**"
       - "index.html"
-      - "scripts/build_site.py"
-      - "scripts/build_public_index.py"
+      - "resume.html"
+      - "projects/**"
+      - "scripts/**"
       - ".github/workflows/site.yml"
   pull_request:
     paths:
       - "content/**"
-      - "index.html"
-      - "scripts/build_site.py"
+      - "scripts/**"
   workflow_dispatch:
 
 concurrency:
