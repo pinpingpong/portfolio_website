@@ -335,6 +335,8 @@
     @media (max-width: 860px) {
       nav { padding: 1rem; }
       .nav-links { gap: 1.1rem; font-size: 0.62rem; }
+      .hero-copy { bottom: 6vh; gap: 1.1rem; }
+      .hero-copy .site-note { font-size: 0.85rem; }
       .hide-sm { display: none; }
       .wrap { padding: 0 1rem; }
       .outcomes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -534,7 +536,7 @@
       o.font = `800 ${fs}px Syne, sans-serif`;
       const widest = narrow ? 'XIU' : 'PIN XIU';
       while (o.measureText(widest).width > W * (narrow ? 0.8 : 0.86) && fs > 20) { fs -= 4; o.font = `800 ${fs}px Syne, sans-serif`; }
-      const cy = H * (narrow ? 0.36 : 0.4);
+      const cy = H * (narrow ? 0.27 : 0.4);
       if (narrow) { o.fillText('PIN', W / 2, cy - fs * 0.55); o.fillText('XIU', W / 2, cy + fs * 0.55); }
       else o.fillText('PIN XIU', W / 2, cy);
       const data = o.getImageData(0, 0, W, H).data, out = [];
