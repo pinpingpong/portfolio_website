@@ -2,11 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://limpinxiu-portfolio-website.vercel.app/</loc></url>
   <url><loc>https://limpinxiu-portfolio-website.vercel.app/digest/</loc></url>
+  <url><loc>https://limpinxiu-portfolio-website.vercel.app/projects/ai-assisted-price-intelligence</loc></url>
   <url><loc>https://limpinxiu-portfolio-website.vercel.app/projects/ai-bazi-reader</loc></url>
   <url><loc>https://limpinxiu-portfolio-website.vercel.app/projects/ai-twin-recruiter-chatbot</loc></url>
+  <url><loc>https://limpinxiu-portfolio-website.vercel.app/projects/analyst-agent</loc></url>
   <url><loc>https://limpinxiu-portfolio-website.vercel.app/projects/aws-ai-certification-tutor</loc></url>
+  <url><loc>https://limpinxiu-portfolio-website.vercel.app/projects/career-interview-intelligence</loc></url>
   <url><loc>https://limpinxiu-portfolio-website.vercel.app/projects/claude-usage-menu-bar</loc></url>
   <url><loc>https://limpinxiu-portfolio-website.vercel.app/projects/content-analytics-agent</loc></url>
+  <url><loc>https://limpinxiu-portfolio-website.vercel.app/projects/maplestory-r-idle-daily-agent</loc></url>
+  <url><loc>https://limpinxiu-portfolio-website.vercel.app/projects/personal-finance-pipeline</loc></url>
   <url><loc>https://limpinxiu-portfolio-website.vercel.app/projects/renovation-ai-agent</loc></url>
   <url><loc>https://limpinxiu-portfolio-website.vercel.app/projects/tiktok-analytics-dashboard</loc></url>
+  <url><loc>https://limpinxiu-portfolio-website.vercel.app/projects/tiktok-content-workflow</loc></url>
+  <url><loc>https://limpinxiu-portfolio-website.vercel.app/projects/weekly-ai-digest-agent</loc></url>
+  <url><loc>https://limpinxiu-portfolio-website.vercel.app/projects/weekly-youtube-upload-tracker</loc></url>
 </urlset>
