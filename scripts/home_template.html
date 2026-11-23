@@ -680,6 +680,7 @@
       document.getElementById('digest-title').textContent = `Issue #${latest.issue}: ${latest.title}`;
       document.getElementById('digest-sub').textContent = `${latest.dateDisplay} · ${issues.length} issues published so far.`;
       document.querySelector('.digest-card').href = '/digest/' + latest.slug;
+      document.querySelectorAll('[data-digest-badge]').forEach(b => b.textContent = `${issues.length} issues published`);
       const n = document.querySelector('[data-digest-count]'); if (n) { n.dataset.to = issues.length; if (n.dataset.pending) n.textContent = issues.length; }
     }).catch(() => {});
   })();

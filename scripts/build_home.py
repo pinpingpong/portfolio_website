@@ -18,7 +18,7 @@ COPY = {
     "ai-twin-recruiter-chatbot": ("Ask a chatbot version of me anything about my work. It only answers from what's published on this site.", "Try it live"),
     "ai-assisted-price-intelligence": ("Found the same designer taps 40 to 55% cheaper overseas by comparing ~1,400 listings across Singapore, China and Germany.", "S$500 saved"),
     "content-analytics-agent": ("Ask questions about social media data in plain English and get answers, tables and charts back.", "Live app"),
-    "weekly-ai-digest-agent": ("An agent that reads the week's AI news, keeps what matters and publishes a newsletter here by itself.", "20 issues published"),
+    "weekly-ai-digest-agent": ("An agent that reads the week's AI news, keeps what matters and publishes a newsletter here by itself.", "Published weekly"),
     "aws-ai-certification-tutor": ("Unlimited practice questions for a brand-new AWS exam, with an explanation for every answer.", "Live app"),
     "claude-usage-menu-bar": ("A tiny Mac widget that shows my AI usage limits at a glance.", "Open source"),
     "analyst-agent": ("Turns a business question into data queries, a notebook and slides.", "Used at work"),
@@ -97,7 +97,7 @@ def index_row(slug):
           <div><div class="iname">{esc(p["title"])}</div><div class="iline">{esc(line)}</div></div>
           <div class="itype mono">{TYPE[p["section"]]}</div>
           <div class="itags">{tags}</div>
-          <div class="istatus">{esc(badge)}</div>
+          <div class="istatus"{' data-digest-badge' if slug == "weekly-ai-digest-agent" else ''}>{esc(badge)}</div>
           <div class="ilinks">{"".join(btn)}</div>
         </div>'''
 
@@ -117,7 +117,7 @@ def grid_card(slug):
            else f'<div class="pic noimg"><span>{TYPE[p["section"]]}</span></div>')
     return f'''          <a class="wcard reveal" href="/projects/{slug}" data-type="{TYPE[p["section"]].lower()}" data-skills="{" ".join(skills)}">
             {pic}
-            <div class="body"><div class="meta"><span class="itype mono">{TYPE[p["section"]]}</span><span class="istatus">{esc(badge)}</span></div>
+            <div class="body"><div class="meta"><span class="itype mono">{TYPE[p["section"]]}</span><span class="istatus"{' data-digest-badge' if slug == "weekly-ai-digest-agent" else ''}>{esc(badge)}</span></div>
               <h3>{esc(p["title"])}</h3><p>{esc(line)}</p></div>
           </a>'''
 

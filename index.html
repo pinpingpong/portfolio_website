@@ -541,7 +541,7 @@
           </a>
           <a class="wcard reveal" href="/projects/weekly-ai-digest-agent" data-type="agent" data-skills="automation">
             <div class="pic"><img src="/media/ai-digest.webp" alt="" loading="lazy" decoding="async"></div>
-            <div class="body"><div class="meta"><span class="itype mono">Agent</span><span class="istatus">20 issues published</span></div>
+            <div class="body"><div class="meta"><span class="itype mono">Agent</span><span class="istatus" data-digest-badge>Published weekly</span></div>
               <h3>Weekly AI Digest Agent</h3><p>An agent that reads the week&#x27;s AI news, keeps what matters and publishes a newsletter here by itself.</p></div>
           </a>
           <a class="wcard reveal" href="/projects/aws-ai-certification-tutor" data-type="app" data-skills="rag-llm-apps">
@@ -631,7 +631,7 @@
           <div><div class="iname">Weekly AI Digest Agent</div><div class="iline">An agent that reads the week&#x27;s AI news, keeps what matters and publishes a newsletter here by itself.</div></div>
           <div class="itype mono">Agent</div>
           <div class="itags"><span>Claude Code Routines</span><span>SKILL.md</span><span>Web Search</span></div>
-          <div class="istatus">20 issues published</div>
+          <div class="istatus" data-digest-badge>Published weekly</div>
           <div class="ilinks"><a class="primary" href="/projects/weekly-ai-digest-agent">Write-up →</a></div>
         </div>
         <div class="irow" data-type="app" data-skills="rag-llm-apps">
@@ -889,6 +889,7 @@
       document.getElementById('digest-title').textContent = `Issue #${latest.issue}: ${latest.title}`;
       document.getElementById('digest-sub').textContent = `${latest.dateDisplay} · ${issues.length} issues published so far.`;
       document.querySelector('.digest-card').href = '/digest/' + latest.slug;
+      document.querySelectorAll('[data-digest-badge]').forEach(b => b.textContent = `${issues.length} issues published`);
       const n = document.querySelector('[data-digest-count]'); if (n) { n.dataset.to = issues.length; if (n.dataset.pending) n.textContent = issues.length; }
     }).catch(() => {});
   })();
