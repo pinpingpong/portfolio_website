@@ -8,6 +8,7 @@ Plain-English lines and impact badges below are drafts for review; they are writ
 non-technical readers and live here until the design is approved.
 """
 import html
+import json
 import sys
 from pathlib import Path
 
@@ -29,6 +30,28 @@ COPY = {
     "tiktok-content-workflow": ("Plans and drafts my TikTok content in my own voice.", "Content workflow"),
     "tiktok-analytics-dashboard": ("My first AI app: charts my TikTok posting and suggests what to post next.", "Live app"),
 }
+COPY.update({
+    "renovation-ai-agent": ("Turns supplier catalogue links and a design brief into whole-room material schemes, rendered onto a real room.", "Live app"),
+    "personal-finance-pipeline": ("Turns 80 bank statements from 5 banks into one dashboard that tracks big life goals.", "Personal system"),
+})
+# Skill filters on the project index (draft mapping for review)
+SKILLS = {
+    "AI agents": ["renovation-ai-agent", "analyst-agent", "maplestory-r-idle-daily-agent", "weekly-ai-digest-agent",
+                  "ai-assisted-price-intelligence", "weekly-youtube-upload-tracker"],
+    "RAG & LLM apps": ["ai-twin-recruiter-chatbot", "aws-ai-certification-tutor", "ai-bazi-reader", "content-analytics-agent",
+                       "tiktok-analytics-dashboard"],
+    "SQL & analytics": ["content-analytics-agent", "analyst-agent", "personal-finance-pipeline", "tiktok-analytics-dashboard"],
+    "Data pipelines": ["personal-finance-pipeline", "ai-assisted-price-intelligence", "content-analytics-agent"],
+    "Automation": ["weekly-ai-digest-agent", "weekly-youtube-upload-tracker", "maplestory-r-idle-daily-agent",
+                   "tiktok-content-workflow", "claude-usage-menu-bar"],
+    "Prompt & workflow design": ["career-interview-intelligence", "tiktok-content-workflow"],
+}
+TYPE = {"projects": "App", "agents": "Agent", "tools": "Tool", "workflow": "Workflow"}
+INDEX_ORDER = ["renovation-ai-agent", "ai-twin-recruiter-chatbot", "personal-finance-pipeline", "ai-assisted-price-intelligence",
+               "content-analytics-agent", "weekly-ai-digest-agent", "aws-ai-certification-tutor", "analyst-agent",
+               "claude-usage-menu-bar", "maplestory-r-idle-daily-agent", "career-interview-intelligence",
+               "weekly-youtube-upload-tracker", "ai-bazi-reader", "tiktok-content-workflow", "tiktok-analytics-dashboard"]
+
 SHOWCASE = ["ai-twin-recruiter-chatbot", "ai-assisted-price-intelligence"]
 MID = ["content-analytics-agent", "weekly-ai-digest-agent", "aws-ai-certification-tutor", "claude-usage-menu-bar"]
 LIST = ["analyst-agent", "maplestory-r-idle-daily-agent", "career-interview-intelligence", "weekly-youtube-upload-tracker",
@@ -78,12 +101,45 @@ def row(slug):
         </a>'''
 
 
+def index_row(slug):
+    p = P[slug]; line, badge = COPY[slug]
+    skills = [s.lower().replace(" & ", "-").replace(" ", "-") for s, v in SKILLS.items() if slug in v]
+    tags = "".join(f"<span>{esc(s)}</span>" for s in p.get("stack", [])[:3])
+    links = p.get("links") or {}
+    btn = []
+    if links.get("live"):
+        btn.append(f'<a href="{esc(links["live"])}" target="_blank" rel="noopener">Live ↗</a>')
+    if links.get("github"):
+        btn.append(f'<a href="{esc(links["github"])}" target="_blank" rel="noopener">Code ↗</a>')
+    btn.append(f'<a class="primary" href="/projects/{slug}">Write-up →</a>')
+    return f'''        <div class="irow" data-type="{TYPE[p["section"]].lower()}" data-skills="{" ".join(skills)}">
+          <div><div class="iname">{esc(p["title"])}</div><div class="iline">{esc(line)}</div></div>
+          <div class="itype mono">{TYPE[p["section"]]}</div>
+          <div class="itags">{tags}</div>
+          <div class="istatus">{esc(badge)}</div>
+          <div class="ilinks">{"".join(btn)}</div>
+        </div>'''
+
+
+def chips():
+    c = ['<button class="chip" data-f="all" aria-pressed="true">All</button>']
+    c += [f'<button class="chip" data-f="{t.lower()}" aria-pressed="false">{t}s</button>' for t in TYPE.values()]
+    c.append('<span class="chip-sep" aria-hidden="true"></span>')
+    c += [f'<button class="chip" data-f="{s.lower().replace(" & ", "-").replace(" ", "-")}" aria-pressed="false">{esc(s)}</button>' for s in SKILLS]
+    return "\n".join("        " + x for x in c)
+
+
+assert sorted(INDEX_ORDER) == sorted(P), "INDEX_ORDER must list every project"
 missing = set(P) - set(SHOWCASE + MID + LIST) - {"renovation-ai-agent", "personal-finance-pipeline"}
 if missing:
     sys.exit(f"Projects not placed in any tier: {sorted(missing)}")
 tpl = (ROOT / "scripts" / "prototype_template.html").read_text()
 out = (tpl.replace("{{SHOWCASES}}", "\n".join(showcase(s, i) for i, s in enumerate(SHOWCASE)))
           .replace("{{MID}}", "\n".join(mid(s) for s in MID))
-          .replace("{{LIST}}", "\n".join(row(s) for s in LIST)))
+          .replace("{{LIST}}", "\n".join(row(s) for s in LIST))
+          .replace("{{CHIPS}}", chips())
+          .replace("{{INDEX_ROWS}}", "\n".join(index_row(s) for s in INDEX_ORDER))
+          .replace("{{N_PROJECTS}}", str(len(P)))
+          .replace("{{N_DIGESTS}}", str(len(json.loads((ROOT / "digest" / "manifest.json").read_text())))))
 (ROOT / "prototype.html").write_text(out)
 print(f"prototype.html: {len(SHOWCASE)} showcases, {len(MID)} cards, {len(LIST)} rows")
