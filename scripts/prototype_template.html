@@ -245,6 +245,31 @@
     .ilinks a.primary { background: rgba(212,238,110,0.1); border-color: rgba(212,238,110,0.25); color: var(--lime); }
     .idx-empty { color: var(--dim); padding: 1.5rem 0.5rem; }
 
+    /* All work: toolbar, grid and list views */
+    #work { padding: 14vh 0 12vh; }
+    .work-bar { display: flex; justify-content: space-between; align-items: flex-start; gap: 1.5rem; margin: 2.25rem 0 1.75rem; }
+    .work-bar .chips { margin: 0; }
+    .view { display: inline-flex; padding: 0.25rem; border: 1px solid var(--line); border-radius: 999px; flex: none; }
+    .vbtn { font: 400 0.85rem 'DM Sans', sans-serif; color: var(--muted); background: none; border: 0; padding: 0.45rem 0.95rem; border-radius: 999px; cursor: pointer; }
+    .vbtn[aria-pressed="true"] { background: rgba(255,255,255,0.09); color: var(--text); }
+    .work[data-view="grid"] .idx, .work[data-view="list"] .wgrid { display: none; }
+    .wgrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; position: relative; }
+    .wcard { display: flex; flex-direction: column; border-radius: 20px; overflow: hidden; background: var(--surface); border: 1px solid var(--line); transition: transform 0.6s var(--ease), border-color 0.4s, box-shadow 0.6s var(--ease); }
+    .wcard[hidden] { display: none; }
+    .wcard:hover { transform: translateY(-5px); border-color: rgba(255,138,61,0.35); box-shadow: 0 40px 80px -40px rgba(255,138,61,0.35); }
+    .wcard .pic { aspect-ratio: 16 / 10; overflow: hidden; background: #0d0d10; }
+    .wcard .pic img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 1.2s var(--ease); }
+    .wcard:hover .pic img { transform: scale(1.04); }
+    .wcard .pic.noimg { display: grid; place-items: center; background: radial-gradient(120% 120% at 100% 0%, rgba(212,238,110,0.14), transparent 55%), radial-gradient(100% 100% at 0% 100%, rgba(255,138,61,0.14), transparent 55%), #0d0d10; }
+    .wcard .pic.noimg span { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 2.4rem; letter-spacing: -0.04em; color: rgba(255,255,255,0.12); }
+    .wcard .body { padding: 1.2rem 1.3rem 1.4rem; display: flex; flex-direction: column; gap: 0.55rem; }
+    .wcard .meta { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; }
+    .wcard h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.2rem; letter-spacing: -0.02em; line-height: 1.2; }
+    .wcard p { color: var(--muted); font-size: 0.92rem; line-height: 1.5; }
+    .skipfab { position: fixed; left: 50%; bottom: 1.25rem; z-index: 45; transform: translate(-50%, 140%); opacity: 0; padding: 0.7rem 1.1rem; border-radius: 999px; background: rgba(15,15,19,0.85); backdrop-filter: blur(10px); border: 1px solid var(--line); color: var(--text); font-size: 0.65rem; transition: transform 0.5s var(--ease), opacity 0.4s; }
+    .skipfab.on { transform: translate(-50%, 0); opacity: 1; }
+    .skipfab:hover { border-color: rgba(212,238,110,0.4); color: var(--lime); }
+
     /* Showcases */
     .show { padding: 10vh 0; }
     .show-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.6fr); gap: 4rem; align-items: center; }
@@ -310,7 +335,10 @@
       .irow > :nth-child(1) { grid-area: main; } .irow > :nth-child(2) { grid-area: type; } .irow > :nth-child(3) { grid-area: tags; }
       .irow > :nth-child(4) { grid-area: status; justify-self: end; } .irow > :nth-child(5) { grid-area: links; justify-content: flex-start; }
       .chip-sep { display: none; }
+      .work-bar { flex-direction: column; }
+      .wgrid { grid-template-columns: minmax(0, 1fr); }
     }
+    @media (min-width: 861px) and (max-width: 1100px) { .wgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
     @media (max-width: 860px) { .num { font-size: clamp(2.2rem, 11vw, 3rem); } .outcomes { gap: 2.5rem 1.25rem; } }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-delay: 0s !important; }
@@ -321,7 +349,7 @@
 <body>
   <nav>
     <a class="logo" href="#hero">LPX</a>
-    <div class="nav-links mono"><a href="#outcomes" class="hide-sm">Impact</a><a href="#stories">Stories</a><a href="#index">All work</a><a href="/resume">Resume</a><a href="https://www.linkedin.com/in/pin-xiu-lim-376b1b115/" target="_blank" class="hide-sm">LinkedIn ↗</a></div>
+    <div class="nav-links mono"><a href="#outcomes" class="hide-sm">Impact</a><a href="#stories">Stories</a><a href="#work">All work</a><a href="/resume">Resume</a><a href="https://www.linkedin.com/in/pin-xiu-lim-376b1b115/" target="_blank" class="hide-sm">LinkedIn ↗</a></div>
   </nav>
 
   <!-- ── HERO: data points that form my name ── -->
@@ -336,7 +364,7 @@
         <a class="pill pill-solid" href="#stories">See what I've built</a>
         <a class="pill pill-ghost" href="/">Ask my AI twin</a>
       </div>
-      <a class="skip mono" href="#index">Or skip to the full project list ↓</a>
+      <a class="skip mono" href="#work">Or skip to all work ↓</a>
     </div>
     <div class="scroll-hint mono">Scroll</div>
   </section>
@@ -352,22 +380,6 @@
         <div class="reveal"><div class="num"><span data-to="{{N_PROJECTS}}">0</span></div><div class="cap">projects shipped: live apps, agents, tools and workflows</div></div>
         <div class="reveal"><div class="num"><span data-to="{{N_DIGESTS}}">0</span></div><div class="cap">weekly AI news issues written and published by an agent</div></div>
       </div>
-    </div>
-  </section>
-
-  <!-- ── ALL PROJECTS AT A GLANCE ── -->
-  <section id="index">
-    <div class="wrap">
-      <div class="kicker mono reveal">At a glance</div>
-      <h2 class="h2 reveal">Every project, one list</h2>
-      <p class="lede reveal idx-lede">Filter by type or skill. Each row links to the live app, the code and a write-up on what worked and what broke.</p>
-      <div class="chips reveal" role="group" aria-label="Filter projects">
-{{CHIPS}}
-      </div>
-      <div class="idx" id="idx">
-{{INDEX_ROWS}}
-      </div>
-      <p class="idx-empty mono" hidden>No projects match that filter.</p>
     </div>
   </section>
 
@@ -428,21 +440,35 @@
   <!-- ── SHOWCASES: big, bright, one per screen ── -->
 {{SHOWCASES}}
 
-  <!-- ── MORE WORK: medium cards, then a compact list ── -->
-  <section id="wall">
+  <!-- ── ALL WORK: every project once, as a grid or a list ── -->
+  <section id="work">
     <div class="wall-glow"></div>
     <div class="wrap">
-      <div class="kicker mono reveal">More work</div>
-      <h2 class="h2 reveal">Apps, agents and tools</h2>
-      <p class="lede reveal" style="margin-top:1.25rem;color:var(--muted);max-width:620px;line-height:1.6">Prototypes and MVPs unless marked otherwise. Each page says what works, what broke and what I would do next.</p>
-      <div class="mid">
-{{MID}}
+      <div class="kicker mono reveal">All work</div>
+      <h2 class="h2 reveal">Everything I've built</h2>
+      <p class="lede reveal idx-lede">Prototypes and MVPs unless marked otherwise. Filter by type or skill, switch to a list to scan, and open any write-up for what worked and what broke.</p>
+      <div class="work-bar reveal">
+        <div class="chips" role="group" aria-label="Filter projects">
+{{CHIPS}}
+        </div>
+        <div class="view" role="group" aria-label="Layout">
+          <button class="vbtn" data-view="grid" aria-pressed="true">Grid</button>
+          <button class="vbtn" data-view="list" aria-pressed="false">List</button>
+        </div>
       </div>
-      <div class="list">
-{{LIST}}
+      <div class="work" data-view="grid">
+        <div class="wgrid">
+{{GRID}}
+        </div>
+        <div class="idx">
+{{INDEX_ROWS}}
+        </div>
       </div>
+      <p class="idx-empty mono" hidden>No projects match that filter.</p>
     </div>
   </section>
+
+  <a class="skipfab mono" href="#work" aria-hidden="true" tabindex="-1">Skip to all work ↓</a>
 
   <footer>
     <div class="wrap">
@@ -542,14 +568,29 @@
     }), { threshold: 0.6 });
     document.querySelectorAll('[data-to]').forEach(el => cio.observe(el));
 
-    /* ── Project index filters (one active chip at a time) ── */
-    const chips = document.querySelectorAll('.chip'), rows = document.querySelectorAll('.irow'), empty = document.querySelector('.idx-empty');
+    /* ── All work: filters (apply to grid and list), view toggle ── */
+    const chips = document.querySelectorAll('.chip'), items = document.querySelectorAll('.wcard, .irow'), empty = document.querySelector('.idx-empty');
     chips.forEach(c => c.addEventListener('click', () => {
       chips.forEach(x => x.setAttribute('aria-pressed', x === c ? 'true' : 'false'));
       const f = c.dataset.f; let shown = 0;
-      rows.forEach(r => { const ok = f === 'all' || r.dataset.type === f || r.dataset.skills.split(' ').includes(f); r.hidden = !ok; shown += ok; });
+      items.forEach(r => { const ok = f === 'all' || r.dataset.type === f || r.dataset.skills.split(' ').includes(f); r.hidden = !ok; if (ok && r.classList.contains('irow')) shown++; });
       empty.hidden = shown > 0;
     }));
+    const work = document.querySelector('.work');
+    document.querySelectorAll('.vbtn').forEach(b => b.addEventListener('click', () => {
+      document.querySelectorAll('.vbtn').forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
+      work.dataset.view = b.dataset.view;
+      try { localStorage.setItem('work-view', b.dataset.view); } catch (e) {}
+    }));
+    try { const v = localStorage.getItem('work-view'); if (v) document.querySelector(`.vbtn[data-view="${v}"]`)?.click(); } catch (e) {}
+
+    /* ── Floating "skip to all work": only between the numbers and the All work section ── */
+    const fab = document.querySelector('.skipfab'), outcomes = document.getElementById('outcomes'), workSec = document.getElementById('work');
+    const updateFab = () => {
+      const show = outcomes.getBoundingClientRect().bottom < 0 && workSec.getBoundingClientRect().top > innerHeight * 0.6;
+      fab.classList.toggle('on', show); fab.tabIndex = show ? 0 : -1; fab.setAttribute('aria-hidden', show ? 'false' : 'true');
+    };
+    addEventListener('scroll', updateFab, { passive: true }); updateFab();
 
     /* ── Showcase videos play only while on screen ── */
     const vio = new IntersectionObserver(es => es.forEach(e => { if (reduce) return; e.isIntersecting ? e.target.play().catch(() => {}) : e.target.pause(); }), { threshold: 0.3 });

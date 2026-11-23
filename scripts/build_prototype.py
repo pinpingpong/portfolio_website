@@ -36,8 +36,6 @@ COPY.update({
 })
 # Skill filters on the project index (draft mapping for review)
 SKILLS = {
-    "AI agents": ["renovation-ai-agent", "analyst-agent", "maplestory-r-idle-daily-agent", "weekly-ai-digest-agent",
-                  "ai-assisted-price-intelligence", "weekly-youtube-upload-tracker"],
     "RAG & LLM apps": ["ai-twin-recruiter-chatbot", "aws-ai-certification-tutor", "ai-bazi-reader", "content-analytics-agent",
                        "tiktok-analytics-dashboard"],
     "SQL & analytics": ["content-analytics-agent", "analyst-agent", "personal-finance-pipeline", "tiktok-analytics-dashboard"],
@@ -121,6 +119,26 @@ def index_row(slug):
         </div>'''
 
 
+THUMB = {  # grid thumbnails where the row media is a diagram or missing
+    "renovation-ai-agent": "media/reno-combinations.webp",
+    "personal-finance-pipeline": "media/finance-dashboard-charts.webp",
+}
+
+
+def grid_card(slug):
+    p = P[slug]; line, badge = COPY[slug]
+    skills = [s.lower().replace(" & ", "-").replace(" ", "-") for s, v in SKILLS.items() if slug in v]
+    m = p.get("media") or {}
+    img = THUMB.get(slug) or (m.get("poster") or m.get("src") if m.get("type") in ("image", "video") else None)
+    pic = (f'<div class="pic"><img src="/{img}" alt="" loading="lazy" decoding="async"></div>' if img
+           else f'<div class="pic noimg"><span>{TYPE[p["section"]]}</span></div>')
+    return f'''          <a class="wcard reveal" href="/projects/{slug}" data-type="{TYPE[p["section"]].lower()}" data-skills="{" ".join(skills)}">
+            {pic}
+            <div class="body"><div class="meta"><span class="itype mono">{TYPE[p["section"]]}</span><span class="istatus">{esc(badge)}</span></div>
+              <h3>{esc(p["title"])}</h3><p>{esc(line)}</p></div>
+          </a>'''
+
+
 def chips():
     c = ['<button class="chip" data-f="all" aria-pressed="true">All</button>']
     c += [f'<button class="chip" data-f="{t.lower()}" aria-pressed="false">{t}s</button>' for t in TYPE.values()]
@@ -138,8 +156,9 @@ out = (tpl.replace("{{SHOWCASES}}", "\n".join(showcase(s, i) for i, s in enumera
           .replace("{{MID}}", "\n".join(mid(s) for s in MID))
           .replace("{{LIST}}", "\n".join(row(s) for s in LIST))
           .replace("{{CHIPS}}", chips())
+          .replace("{{GRID}}", "\n".join(grid_card(s) for s in INDEX_ORDER))
           .replace("{{INDEX_ROWS}}", "\n".join(index_row(s) for s in INDEX_ORDER))
           .replace("{{N_PROJECTS}}", str(len(P)))
           .replace("{{N_DIGESTS}}", str(len(json.loads((ROOT / "digest" / "manifest.json").read_text())))))
 (ROOT / "prototype.html").write_text(out)
-print(f"prototype.html: {len(SHOWCASE)} showcases, {len(MID)} cards, {len(LIST)} rows")
+print(f"prototype.html: {len(SHOWCASE)} showcases, {len(INDEX_ORDER)} projects in All work")
