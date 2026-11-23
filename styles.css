@@ -1466,3 +1466,17 @@ button:hover ~ .cursor {
 @media (max-width: 640px) {
   .proj-inner { padding: 6.5rem 1rem 3.5rem; }
 }
+
+/* Images and before/after inside detail pages */
+.proj-section img { display: block; width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); margin: 0.75rem 0 0.4rem; }
+.proj-section p > img + em { display: block; font-size: 0.8rem; font-style: normal; color: var(--muted); margin-bottom: 1rem; }
+.proj-compare { margin: 0 0 2rem; }
+.cmp { position: relative; aspect-ratio: 1376 / 768; border-radius: 14px; overflow: hidden; border: 1px solid var(--border); }
+.cmp img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.cmp .cmp-after { clip-path: inset(0 0 0 var(--x)); }
+.cmp input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; margin: 0; }
+.cmp-handle { position: absolute; top: 0; bottom: 0; left: var(--x); width: 2px; background: #fff; pointer-events: none; }
+.cmp-handle::after { content: '↔'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 2.2rem; height: 2.2rem; border-radius: 50%; background: #fff; color: #111; display: grid; place-items: center; }
+.cmp-tag { position: absolute; bottom: 0.75rem; padding: 0.3rem 0.65rem; border-radius: 999px; background: rgba(0,0,0,0.6); color: #fff; font: 400 0.62rem 'DM Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase; pointer-events: none; }
+.cmp-l { left: 0.75rem; } .cmp-r { right: 0.75rem; }
+.proj-compare figcaption { margin-top: 0.5rem; font-size: 0.75rem; color: var(--muted2); }

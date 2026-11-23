@@ -2,7 +2,7 @@
 title: Renovation AI Agent
 section: projects
 order: 5
-line: Supplier links and design rules in, whole-room schemes rendered onto your room photo.
+line: Supplier links and design rules in, whole-room schemes rendered onto your room photo or a designer's 3D render.
 meta: Multimodal · Gemini
 media:
   type: image
@@ -41,9 +41,21 @@ I was choosing materials for my own 5-room BTO, with a Desert Modernism brief: p
 1. **Resolve.** Paste supplier catalogue links. Gemini reads each page with URL Context and fills gaps with Google Search grounding, returning only real, published product codes with colour, finish and category. Grounding citations are shown so every code can be checked.
 2. **Curate.** All materials go to Gemini with the brief in plain English. It returns typed JSON: excluded categories, must-haves, and a score and reason per item. A deterministic validator then enforces the hard rules in code.
 3. **Pair.** Approved materials are grouped into base, feature and accent combinations for named surfaces (for example lower and upper cabinets). A rule-based fallback pairs calm with expressive materials if the model returns nothing usable.
-4. **Render.** One multimodal request sends the room photo plus one swatch per surface. The prompt fixes camera, perspective, cabinet layout and lighting, and only changes surface materials.
+4. **Render.** One multimodal request sends the room photo (or a designer's 3D render) plus one swatch per surface. The prompt fixes camera, perspective, cabinet layout and lighting, and only changes surface materials.
 
 Three modules: `app.py` (Streamlit UI and state), `agent_logic.py` (grounding, evaluation, validator, pairing), `renderer.py` (swatches and inpainting).
+
+## A real run: my kitchen
+
+I used it on my own kitchen. From the supplier catalogue links, the agent found 30 real laminates, approved 12 against the Desert Modernism brief and proposed 4 whole-kitchen schemes. "Zero wood" shows as a hard exclusion at the top.
+
+![The material review: 30 laminates with code, finish, colour and a fit score](/media/reno-review.webp)
+*Material review. Every product gets a fit score and a reason, and I can override any verdict before rebuilding the schemes.*
+
+![Two of the four proposed combinations, each assigning a laminate to lower cabinets, upper cabinets and the tall unit](/media/reno-combinations.webp)
+*Combinations. Each scheme assigns a real product code to every surface and explains the pairing.*
+
+Instead of a phone photo, I rendered the chosen scheme onto the 3D render my interior designer had made, so I could compare real materials on the actual design before deciding.
 
 ## Key decisions
 
