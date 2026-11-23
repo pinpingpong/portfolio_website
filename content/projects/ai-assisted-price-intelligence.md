@@ -42,7 +42,7 @@ My renovation needed taps and showers, and I wanted the best deal I could get, e
 - **Compare delivered SGD, not sticker price.** A cheaper listing that adds shipping or only ships through a reseller isn't cheaper.
 - **Me in the loop for logins.** I handled every sign-in myself. The agent never got credentials.
 - **Respect the sites.** When Tmall flagged the session, I slowed down rather than trying to get around the check.
-- **Mixed brands.** Picking the best delivered price per item across Hansgrohe, Rigel and other brands beat committing to one brand.
+- **Mixed brands.** The comparison covered Hansgrohe and Rigel, and the final plan picked the best option per item, including a few other brands, rather than committing to one brand.
 
 ## Result
 
