@@ -28,7 +28,7 @@ A Claude browser session I directed as a personal shopper for my HDB renovation,
 
 ## Problem
 
-My renovation needed taps and showers, and the same Hansgrohe models are sold on Shopee, Tmall and Amazon.de at very different prices. Comparing them properly means matching exact model numbers across stores, converting currencies, adding shipping and checking who actually ships to Singapore. That is too many listings to do by hand.
+My renovation needed taps and showers, and I wanted the best deal I could get, even if that meant buying from another country. The same Hansgrohe models are sold in Singapore on Shopee, in China on Tmall and in Germany on Amazon.de, at very different prices. Comparing them properly means matching exact model numbers across stores, converting three currencies, adding shipping and checking who actually ships to Singapore. That is too many listings to do by hand.
 
 ## How it works
 
