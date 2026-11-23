@@ -5,20 +5,12 @@ order: 4
 line: A Saturday routine that checks 4 channels and emails me what's new.
 meta: Scheduled Automation
 media:
-  type: flow
-  label: How the YouTube tracker works
-  steps:
-  - title: Saturday schedule
-    detail: Claude Code cloud routine
-    kind: in
-  - title: Fetch 4 sources
-    detail: YouTube RSS, channel page fallback past 15 items. A failed fetch is reported per source
-  - title: Filter per source
-    detail: Drop podcasts and livestreams, keep one show
-  - title: Deliver
-    detail: Email digest via Gmail MCP plus a phone notification, sent even with zero new videos
-    kind: out
-  caption: 'How it works. No screenshot: the digest goes to my inbox.'
+  type: image
+  src: media/youtube-digest.webp
+  alt: 'Weekly digest email: new uploads per channel for Nov 14 to 21, with video titles and links'
+  width: 792
+  height: 495
+  caption: 'A real Saturday digest: new uploads per channel, including channels with 0 new'
 highlights:
 - Free YouTube RSS feeds, no API key or quota. Falls back to parsing the channel page where RSS only covers
   15 items

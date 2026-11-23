@@ -13,7 +13,7 @@
   <meta property="og:url" content="https://limpinxiu-portfolio-website.vercel.app/projects/weekly-youtube-upload-tracker" />
   <meta property="og:title" content="Weekly YouTube Upload Tracker | Lim Pin Xiu" />
   <meta property="og:description" content="A Saturday routine that checks 4 channels and emails me what&#x27;s new." />
-  <meta property="og:image" content="https://limpinxiu-portfolio-website.vercel.app/og-image.png" />
+  <meta property="og:image" content="https://limpinxiu-portfolio-website.vercel.app/media/youtube-digest.webp" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -46,17 +46,9 @@
       </div>
     </header>
 
-    <figure class="row-media row-flow" aria-label="How the YouTube tracker works">
-      <ol class="flow">
-        <li class="flow-step flow-in"><span class="flow-title">Saturday schedule</span><span class="flow-detail">Claude Code cloud routine</span></li>
-        <li class="flow-arrow" aria-hidden="true"></li>
-        <li class="flow-step"><span class="flow-title">Fetch 4 sources</span><span class="flow-detail">YouTube RSS, channel page fallback past 15 items. A failed fetch is reported per source</span></li>
-        <li class="flow-arrow" aria-hidden="true"></li>
-        <li class="flow-step"><span class="flow-title">Filter per source</span><span class="flow-detail">Drop podcasts and livestreams, keep one show</span></li>
-        <li class="flow-arrow" aria-hidden="true"></li>
-        <li class="flow-step flow-out"><span class="flow-title">Deliver</span><span class="flow-detail">Email digest via Gmail MCP plus a phone notification, sent even with zero new videos</span></li>
-      </ol>
-      <figcaption>How it works. No screenshot: the digest goes to my inbox.</figcaption>
+    <figure class="row-media">
+      <img src="/media/youtube-digest.webp" alt="Weekly digest email: new uploads per channel for Nov 14 to 21, with video titles and links" width="792" height="495" loading="lazy" decoding="async">
+      <figcaption>A real Saturday digest: new uploads per channel, including channels with 0 new</figcaption>
     </figure>
 
     <p class="proj-summary">I watch a handful of YouTube channels and was checking each one by hand every week for new videos. Now a Claude Code cloud routine does it every Saturday morning: it checks all four sources for the past week's uploads, applies per-source filters, and sends me an email digest plus a phone notification. No custom agent. The work is in the prompt spec, source handling, filtering logic and failure handling, tested end to end.</p>
