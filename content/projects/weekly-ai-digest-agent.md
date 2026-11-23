@@ -22,6 +22,7 @@ stack:
 - Web Search
 - GitHub API
 - Vercel
+featured: 4
 ---
 
 A scheduled agent that autonomously scrapes AI news each week, generates a styled HTML newsletter, and publishes it directly to this website — no manual steps. Built around a `SKILL.md` SOP that defines research queries, output format, a personalised "For You" section, and the full git push pipeline to auto-deploy via Vercel.

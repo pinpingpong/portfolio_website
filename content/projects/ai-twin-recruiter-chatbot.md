@@ -22,6 +22,7 @@ links:
   try_twin: true
   github: https://github.com/pinpingpong/portfolio_website
 dates: May 2026 to now
+featured: 2
 ---
 
 A digital twin that lets visitors ask "me" about my work directly on this site. Built with RAG: the published content of this site (project write-ups, workflows, experience) is chunked, embedded and stored in Pinecone. Each question retrieves the most relevant chunks before answering, so replies stay grounded in what's public here. The API caps message size, history length and request rate to keep the free tier healthy.

@@ -169,8 +169,30 @@ def row_html(p):
     return "".join(out)
 
 
+def tile_html(p):
+    m = p.get("media") or {}
+    img = m.get("poster") or m.get("src") if m.get("type") in ("image", "video") else None
+    visual = (f'<div class="tile-frame"><span class="tile-dots" aria-hidden="true"><i></i><i></i><i></i></span>'
+              f'<img src="/{img}" alt="{esc(m.get("alt", ""))}" loading="lazy" decoding="async"></div>') if img else ""
+    href = f"/projects/{p['slug']}" if p["has_page"] else f"#{p['section']}"
+    return f'''        <a class="feature-tile reveal" href="{href}">
+          {visual}
+          <div class="tile-text">
+            <span class="tile-kind">{esc(SECTION_LABEL[p["section"]])}</span>
+            <span class="tile-title">{esc(p["title"])}</span>
+            <span class="tile-line">{md_inline(p["line"])}</span>
+            <span class="tile-more">View project <span aria-hidden="true">→</span></span>
+          </div>
+        </a>
+'''
+
+
 def build_index(projects):
     s = INDEX.read_text()
+    if "<!-- BUILD:featured -->" in s:
+        feats = sorted((p for p in projects if p.get("featured")), key=lambda p: p["featured"])
+        a = s.index("<!-- BUILD:featured -->") + len("<!-- BUILD:featured -->")
+        s = s[:a] + "\n" + "".join(tile_html(p) for p in feats) + "        " + s[s.index("<!-- /BUILD:featured -->"):]
     for sec in SECTIONS:
         rows = sorted((p for p in projects if p["section"] == sec), key=lambda p: p["order"])
         block = "\n".join(row_html(p) for p in rows)
@@ -217,6 +239,7 @@ def page_html(p):
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/revamp.css">
 </head>
 <body class="proj-page">
   <nav>

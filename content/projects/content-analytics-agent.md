@@ -23,6 +23,7 @@ links:
   github: https://github.com/pinpingpong/content-analytics-agent
 streamlit_note: true
 dates: Jul 2026
+featured: 3
 ---
 
 A conversational AI agent over social/content analytics data, expanded from my TikTok Analytics Dashboard into a case-study prototype for a marketing analytics interview. Ask questions in plain English and get guardrailed SQL, results, and an auto-generated chart back — follow-ups carry context like a real chat. A companion account-health mode reads the underlying stats and returns a plain-language read plus content suggestions.

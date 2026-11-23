@@ -24,6 +24,7 @@ links:
   github: https://github.com/pinpingpong/renovation-ai-agent
 streamlit_note: true
 dates: Oct 2026 to now
+featured: 1
 ---
 
 An interior design copilot born from renovating my own 5-room BTO in a zero-wood Desert Modernism style. Paste real supplier catalogue links (laminates, paint, countertops) and describe your design rules in plain English. The agent resolves official product codes with Gemini Search grounding, filters them against your brief with a deterministic validator, composes whole-room schemes, then renders the chosen scheme onto your own room photo while preserving its geometry and lighting.
