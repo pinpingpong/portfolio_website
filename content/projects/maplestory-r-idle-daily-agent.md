@@ -39,4 +39,4 @@ Honestly: I was lazy and kept forgetting to log in for my dailies. MapleStory R 
 
 ## Limits
 
-Coordinates break when the game updates its layout, so the SOP needs maintenance after updates. It is a personal project with no public code.
+It is a personal project with no public code.
