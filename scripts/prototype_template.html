@@ -230,8 +230,11 @@
     .chip[aria-pressed="true"] { background: var(--lime); color: #0a0a0a; border-color: var(--lime); }
     .chip-sep { width: 1px; background: var(--line); margin: 0 0.35rem; }
     .idx { border-top: 1px solid var(--line); }
-    .irow { display: grid; grid-template-columns: minmax(0, 2.2fr) minmax(0, 0.7fr) minmax(0, 1.5fr) minmax(0, 0.9fr) auto; gap: 1.25rem; align-items: center; padding: 1.1rem 0.5rem; border-bottom: 1px solid var(--line); transition: background 0.3s; }
+    .irow, .ihead { display: grid; grid-template-columns: minmax(0, 1fr) 5.5rem 15.5rem 8.5rem 14.5rem; gap: 1.5rem; align-items: center; padding: 1.1rem 0.5rem; border-bottom: 1px solid var(--line); transition: background 0.3s; }
     .irow:hover { background: rgba(255,255,255,0.025); }
+    .ihead { padding: 0 0.5rem 0.75rem; color: var(--dim); font-size: 0.62rem; border-bottom: 1px solid var(--line); }
+    .ihead span:last-child { text-align: right; }
+    .idx { border-top: none; }
     .irow[hidden] { display: none; }
     .iname { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; letter-spacing: -0.02em; }
     .iline { color: var(--muted); font-size: 0.9rem; line-height: 1.45; margin-top: 0.2rem; }
@@ -331,6 +334,7 @@
       .mid { grid-template-columns: minmax(0, 1fr); }
       .lrow { grid-template-columns: minmax(0, 1fr) 1.5rem; }
       .lrow .badge { grid-column: 1; justify-self: start; }
+      .ihead { display: none; }
       .irow { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "main main" "type status" "tags tags" "links links"; gap: 0.6rem 1rem; padding: 1.25rem 0.25rem; }
       .irow > :nth-child(1) { grid-area: main; } .irow > :nth-child(2) { grid-area: type; } .irow > :nth-child(3) { grid-area: tags; }
       .irow > :nth-child(4) { grid-area: status; justify-self: end; } .irow > :nth-child(5) { grid-area: links; justify-content: flex-start; }
@@ -338,7 +342,11 @@
       .work-bar { flex-direction: column; }
       .wgrid { grid-template-columns: minmax(0, 1fr); }
     }
-    @media (min-width: 861px) and (max-width: 1100px) { .wgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (min-width: 861px) and (max-width: 1100px) {
+      .wgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .irow, .ihead { grid-template-columns: minmax(0, 1fr) 5rem 8rem 13rem; }
+      .irow > .itags, .ihead > span:nth-child(3) { display: none; }
+    }
     @media (max-width: 860px) { .num { font-size: clamp(2.2rem, 11vw, 3rem); } .outcomes { gap: 2.5rem 1.25rem; } }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-delay: 0s !important; }
@@ -461,6 +469,7 @@
 {{GRID}}
         </div>
         <div class="idx">
+          <div class="ihead mono" aria-hidden="true"><span>Project</span><span>Type</span><span>Built with</span><span>Status</span><span>Links</span></div>
 {{INDEX_ROWS}}
         </div>
       </div>
