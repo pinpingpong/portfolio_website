@@ -232,6 +232,22 @@ def page_html(p):
 '''
 
 
+def build_chat_api(projects):
+    """Keep the AI twin's project list in api/chat.js in step with content/projects."""
+    path = ROOT / "api" / "chat.js"
+    names = {sec: [p["title"] for p in sorted(projects, key=lambda p: p["order"]) if p["section"] == sec] for sec in SECTIONS}
+    line = (f"AI WORK ON THIS SITE ({len(projects)} projects): live apps ({', '.join(names['projects'])}), "
+            f"agents ({', '.join(names['agents'])}), tools built with AI ({', '.join(names['tools'])}), "
+            f"AI workflows ({', '.join(names['workflow'])}) and a weekly AI digest. "
+            "The full list is at https://limpinxiu-portfolio-website.vercel.app/#work and each has a write-up under /projects/. "
+            "Retrieved context below has the details; prefer it over guessing.")
+    text = path.read_text()
+    new, n = re.subn(r"^AI WORK ON THIS SITE.*$", lambda m: line, text, count=1, flags=re.M)
+    if n != 1:
+        sys.exit("api/chat.js: 'AI WORK ON THIS SITE' line not found")
+    return path, new
+
+
 def build_sitemap(projects):
     urls = [f"{SITE}/", f"{SITE}/resume", f"{SITE}/digest/"] + [f"{SITE}/projects/{p['slug']}" for p in projects if p["has_page"]]
     locs = "".join(f"\n  <url><loc>{u}</loc></url>" for u in urls)
@@ -244,6 +260,8 @@ def main():
     import build_home, build_resume
     outputs = {INDEX: build_home.render(CHAT), ROOT / "resume.html": build_resume.render(CHAT),
                SITEMAP: build_sitemap(projects)}
+    chat_path, chat_js = build_chat_api(projects)
+    outputs[chat_path] = chat_js
     for p in projects:
         if p["has_page"]:
             outputs[PAGES / f"{p['slug']}.html"] = page_html(p)

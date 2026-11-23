@@ -5,7 +5,7 @@ title: About and experience (public)
 
 ## About Pin Xiu
 
-Lim Pin Xiu, data science and analytics in Singapore. 6+ years of end-to-end data work across banking, telco and e-commerce: ETL and data engineering, BI dashboards, analytics, and ML models that drove business decisions. Now I also build with AI: live apps, agents, tools and the workflows I use every day. Most projects on this site are working prototypes and MVPs built to learn and solve real problems, not hardened production systems. Contact is through LinkedIn; a public resume is at /resume.
+Lim Pin Xiu, data science and analytics in Singapore. working in data since 2019, with end-to-end work across banking, telco and e-commerce: ETL and data engineering, BI dashboards, analytics, and ML models that drove business decisions. Now I also build with AI: live apps, agents, tools and the workflows I use every day. Most projects on this site are working prototypes and MVPs built to learn and solve real problems, not hardened production systems. Contact is through LinkedIn; a public resume is at /resume.
 
 ## GXS Bank (Oct 2021 – Sep 2026)
 

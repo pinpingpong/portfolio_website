@@ -383,7 +383,7 @@
     <canvas id="field" aria-label="Thousands of moving data points forming the name Pin Xiu"></canvas>
     <div class="hero-copy">
       <p class="site-what mono">A portfolio of things I've built with data and AI</p>
-      <p><strong>Data science &amp; analytics, end to end.</strong> 6+ years turning messy data into decisions. Now I build with AI: apps, agents and tools that solve real problems, most of them my own.</p>
+      <p><strong>Data science &amp; analytics, end to end.</strong> <span data-years>7+</span> years turning messy data into decisions. Now I build with AI: apps, agents and tools that solve real problems, most of them my own.</p>
       <p class="site-note">Most projects here are working prototypes and MVPs, built to learn and to scratch my own itch. They run for real, but they're not hardened production systems.</p>
       <div class="hero-cta">
         <a class="pill pill-solid" href="#stories">See what I've built</a>
@@ -881,6 +881,9 @@
       }), { rootMargin: '-45% 0px -45% 0px' });
       story.querySelectorAll('.step').forEach(s => sio.observe(s));
     });
+
+    /* ── Years of experience, counted from my first full-time data role (Jul 2019) ── */
+    document.querySelectorAll('[data-years]').forEach(el => el.textContent = Math.floor((Date.now() - Date.UTC(2019, 6, 1)) / 31557600000) + '+');
 
     /* ── Digest: latest issue and live issue count from the manifest the digest agent updates ── */
     fetch('/digest/manifest.json').then(r => r.json()).then(issues => {

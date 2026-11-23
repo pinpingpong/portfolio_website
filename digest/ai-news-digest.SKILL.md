@@ -32,14 +32,14 @@ git config user.name "limpinxiu"
 
 ## Step 2 — Research (run all 6 searches)
 
-Search for the following queries and collect results. Note the date of each story.
+Search for the following queries and collect results. Replace `${YEAR}` with the current year. Note the date of each story.
 
 1. `AI news this week site:techcrunch.com OR site:theverge.com`
-2. `new AI model release this week 2026`
+2. `new AI model release this week ${YEAR}`
 3. `AI agent framework launch OR update this week`
 4. `AI startup funding acquisition news this week`
 5. `open source AI tool github trending this week`
-6. `AI productivity tool launch 2026`
+6. `AI productivity tool launch ${YEAR}`
 
 Collect 8–12 unique stories. Note headlines, one-sentence summaries, and source URLs.
 
@@ -60,6 +60,7 @@ Sort into:
 
 ```
 TODAY = today's date in YYYY-MM-DD format
+YEAR = the current year (YYYY), also used in the Step 2 searches
 ISSUE_NUMBER = count existing .html files in /tmp/portfolio/digest/ that match YYYY-MM-DD.html pattern + 1
 FILENAME = /tmp/portfolio/digest/${TODAY}.html
 ISSUE_TITLE = write a punchy 2–3 line title capturing the top 2–3 stories (see template)

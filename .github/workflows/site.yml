@@ -15,6 +15,7 @@ on:
       - "resume.html"
       - "projects/**"
       - "scripts/**"
+      - "api/chat.js"
       - ".github/workflows/site.yml"
   pull_request:
     paths:
