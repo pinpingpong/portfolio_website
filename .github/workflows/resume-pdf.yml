@@ -1,0 +1,47 @@
+# Rebuilds Lim_Pin_Xiu_Resume.pdf from resume.html so the PDF never goes stale:
+#  - every 1 July, when "over N years" ticks over (years count from Jul 2019)
+#  - whenever the resume content or its builder changes on main
+# The web page (/resume) computes the number live; the PDF is a snapshot, refreshed here.
+# Approved by Pin Xiu on 2026-11-23 (bot may commit the PDF to main).
+name: Resume PDF
+
+on:
+  schedule:
+    - cron: "0 1 1 7 *"   # 1 July, 01:00 UTC
+  push:
+    branches: [main]
+    paths:
+      - "content/resume.md"
+      - "scripts/build_resume.py"
+      - "scripts/build_resume_pdf.py"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: resume-pdf
+  cancel-in-progress: false
+
+jobs:
+  pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install "markdown>=3.7,<4" "pyyaml>=6,<7" "playwright>=1.47,<2"
+      - run: python -m playwright install --with-deps chromium
+      - run: python scripts/build_site.py
+      - run: python scripts/build_resume_pdf.py
+      - name: Commit the PDF if it changed
+        run: |
+          if git diff --quiet -- Lim_Pin_Xiu_Resume.pdf; then
+            echo "PDF unchanged"; exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Lim_Pin_Xiu_Resume.pdf
+          git commit -m "Rebuild resume PDF"
+          git push
