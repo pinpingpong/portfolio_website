@@ -32,6 +32,7 @@ COPY = {
 COPY.update({
     "renovation-ai-agent": ("Turns supplier catalogue links and a design brief into whole-room material schemes, rendered onto a real room.", "Live app"),
     "personal-finance-pipeline": ("Turns 80 bank statements from 5 banks into one dashboard that tracks big life goals.", "Personal system"),
+    "inbox-cleanup-with-claude": ("A Claude skill I call when my inbox gets noisy: it finds promo senders in Gmail and Exchange and unsubscribes the ones I approve.", "100 lists cleared"),
 })
 # Skill filters on the project index (draft mapping for review)
 SKILLS = {
@@ -40,14 +41,14 @@ SKILLS = {
     "SQL & analytics": ["content-analytics-agent", "analyst-agent", "personal-finance-pipeline", "tiktok-analytics-dashboard"],
     "Automation": ["weekly-ai-digest-agent", "weekly-youtube-upload-tracker", "maplestory-r-idle-daily-agent",
                    "tiktok-content-workflow", "personal-finance-pipeline", "ai-assisted-price-intelligence",
-                   "content-analytics-agent"],
-    "Prompt & workflow design": ["career-interview-intelligence", "tiktok-content-workflow"],
+                   "content-analytics-agent", "inbox-cleanup-with-claude"],
+    "Prompt & workflow design": ["career-interview-intelligence", "tiktok-content-workflow", "inbox-cleanup-with-claude"],
 }
 TYPE = {"projects": "App", "agents": "Agent", "tools": "Tool", "workflow": "Workflow"}
 INDEX_ORDER = ["renovation-ai-agent", "ai-twin-recruiter-chatbot", "personal-finance-pipeline", "ai-assisted-price-intelligence",
                "content-analytics-agent", "weekly-ai-digest-agent", "aws-ai-certification-tutor", "analyst-agent",
                "claude-usage-menu-bar", "maplestory-r-idle-daily-agent", "career-interview-intelligence",
-               "weekly-youtube-upload-tracker", "ai-bazi-reader", "tiktok-content-workflow", "tiktok-analytics-dashboard"]
+               "weekly-youtube-upload-tracker", "inbox-cleanup-with-claude", "ai-bazi-reader", "tiktok-content-workflow", "tiktok-analytics-dashboard"]
 
 SHOWCASE = ["ai-twin-recruiter-chatbot", "ai-assisted-price-intelligence"]
 
