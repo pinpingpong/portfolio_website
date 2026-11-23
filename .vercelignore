@@ -6,3 +6,5 @@ digest/*.md
 .claude/
 .venv-capture/
 .demo_raw/
+content/
+.github/

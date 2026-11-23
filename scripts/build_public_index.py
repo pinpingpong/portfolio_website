@@ -1,8 +1,9 @@
 """
-Rebuild the AI Twin's Pinecone index from the PUBLIC content of index.html only.
+Rebuild the AI Twin's Pinecone index from the PUBLIC site content only.
 
-Each project/agent/tool/workflow card, each experience entry, the hero and the
-education/skills blocks become one chunk. Everything is written to the "website"
+Projects come from content/projects/*.md (the same files that build the homepage rows and
+detail pages): one chunk for each project's overview, plus one per "## " section of its
+detail page. The hero, experience, education and skills blocks still come from index.html. Everything is written to the "website"
 namespace, which is wiped and rebuilt on every run, so removed cards disappear too.
 
 Private documents (resume, raw performance reviews) must never go into this index:
@@ -95,11 +96,49 @@ class ChunkParser(HTMLParser):
             self.buf.append(data)
 
 
+PROJECT_SECTIONS = {"projects", "agents", "tools", "workflow"}
+
+
+def md_plain(text):
+    """Markdown to plain text good enough for embeddings."""
+    text = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", r"\1 (\2)", text)
+    return re.sub(r"[`*_]", "", text).strip()
+
+
+def build_project_chunks():
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from build_site import load_projects, SITE
+    out = []
+    for p in sorted(load_projects(), key=lambda p: (list(SECTION_NAMES).index(p["section"]), p["order"])):
+        kind = SECTION_NAMES[p["section"]]
+        head = f"{kind}: {p['title']}"
+        links = p.get("links") or {}
+        lines = [head, md_plain(p["line"]), md_plain(p["summary"])]
+        lines += [f"- {md_plain(h)}" for h in p.get("highlights", [])]
+        lines.append("Stack: " + ", ".join(p.get("stack", [])))
+        if links.get("live"):
+            lines.append(f"Live app: {links['live']}")
+        if links.get("github"):
+            lines.append(f"Code: {links['github']}")
+        if p["has_page"]:
+            lines.append(f"Full write-up: {SITE}/projects/{p['slug']}")
+        out.append((p["slug"], "overview", head, "\n".join(lines)))
+        for heading, body in p["sections"]:
+            out.append((p["slug"], heading, f"{head} ({heading})", f"{head}: {heading}\n{md_plain(body)}"))
+    return out
+
+
 def build_chunks():
     parser = ChunkParser()
     parser.feed(INDEX_HTML.read_text())
     out = []
-    for i, (section, text, data_title) in enumerate(parser.chunks):
+    for slug, part, source, text in build_project_chunks():
+        part_slug = re.sub(r"[^a-z0-9]+", "-", part.lower()).strip("-")
+        out.append({"id": f"{NAMESPACE}__{len(out):02d}__{slug}__{part_slug}"[:200], "source": source, "text": text})
+    for section, text, data_title in parser.chunks:
+        if section in PROJECT_SECTIONS:
+            continue  # projects come from content/projects/*.md
+        i = len(out)
         kind = SECTION_NAMES.get(section, section or "Site")
         title = text.splitlines()[0] if section != "hero" else "About Pin Xiu"
         # Card numbers like "PROJECT — 01" are noise; use the title line instead
@@ -164,7 +203,7 @@ def replace_namespace(index, namespace, vectors):
 
 def main():
     chunks = build_chunks()
-    print(f"Built {len(chunks)} chunks from {INDEX_HTML.name}")
+    print(f"Built {len(chunks)} chunks from content/projects/*.md and {INDEX_HTML.name}")
     for c in chunks:
         print(f"  {c['id']}  ({len(c['text'])} chars)")
     style = build_style_chunks()
