@@ -23,6 +23,7 @@ stack:
 - Built with Claude Code
 links:
   live: https://per-my-last-email-sigma.vercel.app
+  github: https://github.com/pinpingpong/per-my-last-email
 dates: Nov 2026
 ---
 
