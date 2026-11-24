@@ -33,6 +33,7 @@ COPY.update({
     "renovation-ai-agent": ("Turns supplier catalogue links and a design brief into whole-room material schemes, rendered onto a real room.", "Live app"),
     "personal-finance-pipeline": ("Turns 80 bank statements from 5 banks into one dashboard that tracks big life goals.", "Personal system"),
     "inbox-cleanup-with-claude": ("A Claude skill I call when my inbox gets noisy: it finds promo senders in Gmail and Exchange and unsubscribes the ones I approve.", "100 lists cleared"),
+    "per-my-last-email": ("A satirical office survival game: survive a workplace bully, keep receipts, decide whether to speak up.", "Play v1"),
 })
 # Skill filters on the project index (draft mapping for review)
 SKILLS = {
@@ -47,7 +48,7 @@ SKILLS = {
 TYPE = {"projects": "App", "agents": "Agent", "tools": "Tool", "workflow": "Workflow"}
 INDEX_ORDER = ["renovation-ai-agent", "ai-twin-recruiter-chatbot", "personal-finance-pipeline", "ai-assisted-price-intelligence",
                "content-analytics-agent", "weekly-ai-digest-agent", "aws-ai-certification-tutor", "analyst-agent",
-               "claude-usage-menu-bar", "maplestory-r-idle-daily-agent", "career-interview-intelligence",
+               "claude-usage-menu-bar", "per-my-last-email", "maplestory-r-idle-daily-agent", "career-interview-intelligence",
                "weekly-youtube-upload-tracker", "inbox-cleanup-with-claude", "ai-bazi-reader", "tiktok-content-workflow", "tiktok-analytics-dashboard"]
 
 SHOWCASE = ["ai-twin-recruiter-chatbot", "ai-assisted-price-intelligence"]
