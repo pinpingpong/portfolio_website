@@ -45,7 +45,7 @@ SKILLS = {
                    "content-analytics-agent", "inbox-cleanup-with-claude"],
     "Prompt & workflow design": ["career-interview-intelligence", "tiktok-content-workflow", "inbox-cleanup-with-claude"],
 }
-TYPE = {"projects": "App", "agents": "Agent", "tools": "Tool", "workflow": "Workflow"}
+TYPE = {"projects": "AI App", "agents": "Agent", "tools": "App", "workflow": "Workflow"}
 INDEX_ORDER = ["renovation-ai-agent", "ai-twin-recruiter-chatbot", "personal-finance-pipeline", "ai-assisted-price-intelligence",
                "content-analytics-agent", "weekly-ai-digest-agent", "aws-ai-certification-tutor", "analyst-agent",
                "claude-usage-menu-bar", "per-my-last-email", "maplestory-r-idle-daily-agent", "career-interview-intelligence",
