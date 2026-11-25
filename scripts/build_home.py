@@ -26,7 +26,7 @@ COPY = {
     "career-interview-intelligence": ("Interview prep grounded in my real track record, with nothing made up.", "Landed the role"),
     "weekly-youtube-upload-tracker": ("Checks my favourite channels and emails me what's new.", "Every Saturday"),
     "ai-bazi-reader": ("Calculates a Chinese astrology chart exactly, then AI explains what it means.", "Live app"),
-    "tiktok-content-workflow": ("Plans and drafts my TikTok content in my own voice.", "Content workflow"),
+    "tiktok-content-workflow": ("Every week it proposes my TikTok posts; I tick what to make and it builds them, carousel images included.", "Agentic workflow"),
     "tiktok-analytics-dashboard": ("My first AI app: charts my TikTok posting and suggests what to post next.", "Live app"),
 }
 COPY.update({

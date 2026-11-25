@@ -5,14 +5,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TikTok Content Workflow | Lim Pin Xiu</title>
-  <meta name="description" content="A Claude persona plus a Notion calendar run my content planning and scripts." />
+  <meta name="description" content="An agentic content workflow. Every week Claude proposes posts from my calendar and life, I tick what to make, and it builds them, carousel images included." />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="canonical" href="https://limpinxiu-portfolio-website.vercel.app/projects/tiktok-content-workflow" />
   <meta name="theme-color" content="#09090b" />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://limpinxiu-portfolio-website.vercel.app/projects/tiktok-content-workflow" />
   <meta property="og:title" content="TikTok Content Workflow | Lim Pin Xiu" />
-  <meta property="og:description" content="A Claude persona plus a Notion calendar run my content planning and scripts." />
+  <meta property="og:description" content="An agentic content workflow. Every week Claude proposes posts from my calendar and life, I tick what to make, and it builds them, carousel images included." />
   <meta property="og:image" content="https://limpinxiu-portfolio-website.vercel.app/og-image.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -36,43 +36,52 @@
     <header class="proj-header">
       <div class="section-label">AI Workflow</div>
       <h1 class="proj-title">TikTok Content Workflow</h1>
-      <p class="proj-line">A Claude persona plus a Notion calendar run my content planning and scripts.</p>
+      <p class="proj-line">An agentic content workflow. Every week Claude proposes posts from my calendar and life, I tick what to make, and it builds them, carousel images included.</p>
       <div class="card-stack">
-        <span class="stack-tag">Claude</span>
+        <span class="stack-tag">Claude Code</span>
         <span class="stack-tag">Notion MCP</span>
-        <span class="stack-tag">Prompt Engineering</span>
-        <span class="stack-tag">Workflow Design</span>
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">Playwright</span>
+        <span class="stack-tag">SQLite</span>
+        <span class="stack-tag">launchd</span>
       </div>
     </header>
 
 
-    <p class="proj-summary">My entire TikTok content operation runs through Claude and Notion. I designed a custom content persona (<code>SKILL.md</code>) that nails my voice — grounded, casual, no AI buzzwords — and generates scripts, captions, and hashtags on demand. A Notion workspace with linked Content Calendar and Ideas databases keeps everything planned around real life events like trips, concerts, and reviews.</p>
+    <p class="proj-summary">My TikTok content runs as a two-step agentic workflow. Every week, Claude reads my Notion content calendar and my private planning notes, then proposes what to post as a checklist. I tick what I want, and a second step builds those posts: captions and hashtags in my voice and, for carousels, the finished slide images made from my own photos.</p>
     <article class="proj-body">
       <div class="proj-section">
         <h2>Problem</h2>
-        <p>Running a TikTok account alongside a full-time job means scripts, captions and hashtags every week, and generic AI output sounds like everyone else. I wanted help with the writing that sounds like me, tied to a calendar planned around my real life.</p>
+        <p>Running a TikTok account alongside a full-time job means captions, hashtags and slides every week, and generic AI output sounds like everyone else. Carousels were the slowest part: copying text into a design app slide by slide, then hunting for the right trip photo among thousands. And planning kept slipping: posts went overdue, and things I was actually doing never made it onto the calendar.</p>
       </div>
       <div class="proj-section">
         <h2>How it works</h2>
         <ol>
-<li><strong>Persona.</strong> A custom <code>SKILL.md</code> describes my voice (grounded, casual, no AI buzzwords) and hard rules: no em dashes, exactly 5 hashtags, and a clear verdict on every review.</li>
-<li><strong>Plan.</strong> A Notion workspace holds linked Content Calendar and Ideas databases. Content is planned around real events, like an Ipoh trip, concerts and a Vancouver to Alaska cruise series.</li>
-<li><strong>Draft.</strong> Through the Notion MCP connection, Claude reads the calendar, drafts the script and caption, and slots it into the right date in one conversation.</li>
+<li><strong>Suggest (scheduled).</strong> A scheduled job on my Mac runs every Sunday, or at the next login if the laptop was off, so a missed week still runs. Claude Code reads the Notion calendar and my private notes (upcoming trips, events, milestones), finds open slots, overdue posts and posts that still need slides, and writes a "Weekly plan" checklist page in Notion. It changes nothing else.</li>
+<li><strong>Approve.</strong> I tick the items I want built, moved or added as ideas. Unticked items are ignored.</li>
+<li><strong>Build (on demand).</strong> One command builds only the ticked items:
+   - <strong>Carousels:</strong> slide copy, caption, 5 hashtags, photos and rendered PNG slides, plus a paste-ready block in Notion.
+   - <strong>Videos:</strong> a title, caption and 5 hashtags, ready to paste over my own edit.</li>
+<li><strong>Pick photos.</strong> For travel posts, a script reads a copy of my photo library's metadata, finds the trip by date and GPS (even which hotel, by where the phone spent the night), shortlists the best-rated shots and drops any photo with a detected face. I check a contact sheet before anything is used.</li>
+<li><strong>Render.</strong> Each carousel is a small JSON file. An HTML/CSS template turns it into 1080x1350 slides with a headless browser, in one of three colour themes (travel, lifestyle, review).</li>
 </ol>
       </div>
       <div class="proj-section">
         <h2>Key decisions</h2>
         <ul>
-<li><strong>Rules, not vibes.</strong> "Sound casual" is vague. Specific rules (no em dashes, 5 hashtags, always a verdict) are easy to check and fix most of what makes AI captions sound generic.</li>
-<li><strong>Notion as the single source.</strong> Claude works directly in the calendar, so there's no copying between a chat and a planning tool.</li>
-<li><strong>This is a workflow, not an agent.</strong> It's prompt and workflow design: I drive each step and Claude does the drafting.</li>
+<li><strong>Suggest and build are separate steps.</strong> The weekly run can only propose. Nothing gets written, moved or rendered until I approve it, which keeps the agent useful without letting it run my account.</li>
+<li><strong>Rules, not vibes.</strong> A written rulebook sets my voice and hard rules: no em dashes, exactly 5 hashtags chosen for discovery, a verdict on every review, and posting days by theme. Specific rules are easy to check and fix most of what makes AI captions sound generic.</li>
+<li><strong>Private notes stay private.</strong> The scheduled job can read my planning notes but only writes public topics and loose timing to Notion. It never writes dates, names, amounts or anything about work, and access to raw files is blocked.</li>
+<li><strong>Render locally instead of using an image-generation API.</strong> Templates keep every post on brand, cost nothing, and use real photos instead of generated ones.</li>
+<li><strong>Faceless by design.</strong> Faces are filtered out automatically, and serial numbers and licence plates are blurred. Reviews use only official artwork, credited on the slide.</li>
 </ul>
       </div>
       <div class="proj-section">
         <h2>Limits and next steps</h2>
         <ul>
-<li>The Notion connection is sometimes unavailable, so the persona also produces paste-ready output.</li>
-<li>Next: automating carousel posts (ideas, generated images, text overlays). Explored but not built.</li>
+<li>Face detection misses some photos, so I still check each contact sheet.</li>
+<li>It runs only when my Mac is on, because the photos and notes are local.</li>
+<li>Posting is still manual. Next: video rough cuts from raw footage (local transcription plus automated trims).</li>
 </ul>
       </div>
     </article>
